@@ -27,11 +27,11 @@ import { Card } from "./components/layout/Card/Card";
 import { LocationCard } from "./components/layout/Card/Location/LocationCard";
 import PricesAndPackages from "./components/layout/HomeSections/HomePriceCards/PricesAndPackages";
 import Gallery from "./components/layout/HomeSections/ProductGallery/Gallery";
-
+import Button from "./components/Button/Button";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
-// 
+//
 // Builder.registerComponent(Header, {
 //   name: "Header",
 //   inputs: [
@@ -43,14 +43,11 @@ import Gallery from "./components/layout/HomeSections/ProductGallery/Gallery";
 //     },
 //   ],
 // });
-// 
+//
 // Builder.registerComponent(ContactUs, {
 //     name: "Contact US",
 //   },
 // );
-
-
-
 
 Builder.registerComponent(Header, {
   name: "Header",
@@ -225,7 +222,7 @@ Builder.registerComponent(Footer, {
       type: "object",
       subFields: [
         { name: "address", type: "string" },
-        { name: "city", type: "string"},
+        { name: "city", type: "string" },
         { name: "pincode", type: "string" },
         { name: "phone", type: "string" },
         { name: "email", type: "string" },
@@ -1333,8 +1330,8 @@ Builder.registerComponent(Card, {
   ],
 });
 
-Builder.registerComponent(PricesAndPackages,{
-  name:"Home Priceing Cards",
+Builder.registerComponent(PricesAndPackages, {
+  name: "Home Priceing Cards",
   inputs: [
     {
       name: "pricingData",
@@ -1384,15 +1381,15 @@ Builder.registerComponent(PricesAndPackages,{
           helperText: "Details about tax inclusion",
         },
         {
-          name:"isHighlighted",
-          type:"boolean",
-          required:true,
-          helperText:"Which card should be highlighted"
-        }
+          name: "isHighlighted",
+          type: "boolean",
+          required: true,
+          helperText: "Which card should be highlighted",
+        },
       ],
     },
   ],
-})
+});
 
 Builder.registerComponent(Gallery, {
   name: "ProductGallery",
@@ -1427,5 +1424,35 @@ Builder.registerComponent(Gallery, {
       type: "string",
       defaultValue: "View All",
     },
+  ],
+});
+
+Builder.registerComponent(Button, {
+  name: "Custom Button",
+  inputs: [
+    {
+      name: "text",
+      type: "string",
+      helperText: "Text in the button",
+      required: true,
+    },
+    {
+      name:"width",
+      type:"number",
+      helperText:"Give width of the text",
+      defaultValue:100,
+    },
+    {
+      name:"height",
+      type:"number",
+      defaultValue:50,
+      helperText:"Give height of the text"
+    },
+    {
+      name:"keepArrow",
+      type:"boolean",
+      defaultValue:true,
+      required:true
+    }
   ],
 });
