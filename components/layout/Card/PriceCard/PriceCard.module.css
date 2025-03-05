@@ -1,0 +1,212 @@
+.cardsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    flex: 1 1 calc(33.33% - 1rem); /* Adjust width based on layout */
+    margin: 1px;
+    display: flex;
+    width: 300px;
+    padding: 2rem;
+    flex-wrap: wrap;
+    border-radius: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: stretch; /* Make cards equal height */
+    min-height: 300px; /* Set a minimum height for consistency */
+    max-width: 300px; /* Optional: set a consistent max-width */
+  }
+  .ItemsContainer{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .item {
+    flex: 1 1 calc(25% - 16px); /* Adjusts each item's width, change 25% to desired size */
+    min-width: 200px; /* Optional: Ensures a minimum width for each item */
+    box-sizing: border-box; /* Ensure padding and borders are included in width */
+    background-color: #f0f0f0; /* Example background color */
+    padding: 10px; /* Padding inside items */
+    border: 1px solid #ccc; /* Optional: border around items */
+    border-radius: 5px; /* Optional: rounded corners */
+  }
+
+  .primaryCard {
+    background-color: #C1A78C; /* Primary background */
+    color: black;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    g path{
+      fill: black;
+    }
+    .schedule{
+      color: black;
+    };
+    .trainer, .trainer span{
+      color: black;
+    }
+    
+    .button{
+      background-color: #C1A78C;
+    }
+  }
+
+
+  .title {
+    font-family: 'Poppins';
+    font-size: 0.8rem;
+    color: gray;
+    margin-bottom: 0px;
+  }
+  
+  .trainingCount {
+    text-align: left;
+    width: 100%;
+    line-height: 70px;
+    font-size: 2rem;
+    font-weight: normal;
+    margin: 0.5rem 0;
+    border-bottom: 0.5px solid #b08f6e ;
+  }
+  
+  .schedule,
+  .trainer {
+    font-family: 'Poppins';
+    display: flex;
+    font-size: 10px;
+    color: gray;
+    margin-bottom: 0.5rem;
+    align-items: center;
+  }
+
+  
+  .icon{
+    display: flex;
+    align-items: center;
+    margin: 2px;
+    padding: 2px;
+
+  }
+  
+  .trainerName {
+    color: #b08f6e;
+  }
+  
+
+  .descriptionContainer{
+    display: flex;
+    min-height: 150px;
+  }
+
+  .description {
+    font-size: 13px;
+    padding-right: 20px;  
+    margin: 0.5rem 0 !important;
+    color: rgb(0, 0, 0);
+    text-align: justify;
+  
+  }
+  
+  .price {
+    font-family: 'Elsie';
+    display: flex;
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin: 0.8rem 0;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  .price h3{
+    color: black;
+    font-family: 'Elsie';
+    display: flex;
+    font-size: 3.4rem;
+    font-weight: 400;
+    margin: 0.3rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .includeTax {
+    margin-left: 5px;
+    font-size: 0.8rem;
+    color: rgb(34, 34, 34);
+  }
+  
+  .button {
+    font-weight: 400;
+    font-size: 13px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button:hover{
+    background-color: #27282C;
+    color: white;
+    path{
+      fill: white;
+    }
+  }
+
+
+
+
+
+
+
+/* Responsive styles for Tablet */
+@media (min-width: 481px) and (max-width: 1030px) {
+    .cardsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    .card{
+      width: 270px;
+      padding: 1rem;
+    }
+   
+}
+
+/* Responsive styles for devices less than 768px */
+@media (max-width: 768px) {
+    .cardsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+}
+
+/* Responsive styles for devices less than 480px */
+@media (max-width: 480px) {
+    .cardsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .card {
+        width: 100%; /* Full width on small mobile devices */
+    }
+    .ItemsContainer{
+      padding: 15px;
+    }
+}
+
+    

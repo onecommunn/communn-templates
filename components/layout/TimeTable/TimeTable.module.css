@@ -1,0 +1,160 @@
+.timeTableContainer {
+    background-color: #d4cbc2; /* gray-200 */
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 90%;
+    margin: 10px auto;
+    transition: background-color 0.3s ease;
+}
+
+.tableCard {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap; /* Allow content to wrap, helps when screen size is small */
+}
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    max-width: 250px;
+    min-width: 200px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.imagePlaceholder {
+    background-color: #A3B18A; /* green-200 */
+    border-radius: 9999px;
+    width: 10rem;
+    height: 6rem;
+}
+
+.title {
+    font-size: 1.9rem;
+}
+
+.schedule {
+    display: flex;
+    align-items: center;
+}
+
+.times {
+    text-align: right;
+    margin: 1rem;
+}
+
+.time {
+    font-family: 'Elsie';
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.divider {
+    border-right: 1px solid #000000; /* gray-400 */
+    height: 64px;
+    margin: 0.5rem;
+    flex-shrink: 0; /* Ensure the divider doesn’t shrink */
+    transition: transform 0.3s ease;
+}
+
+.days {
+    text-align: left;
+    margin: 0.8rem;
+}
+
+.day {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    margin-right: 10px;
+}
+
+.button {
+    border: 1px solid #000000; /* gray-400 */
+    border-radius: 9999px;
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+
+.button:hover {
+    border: 1px solid white; /* gray-400 */
+    color: white;
+}
+
+.button i {
+    margin-left: 8px;
+}
+
+.timeTableContainer:hover {
+    background: #A78B6D;
+}
+
+.timeTableContainer:hover .time,
+.timeTableContainer:hover .day {
+    color: #fff;
+}
+
+/* Responsive CSS: Adjust for tablet views */
+@media (max-width: 768px) {
+    .timeTableContainer{
+        flex-direction: column;
+    }
+    .tableCard {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Align items to the left */
+    }
+    .imagePlaceholder {
+        width: 8rem; /* Reduce image size on mobile */
+        height: 9rem;
+    }
+    .title{
+        line-height: 1.7rem;
+    }
+    .divider {
+        border-right: none;
+        border-bottom: 1px solid #000000; /* Change to horizontal divider */
+        width: 100%; /* Expand the divider across the width */
+        height: 0; /* Reset height */
+        margin: 1rem 0; /* Adjust margin */
+    }
+
+    .titleContainer {
+        width: 100%; /* Make the title container full width */
+        justify-content: center; /* Align the title to the left */
+    }
+
+    .days, .times {
+        text-align: center; /* Align days and times to the left */
+    }
+}
+
+/* Further customization for mobile view if needed */
+@media (max-width: 480px) {
+    .imagePlaceholder {
+        width: 8rem; /* Reduce image size on mobile */
+        height: 9rem;
+    }
+
+    .title {
+        margin: 10px;
+        font-size: 1.5rem; /* Adjust title size */
+        line-height: 1.7rem;
+    }
+
+    .button {
+        padding: 0.4rem 1rem; /* Smaller button on mobile */
+    }
+}

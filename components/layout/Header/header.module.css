@@ -1,0 +1,257 @@
+.header {
+    background-color: #D4CBC2;
+    padding: 20px 40px; /* Reduced padding for better scaling */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: nowrap; /* Allow items to wrap when space is limited */
+}
+
+.logo {
+    flex: 0 1 auto; /* Allow the logo to take up its necessary space without growing */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.logo img {
+    height: auto;
+}
+
+.nav {
+    flex: 1; /* Allow the nav to take up the remaining space */
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Adjust space between links */
+    flex-wrap: nowrap; /* Prevent nav items from wrapping */
+}
+
+.nav a {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 14px; /* Adjust font size */
+    line-height: 26px;
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap; /* Prevent text from breaking into multiple lines */
+}
+
+.nav a:hover {
+    color: #9D7E5E;
+}
+
+.actions {
+    flex: 0 1 auto; /* Ensure actions don't grow too much */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.actionButton{
+    font-family: 'Poppins';
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: #27282C;
+    margin-left: 10px;
+    padding: 9px 20px;
+    border: 1px solid  #27282C;
+    border-radius: 23.5px;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.actionButton:hover{
+    color: #9D7E5E;
+}
+
+
+/* Hide hamburger icon and mobile navigation on larger screens */
+.hamburger,.mobileNav {
+    display: none;
+}
+
+
+/* Dropdown arrow */
+.arrow {
+    margin-left: 5px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* Adjust dropdown arrow color on hover */
+.dropdownContainer button:hover .arrow {
+    color: #9D7E5E;
+}
+
+/* Dropdown styles */
+.dropdownContainer {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 26px;
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown {
+    display: block;
+    position: absolute;
+    min-width: 160px;
+    border-radius: 20px;
+    background-color: #e5bc92dd;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    top: 100%;
+    left: 0;
+}
+
+.dropdown a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-family: 'Poppins';
+    color: #333;
+}
+
+.dropdown a:hover {
+    color: #9D7E5E;
+}
+
+/* Responsive Adjustments for Mid-Sized Screens (Tablets/Larger Mobiles) */
+@media screen and (min-width: 700px) and (max-width: 1300px) {
+    .header {
+        padding: 15px 30px; /* Adjust padding */
+        gap: 1rem; /* Reduce gap */
+    }
+    .nav{
+        gap: 0.4rem; /* Reduce gap */
+    }
+    .nav a {
+        font-size: 12px; /* Slightly smaller font size */
+        margin: 0 10px; /* Reduce margin to fit more links */
+    }
+
+    .actionButton {
+        font-size: 12px; /* Slightly smaller buttons */
+        padding: 7px 15px; /* Adjust button padding */
+    }
+}
+
+
+/* Show hamburger on smaller screens */
+@media screen and (max-width: 1008px) {
+    .nav,
+    .actions {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+        cursor: pointer;
+    }
+
+    .hamburgerIcon {
+        font-size: 30px;
+        color: #333;
+    }
+
+    /* Full-screen mobile nav */
+    .mobileNav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 95%;
+        height: auto;
+        background-color: #e8e1d9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+        transform: translateX(100%);
+    }
+
+    .showMobileNav {
+        transform: translateX(0);
+    }
+
+    .mobileNav a {
+        font-family: 'Poppins';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 40px;
+        margin: 15px 0;
+        color: #333;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .mobileNav a:hover {
+        color: #9D7E5E;
+    }
+
+    .hamburger.active .hamburgerIcon {
+        color: #9D7E5E; /* Changes color when active */
+    }
+
+    .dropdownContainer {
+        width: 100%;
+        position: relative;
+        display: inline-block;
+        font-family: 'Poppins';
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 40px;
+        margin: 15px 0;
+        color: #333;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .dropdown {
+        position: relative;
+        width: 100%;
+        box-shadow: none;
+    }
+    .mobileDropdown{
+        display: flex;
+        flex-direction: column;
+    }
+    .closeBtn{
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        cursor: pointer;
+    }
+}
+
+/* Mobile-specific adjustments */
+@media screen and (max-width: 480px) {
+    .nav, .actions {
+        display: none;
+    }
+    
+    .mobileNav{
+        padding: 30px 10px;
+
+    }
+
+
+
+    .hamburgerIcon {
+        font-size: 28px;
+    }
+
+    .mobileNav a {
+        font-size: 16px;
+    }
+}

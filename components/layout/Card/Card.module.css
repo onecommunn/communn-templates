@@ -1,0 +1,51 @@
+/* Card.module.css */
+.card {    
+    background-size: cover;
+    background-position: center;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+.imageContainer{
+    margin: 0px 10px;
+}
+.textContainer{
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.textContainer h2 {
+    font-family: 'Elsie';
+    font-size: 36px;
+    font-weight: normal;
+    text-align: center;
+    color: #27282C;
+}
+
+.textContainer p {
+    font-family: 'Poppins';
+    font-size: 14px;
+    text-align: center;
+    color: #27282C;
+}
+
+.childrenContainer{
+    display: flex;
+    padding: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+@media screen and (max-width: 790px) {
+    .locationContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

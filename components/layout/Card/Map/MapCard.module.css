@@ -1,0 +1,15 @@
+.mapContainer {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Take full viewport height */
+    width: 100%;  /* Take full viewport width */
+    padding: 0 0 10px;
+    margin: 0 0 20px;
+}
+
+.mapClass {
+    width: 90%;   /* Full width of container */
+    height: 600;  /* Maintain aspect ratio */
+
+}

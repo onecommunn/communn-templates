@@ -1,0 +1,180 @@
+/* LocationCard.module.css */
+.card {
+    background-size: cover;
+    background-position: center;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
+}
+
+.textContainer {
+    background-color: #ffffff;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+}
+
+.textContainer h2 {
+    font-family: 'Elsie';
+    font-size: 36px;
+    font-weight: normal;
+    text-align: center;
+    color: #27282C;
+}
+
+.textContainer p {
+    font-family: 'Poppins';
+    font-size: 14px;
+    text-align: center;
+    color: #27282C;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+
+.location {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 5px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-image 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+
+.selected {
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.contactButton {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #27282C;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mapSection {
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+
+.locationContainer {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.backgroundImg {
+    display: flex;
+    width: 250px;
+    height: 250px;
+    margin: 5px;
+    border: 0.5px solid;
+    padding: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-image 0.3s ease;
+}
+
+.location {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 5px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-image 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.textContainer {
+    background-color: #ffffff;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+}
+
+.selected {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.location h2 {
+    font-family: 'Elsie';
+    font-size: 36px;
+    font-weight: normal;
+    text-align: center;
+    color: #27282C;
+    margin-bottom: 1rem;
+}
+
+.location p {
+    font-family: 'Poppins';
+    font-size: 14px;
+    text-align: center;
+    color: #27282C;
+    margin-bottom: 0.5rem;
+
+}
+
+
+.contactButton {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #27282C;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mapSection {
+    margin-top: 20px;
+    text-align: center;
+}
+
+@media screen and (max-width: 790px) {
+    .locationContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

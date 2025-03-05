@@ -1,0 +1,113 @@
+/* BannerCard.module.css */
+.bannerContainer {
+    display: flex;
+    min-height: auto;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bannerContent {
+    background: #D4CBC2;
+    border-radius: 1rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%; /* Adjust width as necessary */
+    flex-wrap: wrap;
+    margin: 2rem;
+}
+
+.textContainer {
+    margin: 10px;
+    max-width: 60%;
+    text-align: center;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: normal;
+    color: #2d3748; /* Dark gray */
+}
+
+.subtitle {
+    font-size: 3rem;
+    font-weight: normal;
+    color: #2d3748; /* Dark gray */
+}
+
+.button {
+    margin-top: 1.5rem;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #2d3748; /* Dark gray */
+    border-radius: 9999px; /* Rounded */
+    color: #2d3748; /* Dark gray */
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}
+
+.button:hover {
+    background-color: #2d3748; /* Dark gray */
+    color: white;
+    .path{
+        fill: white;
+      }
+}
+
+.imageContainer {
+    margin: 10px;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imagePlaceholder {
+    background: #A3B18A;
+    border-radius: 306px; /* Rounded */
+    width: 16rem; /* Adjust size */
+    height: 8rem; /* Adjust size */
+}
+
+.description {
+    margin-top: 1rem;
+    color: #000000; /* Gray */
+    text-align: center;
+}
+
+@media (max-width: 790px) {
+    .bannerContent{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+    }
+    .textContainer{
+        max-width: 30%;
+    }
+    .imageContainer {
+        max-width: 50%;
+        margin: 1rem;
+    }
+    .title, .subtitle{
+        font-size: 1.5rem;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .textContainer{
+        max-width: 100%;
+    }
+    .imageContainer {
+        max-width: 100%;
+        margin: 1rem;
+    }
+    .title, .subtitle{
+        font-size: 2rem;
+    }
+   
+}

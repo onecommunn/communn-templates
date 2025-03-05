@@ -1,0 +1,104 @@
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.carouselItem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  
+}
+
+.active {
+  opacity: 1;
+  z-index: 0;
+}
+
+.textContainer{
+  color: white;
+  padding: 1rem;
+  position: absolute;
+  width: 50%;
+  left: 50px;
+  top: 200px;
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  background-color: #3a393994;
+  border-radius: 8px;
+}
+.actionButton{
+  color: white;
+  border: 1px solid #e8e9ec;
+}
+
+.pagination {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  right: 50px;
+
+}
+
+.line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.NavigationArrowBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #3a3a3c;
+  padding: 0rem 1.5rem;
+  transition: transform 0.2s;
+}
+
+.NavigationArrowBtn:hover {
+  color: #000;
+  background-color: transparent;
+}
+
+
+
+.pager {
+  margin: 1rem;
+  color: #9D7E5E;
+  font-size: 1rem;
+  font-family: 'Poppins';
+}
+
+/* Hide controls on screens smaller than 768px */
+@media (max-width: 768px) {
+  .pagination {
+    display: none;
+  }
+  .textContainer{
+    width: 70%;
+    top: 100px;
+  }
+}

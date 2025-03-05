@@ -1,0 +1,179 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d4cbc3;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.grid {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  max-width: 80rem;
+  width: 100%;
+}
+.instructorContainer {
+  width: 60%;
+}
+
+/* Responsive Layout: Switch to a single-column layout for tablets and smaller screens */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .instructorContainer {
+    width: 100%;
+  }
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.left {
+  padding: 1rem;
+}
+
+.sectionTitle {
+  color: #fff;
+  font-size: 36px;
+  margin-bottom: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 28px;
+  }
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 480px) {
+  .text {
+    font-size: 12px;
+    line-height: 1.5rem;
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.buttonText {
+  margin-right: 0.5rem;
+  letter-spacing: 0.1rem;
+}
+
+/* Instructor Section Styling */
+.instructorSection {
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 1;
+}
+
+
+
+.instructorLabel {
+  color: rgb(59, 58, 58);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.instructorName {
+  font-size: 2rem;
+  color: #C1A78C;
+  margin-bottom: 1rem;
+  margin-top: 2px;
+}
+
+@media (max-width: 480px) {
+  .instructorName {
+    font-size: 1.5rem;
+  }
+}
+
+.iconText {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.iconText i {
+  color: #a99075;
+  margin-right: 0.5rem;
+}
+
+.iconText span {
+  font-family: 'Poppins';
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .iconText span {
+    font-size: 12px;
+  }
+}
+
+/* Circle Styling */
+.circle {
+  z-index: -1;
+  right: 100px;
+  top: 100px;
+  width: 16rem;
+  height: 16rem;
+  display: flex;
+  border-radius: 50%;
+  position: absolute;
+  margin-top: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #b49b7e;
+}
+
+@media (max-width: 768px) {
+  .circle {
+    right: 50px;
+    top: 50px;
+    width: 12rem;
+    height: 12rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .circle {
+    right: -50px;
+    top: 20px;
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
+.svgIcon {
+  width: 8rem;
+  height: 8rem;
+}
+
+@media (max-width: 480px) {
+  .svgIcon {
+    width: 6rem;
+    height: 6rem;
+  }
+}

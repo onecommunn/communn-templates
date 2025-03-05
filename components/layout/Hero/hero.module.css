@@ -1,0 +1,98 @@
+.heroSection {
+    background-color: #e8e1d9;
+    text-align: center;
+    padding: 4rem 0;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+}
+
+.heroTitle {
+    font-family: 'Elsie';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 70px;
+    line-height: 81px;
+    text-align: center;
+    color: #27282C;
+    margin: 5px;
+}
+
+/* Breadcrumb styling */
+.breadcrumb {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: center;
+    color: #27282C;
+    margin-top: 0.5rem;
+}
+
+/* Illustration container */
+.illustrationContainer {
+    position: relative;
+}
+
+/* Illustration 1 */
+.illustration1 {
+    position: absolute;
+    bottom: -62px; /* Adjusts positioning */
+    left: 168px;
+    width: 20%; /* Set width for responsiveness */
+    max-width: 300px; /* Max width to prevent large sizes */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Illustration 2 */
+.illustration2 {
+    position: absolute;
+    bottom: -62px; /* Adjust positioning */
+    right: 220px;
+    width: 18%;
+    max-width: 300px; /* Max width to prevent large sizes */
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 50px; /* Reduce font size for tablets */
+    }
+
+    .illustration1 {
+        left: 50px; /* Adjust left position for tablets */
+        bottom: -30px; /* Adjust bottom position */
+        width: 30%; /* Adjust size for smaller screens */
+    }
+
+    .illustration2 {
+        right: 50px; /* Adjust right position for tablets */
+        bottom: -30px; /* Adjust bottom position */
+        width: 30%; /* Adjust size for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .heroTitle {
+        font-size: 2rem; /* Further reduce font size for mobile */
+    }
+
+    .illustration1 {
+        left: 20px; /* Adjust left position for mobile */
+        bottom: -20px; /* Adjust bottom position */
+        width: 30%; /* Increase width for better visibility */
+    }
+
+    .illustration2 {
+        right: 20px; /* Adjust right position for mobile */
+        bottom: -20px; /* Adjust bottom position */
+        width: 30%; /* Increase width for better visibility */
+    }
+
+    .heroSection {
+        padding: 2rem 0; /* Reduce padding for mobile */
+    }
+}
+    

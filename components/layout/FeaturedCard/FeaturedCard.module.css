@@ -1,0 +1,159 @@
+    .featuredCard {
+    background-color: #1f2937;
+    color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    position: relative;
+    margin-bottom: 40px;
+    gap: 20px; /* Space between image and details */
+}
+
+
+.illustration1 {
+    position: absolute;
+    left: 5px; /* Push it to the left */
+    top: 30%; /* Vertically center */
+    transform: translateY(-50%); /* Adjust for centering */
+    width: 250px; /* Adjust as needed */
+    height: auto;
+    z-index: 1;
+}
+
+.illustration2 {
+    position: absolute;
+    right: 2px;
+    top: 60%;
+    transform: translateY(-50%);
+    width: 350px;
+    height: 210px;
+}
+
+.contentContainer{
+    display: flex;
+    max-width: 70%;
+    flex-wrap: wrap;
+    align-items: center;
+
+}
+
+.imageContainer {
+    position: relative;
+    flex-shrink: 0;
+    width: 300px; /* Adjust width to fit image */
+    height: 300px; /* Adjust height */
+    z-index: 2;
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.details {
+    text-align: left;
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+
+.name {
+    font-family: 'Elsie';
+    font-style: normal;
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin-bottom:0rem;
+
+}
+
+.role {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    color: #94a3b8;
+}
+
+.description {
+     color: #ffffff;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 15px;
+    font-size: 12px;
+}
+
+.socialIcons i {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-size: 12px;
+    margin: 10px;
+    color: #ffffff;
+}
+
+
+.chatButton { 
+    font-family: 'Poppins';
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: #ffffff;
+    margin-top: 10px;
+    padding: 9px 20px;
+    border: 1px solid  #ffffff;
+    border-radius: 23.5px;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.chatButton:hover{
+    color: #9D7E5E;
+}
+.chatButton::after {
+    content: "→";
+    font-size: 12px;
+    margin-left: 20px;
+  }
+
+.leafDecorLeft img{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}
+
+.topLeft {
+    top: 10px;
+    left: 10px;
+}
+
+.bottomLeft {
+    bottom: 10px;
+    left: 10px;
+}
+
+
+@media (max-width: 768px) {
+    .featuredCard {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px; /* Add space between elements on mobile */
+    }
+
+    .illustration1, .illustration2 {
+        display: none; /* Hide illustrations on small screens */
+    }
+
+    .imageContainer {
+        width: 120px; /* Smaller size for mobile */
+        height: 120px;
+    }
+}
+
+@media (max-width: 425px) {
+    .details{
+        margin-left: 0px;
+    }
+}

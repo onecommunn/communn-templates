@@ -20,5 +20,9 @@ export interface PriceCardProp {
   includeTax?: string;
   getStartedLink?: string;
   primary?: boolean; 
+  trainingCount?:string;
+  title?:string;
+  price?:number;
+  isHighlighted?:boolean
   }
   

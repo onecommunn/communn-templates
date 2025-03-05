@@ -1,0 +1,130 @@
+.container {
+  background-color: #f8f8f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem;
+}
+
+.leftSection {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.circleContainer {
+  position: relative;
+}
+
+.circle {
+  width: 24rem;
+  height: 24rem;
+  background-color: #a3b18a;
+  border-radius: 60%;
+}
+
+.circleTextContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circleText {
+  font-size: 2rem;
+  color: white;
+}
+
+.rightSection {
+  flex: 1;
+  padding: 2rem;
+}
+
+.heading {
+  font-size: 3rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid black;
+  background: transparent;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+.button:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.button::after {
+  content: "→";
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.button span {
+  margin-right: 0.5rem;
+}
+
+.stats {
+  display: flex;
+}
+
+.statItem {
+  margin-right: 2rem;
+}
+
+.statNumber {
+  font-family: 'Elsie';
+  font-size: 2rem;
+}
+
+.statLabel {
+  font-family: 'Poppins';
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .rightSection {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  .circle {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .heading {
+    text-align: center;
+    font-size: 2rem;
+  }
+  .stats{
+    justify-content: center;
+  }
+}

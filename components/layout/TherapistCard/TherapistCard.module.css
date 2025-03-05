@@ -1,0 +1,65 @@
+.therapistCard {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.therapistCard:hover {
+    transform: scale(1.02);
+}
+
+.therapistImage {
+    background-color: #a3b18a;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    position: relative; /* Ensures hover content is positioned correctly */
+    overflow: hidden; /* Prevents content overflow */
+    background-size: cover; /* Makes sure the image covers the container */
+    background-position: center; /* Centers the image inside the container */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    aspect-ratio: 1 / 1; /* Ensures the image container remains square */
+}
+.therapistImage:hover{
+    box-shadow: -10px 10px 5px #9D7E5E ;   
+
+}
+
+.therapistName {
+    font-family: 'Elsie';
+    color: black;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.therapistRole {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.featured {
+    border-color: gold; /* highlight color for featured therapists */
+}
+
+.featuredBadge {
+    display: inline-block;
+    background-color: gold;
+    color: black;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
