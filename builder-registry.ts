@@ -1,37 +1,39 @@
+"use client";
 import { builder, Builder } from "@builder.io/react";
+import { AboutSection } from "./components/layout/AboutSection/AboutSection";
+import BannerCard from "./components/layout/Banner/BannerCard";
+import { BookYoga } from "./components/layout/HomeSections/BookYoga/BookYoga";
+import { Card } from "./components/layout/Card/Card";
+import { CheckSchedule } from "./components/layout/CheckSchedule/CheckSchedule";
+import { ContactForm } from "./components/layout/HomeSections/Form/HomeForm";
+import { FeaturedCard } from "./components/layout/FeaturedCard/FeaturedCard";
+import Footer from "./components/layout/Footer/Footer";
+import { Form } from "./components/layout/Form/Form";
+import Gallery from "./components/layout/HomeSections/ProductGallery/Gallery";
 import Header from "./components/layout/Header/Header";
 import { Hero } from "./components/layout/Hero/Hero";
-import Footer from "./components/layout/Footer/Footer";
-import { MapCard } from "./components/layout/Map/MapCard";
+import { HomeAboutSection } from "./components/layout/HomeSections/HomeAboutSection/HomeAboutSection";
+import { HomeHero } from "./components/layout/HomeSections/HomeHero/HomeHero";
 import { ImageCard } from "./components/layout/ImageCard/ImageCard";
-import { FeaturedCard } from "./components/layout/FeaturedCard/FeaturedCard";
-import { Form } from "./components/layout/Form/Form";
+import { LocationCard } from "./components/layout/Card/Location/LocationCard";
+import { Logos } from "./components/layout/LogosContainer/Logos";
+import { MapCard } from "./components/layout/Map/MapCard";
+import { PriceCard } from "./components/layout/PriceCard/PriceCard";
+import PricesAndPackages from "./components/layout/HomeSections/HomePriceCards/PricesAndPackages";
+import { ProductCard } from "./components/layout/ProductCard/ProductCard";
+import { Questionnaire } from "./components/layout/Questioner/Questionnaire";
+import { TestimonialSection } from "./components/layout/TestimonialCarousel/Testimonial";
 import { TherapistCard } from "./components/layout/TherapistCard/TherapistCard";
 import { TherapistGrid } from "./components/layout/TherapistGrid/TherapistGrid";
-import { Questionnaire } from "./components/layout/Questioner/Questionnaire";
-import { Logos } from "./components/layout/LogosContainer/Logos";
-import { TestimonialSection } from "./components/layout/TestimonialCarousel/Testimonial";
-import { AboutSection } from "./components/layout/AboutSection/AboutSection";
-import { CheckSchedule } from "./components/layout/CheckSchedule/CheckSchedule";
-import { PriceCard } from "./components/layout/PriceCard/PriceCard";
-import BannerCard from "./components/layout/Banner/BannerCard";
 import TimeTable from "./components/layout/TimeTable/TimeTable";
-import { ProductCard } from "./components/layout/ProductCard/ProductCard";
-import { HomeHero } from "./components/layout/HomeSections/HomeHero/HomeHero";
-import { HomeAboutSection } from "./components/layout/HomeSections/HomeAboutSection/HomeAboutSection";
-import { VisionMission } from "./components/layout/HomeSections/VisionMission/VissionMission";
-import { BookYoga } from "./components/layout/HomeSections/BookYoga/BookYoga";
-import { ContactForm } from "./components/layout/HomeSections/Form/HomeForm";
 import { VerticalCarousel } from "./components/layout/VerticalCarousel/VerticalCarousel";
-import { Card } from "./components/layout/Card/Card";
-import { LocationCard } from "./components/layout/Card/Location/LocationCard";
-import PricesAndPackages from "./components/layout/HomeSections/HomePriceCards/PricesAndPackages";
-import Gallery from "./components/layout/HomeSections/ProductGallery/Gallery";
+import { VisionMission } from "./components/layout/HomeSections/VisionMission/VissionMission";
 
+builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
-// 
+//
 // Builder.registerComponent(Header, {
 //   name: "Header",
 //   inputs: [
@@ -43,14 +45,11 @@ import Gallery from "./components/layout/HomeSections/ProductGallery/Gallery";
 //     },
 //   ],
 // });
-// 
+//
 // Builder.registerComponent(ContactUs, {
 //     name: "Contact US",
 //   },
 // );
-
-
-
 
 Builder.registerComponent(Header, {
   name: "Header",
@@ -225,7 +224,7 @@ Builder.registerComponent(Footer, {
       type: "object",
       subFields: [
         { name: "address", type: "string" },
-        { name: "city", type: "string"},
+        { name: "city", type: "string" },
         { name: "pincode", type: "string" },
         { name: "phone", type: "string" },
         { name: "email", type: "string" },
@@ -307,7 +306,7 @@ Builder.registerComponent(Hero, {
       name: "breadcrumb",
       type: "string",
       required: false,
-      defaultValue: "Home • Home",
+      defaultValue: "Home \u2022 Home",
       friendlyName: "Breadcrumb Text",
     },
     {
@@ -641,7 +640,6 @@ Builder.registerComponent(Questionnaire, {
           defaultValue: "Answer",
         },
       ],
-
       defaultValue: [
         {
           question: "What is Builder.io?",
@@ -1333,8 +1331,8 @@ Builder.registerComponent(Card, {
   ],
 });
 
-Builder.registerComponent(PricesAndPackages,{
-  name:"Home Priceing Cards",
+Builder.registerComponent(PricesAndPackages, {
+  name: "Home Priceing Cards",
   inputs: [
     {
       name: "pricingData",
@@ -1384,15 +1382,15 @@ Builder.registerComponent(PricesAndPackages,{
           helperText: "Details about tax inclusion",
         },
         {
-          name:"isHighlighted",
-          type:"boolean",
-          required:true,
-          helperText:"Which card should be highlighted"
-        }
+          name: "isHighlighted",
+          type: "boolean",
+          required: true,
+          helperText: "Which card should be highlighted",
+        },
       ],
     },
   ],
-})
+});
 
 Builder.registerComponent(Gallery, {
   name: "ProductGallery",
@@ -1426,6 +1424,26 @@ Builder.registerComponent(Gallery, {
       name: "viewAllButtonText",
       type: "string",
       defaultValue: "View All",
+    },
+  ],
+});
+
+Builder.registerComponent(ProductCard, {
+  name: "ProductCard",
+  inputs: [
+    {
+      name: "products",
+      type: "object",
+      hideFromUI: true,
+      meta: {
+        ts: "Product[]",
+      },
+      required: true,
+    },
+    {
+      name: "viewAllLink",
+      type: "string",
+      required: true,
     },
   ],
 });
