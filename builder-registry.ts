@@ -28,6 +28,8 @@ import { LocationCard } from "./components/layout/Card/Location/LocationCard";
 import PricesAndPackages from "./components/layout/HomeSections/HomePriceCards/PricesAndPackages";
 import Gallery from "./components/layout/HomeSections/ProductGallery/Gallery";
 import Button from "./components/Button/Button";
+import Nav from "./components/layout/Ecommerce/Nav/Nav";
+import EcomHero from "./components/layout/Ecommerce/Hero/EcomHero";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -1437,22 +1439,80 @@ Builder.registerComponent(Button, {
       required: true,
     },
     {
-      name:"width",
-      type:"number",
-      helperText:"Give width of the text",
-      defaultValue:100,
+      name: "width",
+      type: "number",
+      helperText: "Give width of the text",
+      defaultValue: 100,
     },
     {
-      name:"height",
-      type:"number",
-      defaultValue:50,
-      helperText:"Give height of the text"
+      name: "height",
+      type: "number",
+      defaultValue: 50,
+      helperText: "Give height of the text",
     },
     {
-      name:"keepArrow",
-      type:"boolean",
-      defaultValue:true,
-      required:true
-    }
+      name: "keepArrow",
+      type: "boolean",
+      defaultValue: true,
+      required: true,
+    },
+  ],
+});
+Builder.registerComponent(Nav, {
+  name: "Ecom NavBar",
+  inputs: [
+    {
+      name: "logo",
+      type: "file",
+      required: true,
+    },
+    {
+      name: "menuList",
+      type: "list",
+      subFields: [
+        {
+          name: "itemtext",
+          type: "string",
+        },
+        {
+          name: "link",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "scrollMenu",
+      type: "list",
+      subFields: [
+        {
+          name: "itemtext",
+          type: "string",
+        },
+        {
+          name: "link",
+          type: "string",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(EcomHero, {
+  name: "Ecom Hero",
+  inputs: [
+    {
+      name: "slides",
+      type: "list",
+      subFields:[
+        {
+          name:"imageUrl",
+          type:"file"
+        },
+        {
+          name:"link",
+          type:"string"
+        }
+      ]
+    },
   ],
 });
