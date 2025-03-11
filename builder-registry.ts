@@ -1481,6 +1481,10 @@ Builder.registerComponent(Nav, {
       ],
     },
     {
+      name:"showScrollMenu",
+      type:"boolean",
+    },
+    {
       name: "scrollMenu",
       type: "list",
       subFields: [
