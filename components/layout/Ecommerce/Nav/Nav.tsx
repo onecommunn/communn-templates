@@ -63,7 +63,7 @@ const Nav = ({
               <input
                 type="search"
                 placeholder="Search by products"
-                className="w-full outline-none bg-transparent text-sm text-[#9ca3af]"
+                className="w-full outline-none bg-transparent text-sm placeholder:text-[#9ca3af] text-black"
                 spellCheck={false}
               />
             </div>

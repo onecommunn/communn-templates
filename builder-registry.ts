@@ -30,6 +30,10 @@ import Gallery from "./components/layout/HomeSections/ProductGallery/Gallery";
 import Button from "./components/Button/Button";
 import Nav from "./components/layout/Ecommerce/Nav/Nav";
 import EcomHero from "./components/layout/Ecommerce/Hero/EcomHero";
+import EcomCategory from "./components/layout/Ecommerce/CategorySection/EcomCategory";
+import LatestCollections from "./components/layout/Ecommerce/LatestCollections/LatestCollections";
+import ProductCarousel from "./components/layout/Ecommerce/ProductRail/ProductRail";
+import EcomFooter from "./components/layout/Ecommerce/Footer/EcomFooter";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -1481,8 +1485,8 @@ Builder.registerComponent(Nav, {
       ],
     },
     {
-      name:"showScrollMenu",
-      type:"boolean",
+      name: "showScrollMenu",
+      type: "boolean",
     },
     {
       name: "scrollMenu",
@@ -1507,17 +1511,149 @@ Builder.registerComponent(EcomHero, {
     {
       name: "slides",
       type: "list",
-      subFields:[
+      subFields: [
         {
-          name:"imageUrl",
-          type:"file"
+          name: "imageUrl",
+          type: "file",
         },
         {
-          name:"link",
-          type:"string"
-        }
-      ]
+          name: "link",
+          type: "string",
+        },
+      ],
     },
   ],
 });
 
+Builder.registerComponent(EcomCategory, {
+  name: "Ecom Category",
+  inputs: [
+    {
+      name: "categoryName",
+      type: "string",
+      required: true,
+    },
+    {
+      name: "imagesList",
+      type: "list",
+      subFields: [
+        {
+          name: "imageUrl",
+          type: "file",
+        },
+        {
+          name: "link",
+          type: "string",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(LatestCollections, {
+  name: "Latest Collections",
+  inputs: [
+    {
+      name: "collectionsImages",
+      type: "list",
+      subFields: [
+        {
+          name: "text",
+          type: "string",
+        },
+        {
+          name: "imageUrl",
+          type: "file",
+        },
+        {
+          name: "path",
+          type: "string",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(ProductCarousel, {
+  name: "Ecom Product Carousel",
+  inputs: [
+    {
+      name: "collection",
+      type: "object",
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name:"path",
+          type:"string"
+        }
+      ],
+    },
+    {
+      name:"products",
+      type:"list",
+      subFields:[
+        {
+          name:"title",
+          type:"string"
+        },
+        {
+          name:"subtitle",
+          type:"string"
+        },
+        {
+          name:"price",
+          type:"number"
+        },
+        {
+          name:"discountPrice",
+          type:"number",
+        },
+        {
+          name:"path",
+          type:"string"
+        },
+        {
+          name:"image",
+          type:"file"
+        }
+      ]
+    }
+  ],
+});
+
+Builder.registerComponent(EcomFooter,{
+  name:"Ecom Footer",
+  inputs:[
+    {
+      name:"productCategories",
+      type:"list",
+      subFields:[
+        {
+          name:"name",
+          type:"string"
+        },
+        {
+          name:"path",
+          type:"string"
+        }
+      ]
+    },
+    {
+      name:"collections",
+      type:"list",
+      subFields:[
+        {
+          name:"name",
+          type:"string"
+        },
+        {
+          name:"path",
+          type:"string"
+        }
+      ]
+    }
+  ]
+})
