@@ -34,6 +34,8 @@ import EcomCategory from "./components/layout/Ecommerce/CategorySection/EcomCate
 import LatestCollections from "./components/layout/Ecommerce/LatestCollections/LatestCollections";
 import ProductCarousel from "./components/layout/Ecommerce/ProductRail/ProductRail";
 import EcomFooter from "./components/layout/Ecommerce/Footer/EcomFooter";
+import OneCommunnHeader from "./components/OneCommunn/Home/Header/OnecommunHeader";
+import HomeBanner from "./components/OneCommunn/Home/HomeBanner/HomeBanner";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -1656,4 +1658,18 @@ Builder.registerComponent(EcomFooter,{
       ]
     }
   ]
+})
+
+Builder.registerComponent(OneCommunnHeader,{
+  name:"Communn Header",
+  inputs:[
+    {
+      name:"logo",
+      type:"file",
+    }
+  ]
+})
+
+Builder.registerComponent(HomeBanner,{
+  name:"Communn Home Banner"
 })
