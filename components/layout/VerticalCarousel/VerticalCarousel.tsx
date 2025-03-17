@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import styles from './VerticalCarousel.module.css';
-import { VerticalCarouselProps } from '../../lib/types/type';
+import { VerticalCarouselProps } from '../../../lib/types/type';
 
 export const VerticalCarousel: React.FC<VerticalCarouselProps> = ({
-  banners,
+  banners = [],
   interval = 200000,
   showControls = true,
   autoSlide = true,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+
 
   // Check if the screen is mobile on mount
   useEffect(() => {

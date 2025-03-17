@@ -101,8 +101,8 @@ const OneCommunnHeader = ({ logo }: { logo: HeaderLogo }) => {
             <Image
               src={logo}
               alt="Logo"
-              width={150}
-              height={50}
+              width={200}
+              height={200}
               className="hidden md:block"
             />
           </Link>
@@ -112,22 +112,22 @@ const OneCommunnHeader = ({ logo }: { logo: HeaderLogo }) => {
               <div key={page.value} className="relative group">
                 <Link
                   href={page.navigate}
-                  className="text-[#3C3C3C] font-semibold text-sm uppercase flex items-center"
+                  className="text-[#3C3C3C] font-semibold text-sm uppercase flex items-center gap-3"
                 >
                   {page.label}
                   {page.dropdown && (
-                    <ChevronDown className="h-4 w-4 transition-transform group-hover:rotate-180" />
+                    <ChevronDown strokeWidth={3}  className="h-4 w-4 transition-transform group-hover:rotate-180" />
                   )}
                 </Link>
 
                 {/* Submenu */}
                 {page.dropdown && page.submenu && (
-                  <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300">
+                  <div className="absolute left-0 top-3 mt-2 py-3  w-52 bg-white shadow-[0px_5px_5px_-3px_rgba(0,0,0,0.2),0px_8px_10px_1px_rgba(0,0,0,0.14),0px_3px_14px_2px_rgba(0,0,0,0.12)] rounded-2xl opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-300">
                     {page.submenu.map((submenuItem) => (
                       <Link
                         key={submenuItem.value}
                         href={submenuItem.navigate}
-                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm"
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm mx-2 mt-1  rounded-md"
                       >
                         {submenuItem.label}
                       </Link>
@@ -143,7 +143,7 @@ const OneCommunnHeader = ({ logo }: { logo: HeaderLogo }) => {
             href="https://admin.onecommunn.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:block bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full text-sm font-semibold transition"
+            className="hidden md:block bg-[#2a53a2] hover:bg-[#50a1ca] text-white px-6 py-2 rounded-full text-sm font-semibold transition"
           >
             Get Started for Free
           </a>

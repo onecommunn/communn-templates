@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react"; // Importing icons
 import { HeaderLogo } from "@/lib/types/Header/HeaderLogo";
@@ -8,6 +8,7 @@ import Image from "next/image";
 
 const MobileSideBar = ({ logo }: { logo: HeaderLogo }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [scrolled, setScrolled] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState<{ [key: string]: boolean }>(
     {}
   ); // Track which submenu is open
@@ -97,8 +98,23 @@ const MobileSideBar = ({ logo }: { logo: HeaderLogo }) => {
     },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div>
+    <div
+      className={`fixed font-communn top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? "bg-white shadow-lg" : "bg-transparent"
+      }`}
+    >
       {/* Menu Button */}
       <div className="flex w-full items-center justify-between p-2 px-4">
         <Link href="/home">
@@ -113,10 +129,15 @@ const MobileSideBar = ({ logo }: { logo: HeaderLogo }) => {
       </div>
 
       {/* Sidebar Container */}
-      <div className={`fixed inset-0 z-50 transition-all duration-300 ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
-        {/* Background Overlay */}
+      <div
+        className={`fixed inset-0 z-50 transition-all duration-300 ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      >
         <div
-          className={`fixed inset-0 bg-black bg-opacity-40 backdrop-blur-md transition-all duration-300 ${isOpen ? "opacity-100" : "opacity-0"}`}
+          className={`fixed inset-0 bg-black/35 bg-opacity-30 transition-all duration-300 ${
+            isOpen ? "opacity-100" : "opacity-0"
+          }`}
           onClick={() => setIsOpen(false)}
         ></div>
 

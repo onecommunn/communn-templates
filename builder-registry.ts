@@ -36,6 +36,11 @@ import ProductCarousel from "./components/layout/Ecommerce/ProductRail/ProductRa
 import EcomFooter from "./components/layout/Ecommerce/Footer/EcomFooter";
 import OneCommunnHeader from "./components/OneCommunn/Home/Header/OnecommunHeader";
 import HomeBanner from "./components/OneCommunn/Home/HomeBanner/HomeBanner";
+import HomeSectionTwo from "./components/OneCommunn/Home/HomeSectionTwo/HomeSectionTwo";
+import HomeUseCases from "./components/OneCommunn/Home/HomeUseCases/HomeUseCases";
+import HomeContentWithImage from "./components/OneCommunn/Home/HomeContentwithImageLeft/HomeContentwithImageLeft";
+import HomeContentWithImageRight from "./components/OneCommunn/Home/HomeContentWithImageRight/HomeContentWithImageRight";
+import { Faq } from "./components/OneCommunn/Home/Faq/Faq";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -1672,4 +1677,69 @@ Builder.registerComponent(OneCommunnHeader,{
 
 Builder.registerComponent(HomeBanner,{
   name:"Communn Home Banner"
+})
+
+Builder.registerComponent(HomeSectionTwo,{
+  name:"Communn Home section two"
+})
+
+Builder.registerComponent(HomeUseCases,{
+  name:"Commun Home usecases"
+})
+
+Builder.registerComponent(HomeContentWithImage,{
+  name:"Home Content With Image",
+  inputs:[
+    {
+      name:"image",
+      type:"file",
+      required:true
+    },
+    {
+      name:"title",
+      type:"string"
+    },
+    {
+      name:"description",
+      type:"string"
+    }
+  ]
+})
+
+Builder.registerComponent(HomeContentWithImageRight,{
+  name:"Home Component with image Right",
+  inputs:[
+    {
+      name:"image",
+      type:"file",
+      required:true
+    },
+    {
+      name:"title",
+      type:"string"
+    },
+    {
+      name:"description",
+      type:"string"
+    }
+  ]
+})
+Builder.registerComponent(Faq,{
+  name:"Communn Faq",
+  inputs:[
+    {
+      name:"faqData",
+      type:"list",
+      subFields:[
+        {
+          name:"question",
+          type:"string"
+        },
+        {
+          name:"answer",
+          type:"string"
+        }
+      ]
+    }
+  ]
 })

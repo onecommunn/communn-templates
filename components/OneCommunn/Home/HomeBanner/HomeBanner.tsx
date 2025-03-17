@@ -23,7 +23,7 @@ const HomeBanner = () => {
       className="relative flex items-center justify-center h-[110vh] md:h-[100vh] bg-cover bg-center pt-24 pb-10 -mt-12"
       style={{ backgroundImage: "url('/background.png')" }}
     >
-      <div className="container mx-auto px-24">
+      <div className="container mx-auto md:px-24 px-10">
         <div className="flex flex-col md:flex-row items-center justify-center gap-10">
           {/* Left Content */}
           <div className="md:w-1/2 text-center md:text-left">
@@ -37,7 +37,7 @@ const HomeBanner = () => {
               management, interaction, communication, subscription and payment processing, content
               management, and advanced analytics.
             </p>
-            <div className="flex flex-col md:flex-row items-center mt-6" data-aos="fade-up">
+            <div className="flex flex-row justify-center items-center mt-6 gap-4" data-aos="fade-up">
               <a
                 href="https://play.google.com/store/apps/details?id=com.communn_mobile_app"
                 className="w-36 md:w-40 mr-4"
@@ -69,7 +69,6 @@ const HomeBanner = () => {
               alt="Mobile View"
               width={600}
               height={600}
-              
             />
           </div>
         </div>
