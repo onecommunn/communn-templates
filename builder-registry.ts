@@ -41,6 +41,8 @@ import HomeUseCases from "./components/OneCommunn/Home/HomeUseCases/HomeUseCases
 import HomeContentWithImage from "./components/OneCommunn/Home/HomeContentwithImageLeft/HomeContentwithImageLeft";
 import HomeContentWithImageRight from "./components/OneCommunn/Home/HomeContentWithImageRight/HomeContentWithImageRight";
 import { Faq } from "./components/OneCommunn/Home/Faq/Faq";
+import CommunnFooter from "./components/OneCommunn/Home/Footer/CommunnFooter";
+import Features from "./components/OneCommunn/Dashboard/Features/Features";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -1593,33 +1595,174 @@ Builder.registerComponent(ProductCarousel, {
           type: "string",
         },
         {
-          name:"path",
-          type:"string"
-        }
+          name: "path",
+          type: "string",
+        },
       ],
     },
     {
-      name:"products",
-      type:"list",
+      name: "products",
+      type: "list",
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "subtitle",
+          type: "string",
+        },
+        {
+          name: "price",
+          type: "number",
+        },
+        {
+          name: "discountPrice",
+          type: "number",
+        },
+        {
+          name: "path",
+          type: "string",
+        },
+        {
+          name: "image",
+          type: "file",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(EcomFooter, {
+  name: "Ecom Footer",
+  inputs: [
+    {
+      name: "productCategories",
+      type: "list",
+      subFields: [
+        {
+          name: "name",
+          type: "string",
+        },
+        {
+          name: "path",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "collections",
+      type: "list",
+      subFields: [
+        {
+          name: "name",
+          type: "string",
+        },
+        {
+          name: "path",
+          type: "string",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(OneCommunnHeader, {
+  name: "Communn Header",
+  inputs: [
+    {
+      name: "logo",
+      type: "file",
+    },
+  ],
+});
+
+Builder.registerComponent(HomeBanner, {
+  name: "Communn Home Banner",
+});
+
+Builder.registerComponent(HomeSectionTwo, {
+  name: "Communn Home section two",
+});
+
+Builder.registerComponent(HomeUseCases, {
+  name: "Commun Home usecases",
+});
+
+Builder.registerComponent(HomeContentWithImage, {
+  name: "Home Content With Image",
+  inputs: [
+    {
+      name: "image",
+      type: "file",
+      required: true,
+    },
+    {
+      name: "title",
+      type: "string",
+    },
+    {
+      name: "description",
+      type: "string",
+    },
+  ],
+});
+
+Builder.registerComponent(HomeContentWithImageRight, {
+  name: "Home Component with image Right",
+  inputs: [
+    {
+      name: "image",
+      type: "file",
+      required: true,
+    },
+    {
+      name: "title",
+      type: "string",
+    },
+    {
+      name: "description",
+      type: "string",
+    },
+  ],
+});
+Builder.registerComponent(Faq, {
+  name: "Communn Faq",
+  inputs: [
+    {
+      name: "faqData",
+      type: "list",
+      subFields: [
+        {
+          name: "question",
+          type: "string",
+        },
+        {
+          name: "answer",
+          type: "string",
+        },
+      ],
+    },
+  ],
+});
+
+Builder.registerComponent(CommunnFooter, {
+  name: "Communn Footer",
+});
+
+Builder.registerComponent(Features, {
+  name: "Communn Features",
+  inputs: [
+    {
+      name: "features",
+      type: "list",
       subFields:[
         {
           name:"title",
           type:"string"
         },
         {
-          name:"subtitle",
-          type:"string"
-        },
-        {
-          name:"price",
-          type:"number"
-        },
-        {
-          name:"discountPrice",
-          type:"number",
-        },
-        {
-          name:"path",
+          name:"description",
           type:"string"
         },
         {
@@ -1627,119 +1770,44 @@ Builder.registerComponent(ProductCarousel, {
           type:"file"
         }
       ]
+    },
+    {
+      name:'featureData',
+      type:"list",
+      subFields:[
+        {
+          name:"title",
+          type:"string"
+        },
+        {
+          name:"description",
+          type:"string"
+        },
+        {
+          name:"image",
+          type:"file"
+        }
+      ]
+    },
+    {
+      name:"banner1",
+      type:"file"
+    },
+    {
+      name:"banner2",
+      type:"file"
+    },
+    {
+      name:"sectionTitle",
+      type:"string"
+    },
+    {
+      name:"sectionSubTitle",
+      type:"string"
+    },
+    {
+      name:"sectionHeading",
+      type:"string"
     }
   ],
 });
-
-Builder.registerComponent(EcomFooter,{
-  name:"Ecom Footer",
-  inputs:[
-    {
-      name:"productCategories",
-      type:"list",
-      subFields:[
-        {
-          name:"name",
-          type:"string"
-        },
-        {
-          name:"path",
-          type:"string"
-        }
-      ]
-    },
-    {
-      name:"collections",
-      type:"list",
-      subFields:[
-        {
-          name:"name",
-          type:"string"
-        },
-        {
-          name:"path",
-          type:"string"
-        }
-      ]
-    }
-  ]
-})
-
-Builder.registerComponent(OneCommunnHeader,{
-  name:"Communn Header",
-  inputs:[
-    {
-      name:"logo",
-      type:"file",
-    }
-  ]
-})
-
-Builder.registerComponent(HomeBanner,{
-  name:"Communn Home Banner"
-})
-
-Builder.registerComponent(HomeSectionTwo,{
-  name:"Communn Home section two"
-})
-
-Builder.registerComponent(HomeUseCases,{
-  name:"Commun Home usecases"
-})
-
-Builder.registerComponent(HomeContentWithImage,{
-  name:"Home Content With Image",
-  inputs:[
-    {
-      name:"image",
-      type:"file",
-      required:true
-    },
-    {
-      name:"title",
-      type:"string"
-    },
-    {
-      name:"description",
-      type:"string"
-    }
-  ]
-})
-
-Builder.registerComponent(HomeContentWithImageRight,{
-  name:"Home Component with image Right",
-  inputs:[
-    {
-      name:"image",
-      type:"file",
-      required:true
-    },
-    {
-      name:"title",
-      type:"string"
-    },
-    {
-      name:"description",
-      type:"string"
-    }
-  ]
-})
-Builder.registerComponent(Faq,{
-  name:"Communn Faq",
-  inputs:[
-    {
-      name:"faqData",
-      type:"list",
-      subFields:[
-        {
-          name:"question",
-          type:"string"
-        },
-        {
-          name:"answer",
-          type:"string"
-        }
-      ]
-    }
-  ]
-})
