@@ -15,12 +15,12 @@ export const Faq = ({ faqData }: { faqData: FaqData[] }) => {
   };
 
   return (
-    <div className="mt-4 text-center">
+    <div className="mt-4 text-center mx-10">
       <h2 className="text-2xl md:text-3xl font-bold text-blue-800 mb-6">
         Frequently Asked Questions
       </h2>
 
-      <div className="bg-gray-200 rounded-lg p-6 mt-2 md:mx-24">
+      <div className="bg-gray-200 rounded-lg p-8 mt-2 md:mx-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {faqData?.map((item, index) => (
             <div key={index} className="w-full">
@@ -44,7 +44,7 @@ export const Faq = ({ faqData }: { faqData: FaqData[] }) => {
                   </span>
                 </div>
                 {expanded === `panel${index}` && (
-                  <p className="mt-2 text-gray-700 text-left w-[90%] ">
+                  <p className="mt-2 text-gray-700 text-left w-[90%] text-sm md:text-base">
                     {item.answer}
                   </p>
                 )}

@@ -40,8 +40,9 @@ const CommunnFooter = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-5 w-full mt-10 py-10 bg-[#f3f3f3]">
-        <div className="flex flex-col items-center gap-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 w-full mt-10 py-10 bg-[#f3f3f3] px-10 gap-5">
+        {/* Image container */}
+        <div className="flex flex-col items-center gap-4 sm:col-span-2 md:col-span-1 w-full sm:w-auto">
           <Image
             src={"/Images/Communn-new-logo.png"}
             width={200}
@@ -52,16 +53,20 @@ const CommunnFooter = () => {
             src={"/Images/app-store-download-button.png"}
             width={140}
             height={140}
-            alt="logo"
+            alt="App Store"
+            className="hidden md:block"
           />
           <Image
             src={"/Images/play-store-download-button.png"}
             width={140}
             height={140}
-            alt="logo"
+            alt="Play Store"
+            className="hidden md:block"
           />
         </div>
-        <div>
+
+        {/* Features */}
+        <div >
           <h4 className="font-bold text-2xl pb-3">Features</h4>
           <ul className="text-gray-500">
             <li className="py-2 hover:text-black cursor-pointer">
@@ -81,6 +86,8 @@ const CommunnFooter = () => {
             </li>
           </ul>
         </div>
+
+        {/* Use Cases */}
         <div>
           <h4 className="font-bold text-2xl pb-3">Use Cases</h4>
           <ul className="text-gray-500">
@@ -92,7 +99,9 @@ const CommunnFooter = () => {
             </li>
           </ul>
         </div>
-        <div>
+
+        {/* Company */}
+        <div >
           <h4 className="font-bold text-2xl pb-3">Company</h4>
           <ul className="text-gray-500">
             <li className="py-2 hover:text-black cursor-pointer">
@@ -108,12 +117,20 @@ const CommunnFooter = () => {
             <li className="py-2 hover:text-black cursor-pointer">Contact Us</li>
           </ul>
         </div>
+
+        {/* Follow us */}
         <div>
           <h4 className="font-bold text-2xl pb-3">Follow us</h4>
           <div className="flex items-center gap-3">
-            <div className="bg-white rounded-full p-3"><FaInstagram  size={18}/> </div>
-            <div className="bg-white rounded-full p-3"><BsLinkedin size={18} /></div>
-            <div className="bg-white rounded-full p-3"><FaFacebook  size={18}/> </div>
+            <div className="bg-white rounded-full p-3">
+              <FaInstagram size={18} />
+            </div>
+            <div className="bg-white rounded-full p-3">
+              <BsLinkedin size={18} />
+            </div>
+            <div className="bg-white rounded-full p-3">
+              <FaFacebook size={18} />
+            </div>
           </div>
         </div>
       </div>
