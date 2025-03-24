@@ -48,6 +48,7 @@ import LandingTab from "./components/OneCommunn/Usecases/LandingTab/LandingTab";
 import ContentImage from "./components/OneCommunn/Usecases/ContentImage/ContentImage";
 import LandingBox from "./components/OneCommunn/Usecases/LandingBox/LandingBox";
 import CommunnAbountUs from "./components/OneCommunn/AboutUs/CommunnAbountUs";
+import CommunnContactUs from "./components/OneCommunn/ContactUs/CommunnContactUs";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -1851,193 +1852,196 @@ Builder.registerComponent(LandingPage, {
       ],
     },
     {
-      name:"banner1",
-      type:"file"
+      name: "banner1",
+      type: "file",
     },
     {
-      name:"banner2",
-      type:"file"
+      name: "banner2",
+      type: "file",
     },
     {
-      name:"banner3",
-      type:"file"
+      name: "banner3",
+      type: "file",
     },
     {
-      name:"banner4",
-      type:"file"
+      name: "banner4",
+      type: "file",
     },
     {
-      name:"pageDescription",
-      type:"string"
+      name: "pageDescription",
+      type: "string",
     },
     {
-      name:"pageSubTitle",
-      type:"string"
+      name: "pageSubTitle",
+      type: "string",
     },
     {
-      name:"bonus",
-      type:"string"
+      name: "bonus",
+      type: "string",
     },
     {
-      name:"bonusFirstHeading",
-      type:"string"
+      name: "bonusFirstHeading",
+      type: "string",
     },
     {
-      name:"bonusSubheading",
-      type:"string"
+      name: "bonusSubheading",
+      type: "string",
     },
     {
-      name:"bonusHeading1",
-      type:"string"
+      name: "bonusHeading1",
+      type: "string",
     },
     {
-      name:"bonusHeading2",
-      type:"string"
+      name: "bonusHeading2",
+      type: "string",
     },
     {
-      name:"bonusHeading3",
-      type:"string"
+      name: "bonusHeading3",
+      type: "string",
     },
     {
-      name:"bonusDescription",
-      type:"string"
+      name: "bonusDescription",
+      type: "string",
     },
     {
-      name:"bonusDescription1",
-      type:"string"
+      name: "bonusDescription1",
+      type: "string",
     },
     {
-      name:"bonusDescription2",
-      type:"string"
+      name: "bonusDescription2",
+      type: "string",
     },
     {
-      name:"bonusDescription3",
-      type:"string"
+      name: "bonusDescription3",
+      type: "string",
     },
     {
-      name:"bonusImage",
-      type:"file"
-    }
+      name: "bonusImage",
+      type: "file",
+    },
   ],
 });
 
+Builder.registerComponent(LandingTab, {
+  name: "Landing Tab",
+  inputs: [
+    {
+      name: "heading",
+      type: "string",
+    },
+    {
+      name: "subheading",
+      type: "string",
+    },
+    {
+      name: "accordionContent",
+      type: "list",
+      subFields: [
+        {
+          name: "label",
+          type: "string",
+        },
+        {
+          name: "image",
+          type: "file",
+        },
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "description",
+          type: "string",
+        },
+      ],
+    },
+  ],
+});
 
-Builder.registerComponent(LandingTab,{
-  name:"Landing Tab",
-  inputs:[
+Builder.registerComponent(ContentImage, {
+  name: "Communn Content Images",
+  inputs: [
     {
-      name:"heading",
-      type:"string"
+      name: "featureData",
+      type: "list",
+      subFields: [
+        {
+          name: "steps",
+          type: "string",
+        },
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "description",
+          type: "string",
+        },
+        {
+          name: "image",
+          type: "file",
+        },
+      ],
     },
-    {
-      name:"subheading",
-      type:"string"
-    },
-    {
-      name:"accordionContent",
-      type:"list",
-      subFields:[
-        {
-          name:"label",
-          type:"string"
-        },
-        {
-          name:"image",
-          type:"file"
-        },
-        {
-          name:"title",
-          type:"string"
-        },
-        {
-          name:"description",
-          type:"string"
-        }
-      ]
-    }
-  ]
-})
+  ],
+});
 
-Builder.registerComponent(ContentImage,{
-  name:"Communn Content Images",
-  inputs:[
+Builder.registerComponent(LandingBox, {
+  name: "Communn Landing Box",
+  inputs: [
     {
-      name:"featureData",
-      type:"list",
-      subFields:[
+      name: "title",
+      type: "string",
+    },
+    {
+      name: "description1",
+      type: "string",
+    },
+    {
+      name: "description2",
+      type: "string",
+    },
+    {
+      name: "description3",
+      type: "string",
+    },
+    {
+      name: "mobileDescription",
+      type: "string",
+    },
+    {
+      name: "image",
+      type: "file",
+    },
+    {
+      name: "sectionItems",
+      type: "list",
+      subFields: [
         {
-          name:"steps",
-          type:"string"
+          name: "title",
+          type: "string",
         },
         {
-          name:"title",
-          type:"string"
+          name: "image",
+          type: "file",
         },
-        {
-          name:"description",
-          type:"string"
-        },
-        {
-          name:"image",
-          type:"file"
-        }
-      ]
-    }
-  ]
-})
+      ],
+    },
+    {
+      name: "title2",
+      type: "string",
+    },
+    {
+      name: "description4",
+      type: "string",
+    },
+  ],
+});
 
-Builder.registerComponent(LandingBox,{
-  name:"Communn Landing Box",
-  inputs:[
-    {
-      name:"title",
-      type:"string"
-    },
-    {
-      name:"description1",
-      type:"string"
-    },
-    {
-      name:"description2",
-      type:"string"
-    },
-    {
-      name:"description3",
-      type:"string"
-    },
-    {
-      name:"mobileDescription",
-      type:"string"
-    },
-    {
-      name:"image",
-      type:"file"
-    },
-    {
-      name:"sectionItems",
-      type:"list",
-      subFields:[
-        {
-          name:"title",
-          type:"string"
-        },
-        {
-          name:"image",
-          type:"file"
-        }
-      ]
-    },
-    {
-      name:"title2",
-      type:'string'
-    },
-    {
-      name:"description4",
-      type:"string"
-    }
-  ]
-})
+Builder.registerComponent(CommunnAbountUs, {
+  name: "Communn About us",
+});
 
-Builder.registerComponent(CommunnAbountUs,{
-  name:"Communn About us"
-})
+Builder.registerComponent(CommunnContactUs, {
+  name: "Communn Contact us",
+});
