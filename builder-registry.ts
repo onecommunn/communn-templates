@@ -47,6 +47,7 @@ import LandingPage from "./components/OneCommunn/Usecases/LandingPage/LandingPag
 import LandingTab from "./components/OneCommunn/Usecases/LandingTab/LandingTab";
 import ContentImage from "./components/OneCommunn/Usecases/ContentImage/ContentImage";
 import LandingBox from "./components/OneCommunn/Usecases/LandingBox/LandingBox";
+import CommunnAbountUs from "./components/OneCommunn/AboutUs/CommunnAbountUs";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -2035,4 +2036,8 @@ Builder.registerComponent(LandingBox,{
       type:"string"
     }
   ]
+})
+
+Builder.registerComponent(CommunnAbountUs,{
+  name:"Communn About us"
 })

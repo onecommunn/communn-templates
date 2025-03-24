@@ -67,7 +67,7 @@ const LandingForm = () => {
               onChange={handleChange}
               required
               className="w-full p-2 border rounded border-black text-black"
-              spellCheck={true}
+              spellCheck={false}
               data-ms-editor="true"
             />
             <input
@@ -79,7 +79,7 @@ const LandingForm = () => {
               required
               pattern="\\d{10}"
               className="w-full p-2 border rounded border-black text-black"
-              spellCheck={true}
+              spellCheck={false}
               data-ms-editor="true"
             />
             <input
@@ -90,7 +90,7 @@ const LandingForm = () => {
               onChange={handleChange}
               required
               className="w-full p-2 border rounded border-black text-black"
-              spellCheck={true}
+              spellCheck={false}
               data-ms-editor="true"
             />
           </div>

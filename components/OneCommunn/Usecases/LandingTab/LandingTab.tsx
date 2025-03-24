@@ -100,7 +100,7 @@ const LandingTab = (props: ITableContent) => {
 
       <div className="md:hidden px-7">
         {props?.accordionContent.map((content, index) => (
-          <div>
+          <div key={index}>
             <h4 className="text-blue-700 text-xl font-bold mt-4">{content.title}</h4>
             <p className="text-gray-700 text-sm md:text-bas my-2">{content.description}</p>
             <div>

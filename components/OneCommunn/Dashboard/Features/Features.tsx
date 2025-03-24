@@ -73,7 +73,7 @@ const Features: React.FC<FeaturesProps> = ({
       </div>
       <div className="mt-10 md:mt-20">
    50     <h2
-          className="text-[#2A53A2] text-[25px] md:text-[30px] font-montserrat font-bold text-center pb-2"
+          className="text-[#2A53A2] text-[25px] md:text-[30px] font-montserrat font-bold text-center pb-2 px-10"
           data-aos="fade-up"
           data-aos-duration="1000"
         >
@@ -81,7 +81,7 @@ const Features: React.FC<FeaturesProps> = ({
         </h2>
       </div>
       {/* Features Start */}
-      <div className="flex flex-row justify-center items-center mx-3 md:mx-24 pt-5 md:pt-10 pb-5 md:pb-10 mb-5 rounded-[20px]">
+      <div className="flex flex-row justify-center items-center mx-10  md:mx-24 pt-5 md:pt-10 pb-5 md:pb-10 mb-5 rounded-[20px]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-16">
           {features.map((feature, index) => (
             <div key={index} className="col-span-1 rounded-2xl shadow-md">
@@ -108,7 +108,7 @@ const Features: React.FC<FeaturesProps> = ({
         >
           <div className="flex flex-col">
             <div
-              className={`grid grid-cols-1 md:grid-cols-2 mx-24 gap-4 md:gap-14 ${
+              className={`grid grid-cols-1 md:grid-cols-2 mx-10 md:mx-24 gap-4 md:gap-14 ${
                 index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
               }`}
             >

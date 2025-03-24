@@ -112,7 +112,7 @@ const OneCommunnHeader = ({ logo }: { logo: HeaderLogo }) => {
               <div key={page.value} className="relative group">
                 <Link
                   href={page.navigate}
-                  className="text-[#3C3C3C] font-semibold text-sm uppercase flex items-center gap-3"
+                  className="text-[#3C3C3C] font-semibold text-sm uppercase flex items-center gap-3 font-communn"
                 >
                   {page.label}
                   {page.dropdown && (
