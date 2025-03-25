@@ -40,13 +40,13 @@ const CommunnFooter = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 w-full mt-10 py-10 bg-[#f3f3f3] px-10 gap-5">
+      <div className="flex items-center md:flex-row md:justify-between  flex-col w-full mt-10 py-10 bg-[#f3f3f3] px-10 md:gap-15 gap-5">
         {/* Image container */}
-        <div className="flex flex-col items-center gap-4 sm:col-span-2 md:col-span-1 w-full sm:w-auto">
+        <div className="flex flex-col items-center md:items-center gap-4 sm:col-span-2 md:col-span-2 w-full sm:w-auto">
           <Image
             src={"/Images/Communn-new-logo.png"}
-            width={200}
-            height={200}
+            width={240}
+            height={240}
             alt="logo"
           />
           <Image
@@ -64,72 +64,73 @@ const CommunnFooter = () => {
             className="hidden md:block"
           />
         </div>
-
-        {/* Features */}
-        <div >
-          <h4 className="font-bold text-2xl pb-3">Features</h4>
-          <ul className="text-gray-500">
-            <li className="py-2 hover:text-black cursor-pointer">
-              Member Management
-            </li>
-            <li className="py-2 hover:text-black cursor-pointer">
-              Payment Management
-            </li>
-            <li className="py-2 hover:text-black cursor-pointer">
-              Dashboard & Reports
-            </li>
-            <li className="py-2 hover:text-black cursor-pointer">
-              Communities List
-            </li>
-            <li className="py-2 hover:text-black cursor-pointer">
-              Subscription Management
-            </li>
-          </ul>
-        </div>
-
-        {/* Use Cases */}
-        <div>
-          <h4 className="font-bold text-2xl pb-3">Use Cases</h4>
-          <ul className="text-gray-500">
-            <li className="py-2 hover:text-black cursor-pointer">Fitness</li>
-            <li className="py-2 hover:text-black cursor-pointer">Tuition</li>
-            <li className="py-2 hover:text-black cursor-pointer">Wellness</li>
-            <li className="py-2 hover:text-black cursor-pointer">
-              Food Delivery
-            </li>
-          </ul>
-        </div>
-
-        {/* Company */}
-        <div >
-          <h4 className="font-bold text-2xl pb-3">Company</h4>
-          <ul className="text-gray-500">
-            <li className="py-2 hover:text-black cursor-pointer">
-              Terms of Use
-            </li>
-            <li className="py-2 hover:text-black cursor-pointer">
-              Privacy Policy
-            </li>
-            <li className="py-2 hover:text-black cursor-pointer">
-              Refund Policy
-            </li>
-            <li className="py-2 hover:text-black cursor-pointer">About Us</li>
-            <li className="py-2 hover:text-black cursor-pointer">Contact Us</li>
-          </ul>
-        </div>
-
-        {/* Follow us */}
-        <div>
-          <h4 className="font-bold text-2xl pb-3">Follow us</h4>
-          <div className="flex items-center gap-3">
-            <div className="bg-white rounded-full p-3">
-              <FaInstagram size={18} />
-            </div>
-            <div className="bg-white rounded-full p-3">
-              <BsLinkedin size={18} />
-            </div>
-            <div className="bg-white rounded-full p-3">
-              <FaFacebook size={18} />
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10 w-full">
+          {" "}
+          {/* Features */}
+          <div>
+            <h4 className="font-bold text-xl pb-3">Features</h4>
+            <ul className="text-gray-500">
+              <li className="py-2 hover:text-black cursor-pointer">
+                Member Management
+              </li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Payment Management
+              </li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Dashboard & Reports
+              </li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Communities List
+              </li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Subscription Management
+              </li>
+            </ul>
+          </div>
+          {/* Use Cases */}
+          <div>
+            <h4 className="font-bold text-xl pb-3">Use Cases</h4>
+            <ul className="text-gray-500">
+              <li className="py-2 hover:text-black cursor-pointer">Fitness</li>
+              <li className="py-2 hover:text-black cursor-pointer">Tuition</li>
+              <li className="py-2 hover:text-black cursor-pointer">Wellness</li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Food Delivery
+              </li>
+            </ul>
+          </div>
+          {/* Company */}
+          <div>
+            <h4 className="font-bold text-xl pb-3">Company</h4>
+            <ul className="text-gray-500">
+              <li className="py-2 hover:text-black cursor-pointer">
+                Terms of Use
+              </li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Privacy Policy
+              </li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Refund Policy
+              </li>
+              <li className="py-2 hover:text-black cursor-pointer">About Us</li>
+              <li className="py-2 hover:text-black cursor-pointer">
+                Contact Us
+              </li>
+            </ul>
+          </div>
+          {/* Follow us */}
+          <div>
+            <h4 className="font-bold text-xl pb-3">Follow us</h4>
+            <div className="flex items-center gap-3">
+              <div className="bg-white rounded-full p-3">
+                <FaInstagram size={18} />
+              </div>
+              <div className="bg-white rounded-full p-3">
+                <BsLinkedin size={18} />
+              </div>
+              <div className="bg-white rounded-full p-3">
+                <FaFacebook size={18} />
+              </div>
             </div>
           </div>
         </div>

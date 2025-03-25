@@ -52,7 +52,7 @@ const CommunnContactUs = () => {
             <Image src={'/Images/conatctus.png'} alt="constctus" width={400} height={400}/>
         </div>
       </div>
-      <div className="max-w-4xl w-full bg-white p-8 rounded-lg shadow-lg">
+      <div className="max-w-4xl w-full bg-white p-8 rounded-lg shadow-lg max-h-fit">
         <h2 className="text-4xl font-bold text-[#2952a2] text-center my-6">
           Get in Touch
         </h2>
