@@ -1,33 +1,42 @@
-import { builder } from "@builder.io/sdk";
+import { getCommunityData } from "../services/communityService";
 import { RenderBuilderContent } from "../../components/builder";
+import { BuilderContent } from "@builder.io/sdk";
 
-// Builder Public API Key set in .env file
-builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
+export default async function DynamicPage() {
+  try {
+    const response = await getCommunityData();
+    const community = response.community;
 
-interface PageProps {
-  params: Promise<{
-    page: string[];
-  }>;
-}
+    const builderData = {
+      community: {
+        name: community.name,
+        category: community.category,
+        banner: community.banner,
+        logo: community.logo,
+        description: community.description,
+        directorMessage: community.directorMessage,
+        fullAddress: community.fullAddress,
+        city: community.city,
+        phoneNumber: community.phoneNumber,
+        email: community.email,
+        vision: community.vision,
+        mission: community.mission
+      }
+    };
 
-export default async function Page(props: PageProps) {
-  const builderModelName = "page";
-
-  const content = await builder
-    // Get the page content from Builder with the specified options
-    .get(builderModelName, {
-      userAttributes: {
-        // Use the page path specified in the URL to fetch the content
-        urlPath: "/" + ((await props?.params)?.page?.join("/") || ""),
-      },
-    })
-    // Convert the result to a promise
-    .toPromise();
-
-  return (
-    <>
-      {/* Render the Builder page */}
-      <RenderBuilderContent content={content} model={builderModelName} />
-    </>
-  );
+    return (
+      <RenderBuilderContent
+        content={undefined}
+        model="page"
+        data={builderData}
+      />
+    );
+  } catch (error) {
+    console.error('Error fetching community data:', error);
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-red-500">Error loading community data</p>
+      </div>
+    );
+  }
 }
