@@ -17,7 +17,7 @@ export function RenderBuilderContent({ content, model, data }: BuilderPageProps)
   // If "content" has a value or the page is being previewed in Builder,
   // render the BuilderComponent with the specified content and model props.
   if (content || isPreviewing) {
-    return <BuilderComponent content={content} model={model} data={{data }} />;
+    return <BuilderComponent content={content} model={model} data={{ data }} />;
   }
   // If the "content" is falsy and the page is
   // not being previewed in Builder, render the

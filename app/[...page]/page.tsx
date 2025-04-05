@@ -3,6 +3,8 @@ import { RenderBuilderContent } from "../../components/builder";
 import { BuilderContent } from "@builder.io/sdk";
 
 export default async function DynamicPage() {
+
+
   try {
     const response = await getCommunityData();
     const community = response.community;

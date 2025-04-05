@@ -5,7 +5,7 @@ import { BuilderContent } from "@builder.io/sdk";
 export default async function Home() {
   try {
     const response = await getCommunityData();
-    const community = response.community;
+    const community = response?.community;
 
     const builderData = {
       community: {
