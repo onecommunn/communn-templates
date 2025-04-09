@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './FeaturedCard.module.css';
-import { FeaturedCardProps } from '../../../lib/types/type';
+import { FeaturedCardProps } from '../../../../lib/types/FeaturedCardProps/FeaturedCardProps';
 
 
 export const FeaturedCard: React.FC<FeaturedCardProps> = ({ name, title, description, image, socialLinks }) => {

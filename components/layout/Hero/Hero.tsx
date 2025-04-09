@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './hero.module.css';
-import { HeroProps } from '../../lib/types/type';
+import { HeroProps } from '@/lib/types/Hero/HeroProps';
+
 
 export const Hero: React.FC<HeroProps> = ({ title, backgroundColor }) => {
     return (
@@ -9,7 +10,7 @@ export const Hero: React.FC<HeroProps> = ({ title, backgroundColor }) => {
                 <h1 className={styles.heroTitle}>{title}</h1>
                 <p className={styles.breadcrumb}>Home • {title}</p>
                 <div className={styles.illustrationContainer}>
-                
+
                     <img
                         src="/logo/left.svg"
                         alt="Leaf Illustration 1"

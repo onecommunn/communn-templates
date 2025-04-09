@@ -1,6 +1,6 @@
 import React from 'react';
-import { TimeTableProps } from '../../lib/types/type';
 import styles from './TimeTable.module.css'; // Import your modular CSS
+import { TimeTableProps } from '@/lib/types/TimeTable/TimeTableProps';
 
 const TimeTable: React.FC<TimeTableProps> = ({ TimeTables }) => {
     const handleButtonClick = (link?: string) => {
