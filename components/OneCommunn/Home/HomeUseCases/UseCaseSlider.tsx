@@ -41,7 +41,7 @@ const UseCaseSlider = () => {
     },
     {
       id: 3,
-      imageurl:"/Images/Home/4.png",
+      imageurl: "/Images/Home/4.png",
       title: "Gym Owner",
       description:
         "Elevate your gym experience. Forge a tight-knit fitness community where members share workout routines, nutritional advice, and motivate each other.",
