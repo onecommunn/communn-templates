@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = BuilderDevTools()({
   images: {
-    domains: ["cdn.builder.io"], // Allow images from Builder.io
+    domains: ["cdn.builder.io"],
   },
 });
 
