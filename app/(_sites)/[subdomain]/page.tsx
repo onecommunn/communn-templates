@@ -1,9 +1,31 @@
 
 import { getCommunityData } from "@/app/services/communityService";
 import { RenderBuilderContent } from "@/components/builder";
-import { BuilderContent } from "@builder.io/sdk";
+import { builder, BuilderContent } from "@builder.io/sdk";
 
-export default async function DynamicPage() {
+
+builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
+
+interface PageProps {
+    params: Promise<{
+        page: string[];
+    }>;
+}
+
+export default async function DynamicPage(props: PageProps) {
+
+    const builderModelName = "page";
+
+    const content = await builder
+        // Get the page content from Builder with the specified options
+        .get(builderModelName, {
+            userAttributes: {
+                // Use the page path specified in the URL to fetch the content
+                urlPath: "/" + ((await props?.params)?.page?.join("/") || ""),
+            },
+        })
+        // Convert the result to a promise
+        .toPromise();
 
 
     try {
@@ -29,7 +51,7 @@ export default async function DynamicPage() {
 
         return (
             <RenderBuilderContent
-                content={undefined}
+                content={content}
                 model="page"
                 data={builderData}
             />
