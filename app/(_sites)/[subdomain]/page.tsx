@@ -1,7 +1,7 @@
-
-import { getCommunityData } from "@/app/services/communityService";
-import { RenderBuilderContent } from "@/components/builder";
-import { builder, BuilderContent } from "@builder.io/sdk";
+import { headers } from 'next/headers';
+import { builder } from '@builder.io/sdk';
+import { getCommunityData } from '@/app/services/communityService';
+import { RenderBuilderContent } from '@/components/builder';
 
 
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
@@ -13,24 +13,25 @@ interface PageProps {
 }
 
 export default async function DynamicPage(props: PageProps) {
+    const headersList = headers();
+    const host = (await headersList).get('host') || '';
+    const subdomain = host.split('.')[0];
 
-    const builderModelName = "page";
+    const builderModelName = 'page';
 
     const content = await builder
-        // Get the page content from Builder with the specified options
         .get(builderModelName, {
             userAttributes: {
-                // Use the page path specified in the URL to fetch the content
-                urlPath: "/" + ((await props?.params)?.page?.join("/") || ""),
+                urlPath: '/' + ((await props?.params)?.page?.join('/') || ''),
             },
         })
-        // Convert the result to a promise
         .toPromise();
 
-
     try {
-        const response = await getCommunityData();
+        const response = await getCommunityData(subdomain);
         const community = response.community;
+
+        console.log('Community Data:', community);
 
         const builderData = {
             community: {
@@ -45,22 +46,31 @@ export default async function DynamicPage(props: PageProps) {
                 phoneNumber: community.phoneNumber,
                 email: community.email,
                 vision: community.vision,
-                mission: community.mission
-            }
+                mission: community.mission,
+            },
         };
 
         return (
-            <RenderBuilderContent
-                content={content}
-                model="page"
-                data={builderData}
-            />
+            // <RenderBuilderContent
+            //     content={content}
+            //     model="page"
+            //     data={builderData}
+            // />
+
+            <div style={{ padding: '40px', fontFamily: 'Arial', textAlign: 'center' }}>
+                <img src={builderData?.community?.logo} alt="logo" />
+                <h1 >Welcome to {builderData?.community?.name}</h1>
+                <p>📍 {builderData?.community?.fullAddress}</p>
+                <p>This is preview for {subdomain}.yourdomain.com</p>
+            </div>
         );
     } catch (error) {
-        console.error('Error fetching community data:', error);
+        console.error('❌ Error fetching community data:', error);
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <p className="text-red-500">Error loading community data</p>
+                <p className="text-red-500">
+                    Error loading community data for: <strong>{subdomain}</strong>
+                </p>
             </div>
         );
     }
