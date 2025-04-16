@@ -16,12 +16,12 @@ type Community = {
 };
 
 
-const BackendUrl = 'https://communn.io/api/v2.0/community/by-subdomain/';
+const BackendUrl = 'https://communn.io/api/v2.0/community/by-subdomain';
 
 export async function getCommunityData(subdomain: string) {
   try {
     const response = await axios.get(`${BackendUrl}/${subdomain}`);
-    console.log('✅ Axios response:', response.data);
+    // console.log('✅ Axios response:', response.data);
     return { community: response.data };
     
   } catch (error) {

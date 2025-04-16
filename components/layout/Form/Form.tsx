@@ -58,7 +58,7 @@ export const Form: React.FC<FormProps> = ({
             <div className={styles.formContainer}>
                 <form onSubmit={handleSubmit} className={styles.contactForm}>
                     <div className={styles.formRow}>
-                        {fields.map((field) => (
+                        {fields?.map((field) => (
                             <div key={field.name} className={styles.formGroup}>
                                 <input
                                     type={field.type}

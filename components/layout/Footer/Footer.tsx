@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({
     // Handle email Input.
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    console.log(logo,"footer logo")
+    console.log(logo, "footer logo")
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
@@ -73,7 +73,7 @@ const Footer: React.FC<FooterProps> = ({
                     )}
                     <div className={styles.logoContainer}>
                         <img
-                            src={"https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F2016d569b2394542919108e4c8f893d4"}
+                            src={logo?.src}
                             // alt={logo.alt}
                             // height={logo.height}
                             // width={logo.width}
