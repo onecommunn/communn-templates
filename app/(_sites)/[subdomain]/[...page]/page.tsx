@@ -15,6 +15,9 @@ export default async function DynamicPage() {
     const pathname = (await headersList).get('x-pathname') || '';
     const builderModelName = 'page';
 
+    console.log('🟡 HOST:', host);
+    console.log('🟡 SUBDOMAIN:', subdomain);
+
     const content = await builder.get(builderModelName, {
         userAttributes: {
             urlPath: pathname || "",
