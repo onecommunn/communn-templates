@@ -19,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({
     // Handle email Input.
     const [email, setEmail] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    console.log(logo, "footer logo")
+    // console.log(logo, "footer logo")
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);

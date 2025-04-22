@@ -15,17 +15,23 @@ type Community = {
   mission: string;
 };
 
+const COMMUNITY_API_BASE = 'https://communn.io/api/v2.0/community';
+const DOMAIN_API_BASE = 'https://communn.io/api/v2.0/domain';
 
-const BackendUrl = 'https://communn.io/api/v2.0/community/by-subdomain';
-
-export async function getCommunityData(subdomain: string) {
+export async function getCommunityData(hostOrSubdomain: string) {
+  let endpoint = '';
+  if (hostOrSubdomain.includes('.') && !hostOrSubdomain.includes('localhost')) {
+    endpoint = `${DOMAIN_API_BASE}/${hostOrSubdomain}`;
+  } else {
+    endpoint = `${COMMUNITY_API_BASE}/by-subdomain/${hostOrSubdomain}`;
+  }
   try {
-    const response = await axios.get(`${BackendUrl}/${subdomain}`);
-    // console.log('✅ Axios response:', response.data);
+    const response = await axios.get(endpoint);
+    console.log('✅ Axios response:', response?.data);
     return { community: response.data };
-    
   } catch (error) {
     console.error('❌ Axios error fetching community:', error);
+
     return {
       community: {
         name: 'Unknown Community',
@@ -44,4 +50,3 @@ export async function getCommunityData(subdomain: string) {
     };
   }
 }
-

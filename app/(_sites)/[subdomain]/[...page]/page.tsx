@@ -21,9 +21,6 @@ export default async function DynamicPage() {
         },
     }).toPromise();
 
-
-    // console.log('Builder content:', content);
-
     const response = await getCommunityData(subdomain);
     const community = response.community;
 

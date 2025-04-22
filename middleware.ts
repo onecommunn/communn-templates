@@ -10,14 +10,14 @@ export function middleware(request: NextRequest) {
     url.pathname = `/_sites/${subdomain}${path}`;
 
     const response = NextResponse.rewrite(url);
-    response.headers.set('x-pathname', path); // ✅ set custom header
+    response.headers.set('x-pathname', path); 
 
-    console.log('Rewriting to:', url.pathname);
+    // console.log('Rewriting to:', url.pathname);
     return response;
   }
 
   const response = NextResponse.next();
-  response.headers.set('x-pathname', path); // ✅ also set for default case if needed
+  response.headers.set('x-pathname', path); 
   return response;
 }
 
