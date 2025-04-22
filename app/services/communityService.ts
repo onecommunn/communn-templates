@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-type Community = {
+export type Community = {
   name: string;
   city: string;
   category: string;
@@ -18,27 +18,36 @@ type Community = {
 const COMMUNITY_API_BASE = 'https://communn.io/api/v2.0/community';
 const DOMAIN_API_BASE = 'https://communn.io/api/v2.0/domain';
 
-export async function getCommunityData(hostOrSubdomain: string) {
-  // 🧠 Normalize for local testing
-  const isLocalhost = hostOrSubdomain.includes('localhost');
+export async function getCommunityData(hostOrSubdomain: string): Promise<{ community: Community }> {
+  const cleanedHost = hostOrSubdomain.split(':')[0]; // remove port if any
+  let endpoint = '';
 
-  const normalizedHost = isLocalhost ? 'communn.in' : hostOrSubdomain;
-
+  // 🧠 Logic to differentiate
   const isCustomDomain =
-    normalizedHost === 'communn.in' || (normalizedHost.includes('.') && !normalizedHost.includes('mycommunn.com'));
+    cleanedHost.includes('.') &&
+    !cleanedHost.includes('localhost') &&
+    !cleanedHost.includes('mycommunn.com');
 
-  const endpoint = isCustomDomain
-    ? `https://communn.io/api/v2.0/domain/${normalizedHost}`
-    : `https://communn.io/api/v2.0/community/by-subdomain/${normalizedHost}`;
+  if (isCustomDomain) {
+    // ✅ It's a custom domain (like communn.in)
+    endpoint = `${DOMAIN_API_BASE}/${cleanedHost}`;
+  } else {
+    // ✅ It's a subdomain (like domaincheck.mycommunn.com → domaincheck)
+    const subdomain = cleanedHost.split('.')[0];
+    endpoint = `${COMMUNITY_API_BASE}/by-subdomain/${subdomain}`;
+  }
 
   console.log('🟡 Axios endpoint:', endpoint);
 
   try {
     const response = await axios.get(endpoint);
     console.log('✅ Axios response:', response?.data);
-    return { community: response.data || response.data };
+    return {
+      community: response.data as Community,
+    };
   } catch (error) {
     console.error('❌ Axios error fetching community:', error);
+
     return {
       community: {
         name: 'Unknown Community',
@@ -57,4 +66,3 @@ export async function getCommunityData(hostOrSubdomain: string) {
     };
   }
 }
-
