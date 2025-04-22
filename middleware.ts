@@ -12,7 +12,6 @@ export function middleware(request: NextRequest) {
     const response = NextResponse.rewrite(url);
     response.headers.set('x-pathname', path); 
 
-    // console.log('Rewriting to:', url.pathname);
     return response;
   }
 
