@@ -59,6 +59,7 @@ export async function getCommunityData(hostOrSubdomain: string): Promise<{ commu
         vision: '',
         mission: '',
         template: 'default',
+        community: ''
       },
     };
   }
