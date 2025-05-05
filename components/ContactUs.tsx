@@ -11,6 +11,7 @@ function ContactUs() {
           <YogaPromoBanner />
         </div>
         <div className="ml-5 w-[32%] max-md:ml-0 max-md:w-full">
+
           <ContactForm />
         </div>
       </div>
