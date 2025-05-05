@@ -11,13 +11,20 @@ export default async function DynamicPage() {
     const host = rawHost.split(':')[0];
 
     const pathname = (await headersList).get('x-pathname') || '';
-    const builderModelName = 'page';
 
-    console.log('🟡 HOST:', host);
+
+    // console.log('🟡 HOST:', host);
 
     const response = await getCommunityData(host);
-    const community: Community = response.community as Community;
 
+    // console.log('🟡 Community response:', response);
+
+    const community: Community = response?.community;
+
+
+    const builderModelName = community?.community?.template || 'default';
+
+    // console.log('🟡 Builder model name:', builderModelName);
 
     const content = await builder.get(builderModelName, {
         userAttributes: {

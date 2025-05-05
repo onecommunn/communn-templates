@@ -149,7 +149,7 @@ const Footer: React.FC<FooterProps> = ({
             <div className={styles.bottomBar}>
                 <p className={styles.copyright}>{copyrightText} A Project by <span className={styles.spanText}><a href='https://www.aimonk.io' target='_blank' >Aimonk.io</a></span></p>
                 <div className={styles.legalLinks}>
-                    {legalLinks.map((link, index) => (
+                    {legalLinks?.map((link, index) => (
                         <a key={index} href={link.url} className={styles.legalLink}>
                             {link.label}
                         </a>
