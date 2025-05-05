@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export type Community = {
-  community: any;
+  community?: any;
   name: string;
   city: string;
   category: string;
@@ -59,7 +59,6 @@ export async function getCommunityData(hostOrSubdomain: string): Promise<{ commu
         vision: '',
         mission: '',
         template: 'default',
-        community: ''
       },
     };
   }
