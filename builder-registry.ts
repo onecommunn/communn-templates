@@ -49,6 +49,20 @@ import ContentImage from "./components/OneCommunn/Usecases/ContentImage/ContentI
 import LandingBox from "./components/OneCommunn/Usecases/LandingBox/LandingBox";
 import CommunnAbountUs from "./components/OneCommunn/AboutUs/CommunnAbountUs";
 import CommunnContactUs from "./components/OneCommunn/ContactUs/CommunnContactUs";
+import YogastHeader from "./components/Yogast/Header/YogastHeader";
+import YogastHero from "./components/Yogast/YogastHero/YogastHero";
+import YogastClassesSection from "./components/Yogast/YogastClassesSection/YogastClassesSection";
+import YogastInfoSection from "./components/Yogast/YogastInfoSection/YogastInfoSection";
+import YogastScheduleSection from "./components/Yogast/YogastScheduleSection/YogastScheduleSection";
+import YogastPricingSection from "./components/Yogast/YogastPricingSection/YogastPricingSection";
+import YogastContactSection from "./components/Yogast/YogastContactSection/YogastContactSection";
+import YogastTestimonialsSection from "./components/Yogast/YogastTestimonialsSection/YogastTestimonialsSection";
+import YogastNewsletterSection from "./components/Yogast/YogastNewsletterSection/YogastNewsletterSection";
+import YogastFooter from "./components/Yogast/YogastFooter/YogastFooter";
+import YogastAbout from "./components/Yogast/YogastAbout/YogastAbout";
+import YogastFeatures from "./components/Yogast/YogastFeatures/YogastFeatures";
+import YogastPricing from "./components/Yogast/YogastPricing/YogastPricing";
+import { title } from "process";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -2044,4 +2058,1190 @@ Builder.registerComponent(CommunnAbountUs, {
 
 Builder.registerComponent(CommunnContactUs, {
   name: "Communn Contact us",
+});
+
+Builder.registerComponent(YogastHeader, {
+  name: "Yogast Header",
+  inputs: [
+    {
+      name: "logo",
+      type: "url",
+      defaultValue:
+        "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F1001e504713f4eb9b9a58b6d3276a910",
+    },
+    {
+      name: "width",
+      type: "number",
+      defaultValue: "150",
+    },
+    {
+      name: "height",
+      type: "number",
+      defaultValue: "150",
+    },
+    {
+      name: "ButtonText",
+      type: "string",
+      defaultValue: "Contact Us Now",
+    },
+    {
+      name: "BackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "rgb(255, 94, 20)",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "rgb(0,0,0)",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastHero, {
+  name: "Yogast Hero",
+  inputs: [
+    {
+      name: "HeroImage",
+      type: "url",
+      defaultValue:
+        "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+    },
+    {
+      name: "Title",
+      type: "string",
+      defaultValue: "Transformation Of Body And Mind",
+    },
+    {
+      name: "Description",
+      type: "string",
+      defaultValue:
+        "Create harmony and balance in your life through our variety of yoga classes. Join us for a journey of self-discovery and wellness.",
+    },
+    {
+      name: "Button1Text",
+      type: "strign",
+      defaultValue: "Get A Free Class",
+    },
+    {
+      name: "Button2Text",
+      type: "strign",
+      defaultValue: "Contact Us",
+    },
+    {
+      name: "FacebookLink",
+      type: "url",
+      defaultValue: "https://www.facebook.com/",
+    },
+    {
+      name: "TwitterLink",
+      type: "url",
+      defaultValue: "https://x.com/",
+    },
+    {
+      name: "LinkedinLink",
+      type: "url",
+      defaultValue: "https://linkedin.com/",
+    },
+    {
+      name: "InstagramLink",
+      type: "url",
+      defaultValue: "https://www.instagram.com/",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "rgb(255, 94, 20)",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "rgb(255, 255, 255)",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastClassesSection, {
+  name: "Yogast Classes Section",
+  inputs: [
+    {
+      name: "Title",
+      type: "string",
+      defaultValue: "Popular Yoga Class",
+    },
+    {
+      name: "Description",
+      type: "string",
+      defaultValue:
+        "Learn with our experienced instructors and transform your life through our specialized classes",
+    },
+    {
+      name: "ClassesList",
+      type: "list",
+      defaultValue: [
+        {
+          Title: "Morning Yoga",
+          Description:
+            "Start your day with energy and clarity through gentle flows and breathing exercises.",
+        },
+        {
+          Title: "Hatha Yoga",
+          Description:
+            "Classic approach focusing on physical postures to improve strength and flexibility.",
+        },
+        {
+          Title: "Meditation Yoga",
+          Description:
+            "Find inner peace and calm your mind through guided meditation techniques.",
+        },
+        {
+          Title: "Power Yoga",
+          Description:
+            "Dynamic practice that builds strength and endurance through challenging sequences.",
+        },
+      ],
+      subFields: [
+        {
+          name: "Title",
+          type: "string",
+        },
+        {
+          name: "Description",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#FDF6EF",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#364153",
+    },
+    {
+      name: "BoxbackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastInfoSection, {
+  name: "Yogast Info Section",
+  inputs: [
+    {
+      name: "Image",
+      type: "url",
+      defaultValue:
+        "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+      helperText: "Give image url here",
+    },
+    {
+      name: "width",
+      type: "number",
+    },
+    {
+      name: "height",
+      type: "number",
+    },
+    {
+      name: "Title",
+      type: "string",
+      defaultValue: "In Truth, Yoga Doesn't Take Time – It Gives More Time",
+    },
+    {
+      name: "DescriptionsList",
+      type: "list",
+      defaultValue: [
+        {
+          Description: `Our modern lives are filled with stress and distractions, leaving us feeling drained and disconnected. The practice of yoga offers a pathway to restore balance and vitality.`,
+        },
+        {
+          Description: `At Yogast, we believe that the time invested in yoga practice returns tenfold through enhanced focus, increased energy, and improved overall well-being. Our instructors guide you through practices that optimize your physical and mental health.`,
+        },
+        {
+          Description: `"By making time for yoga, you create space for everything else in your life to fall into place more harmoniously."`,
+        },
+      ],
+      subFields: [
+        {
+          name: "Description",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "ButtonText",
+      type: "string",
+      defaultValue: "Read More",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#FDF6EF",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#364153",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastScheduleSection, {
+  name: "Yogast Schedule Section",
+  inputs: [
+    {
+      name: "Title",
+      type: "string",
+      defaultValue: "Yoga Schedule Class",
+    },
+    {
+      name: "Description",
+      type: "string",
+      defaultValue:
+        "Find the perfect class time that fits your schedule and begin your transformation today",
+    },
+    {
+      name: "Days",
+      type: "list",
+      defaultValue: [
+        {
+          day: "Monday",
+        },
+        {
+          day: "Friday",
+        },
+        {
+          day: "Saturday",
+        },
+        {
+          day: "Sunday",
+        },
+      ],
+      subFields: [
+        {
+          name: "day",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "TimeSlots",
+      type: "list",
+      defaultValue: [
+        {
+          title: "Basic Yoga",
+          times: [
+            {
+              time: "07:00 - 08:30 am",
+            },
+            {
+              time: "07:00 - 08:30 am",
+            },
+            {
+              time: "07:00 - 08:30 am",
+            },
+          ],
+        },
+        {
+          title: "Meditation Yoga",
+          times: [
+            {
+              time: "01:00 - 02:30 pm",
+            },
+            {
+              time: "01:00 - 02:30 pm",
+            },
+            {
+              time: "01:00 - 02:30 pm",
+            },
+          ],
+        },
+        {
+          title: "Advanced Yoga",
+          times: [
+            {
+              time: "05:30 - 07:00 pm",
+            },
+            {
+              time: "05:30 - 07:00 pm",
+            },
+            {
+              time: "05:30 - 07:00 pm",
+            },
+          ],
+        },
+      ],
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "times",
+          type: "list",
+          subFields: [
+            {
+              name: "time",
+              type: "string",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#333333",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "activeButtonBackgroundColor",
+      type: "color",
+      defaultValue: "#FF5E14",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#1E2939",
+    },
+    {
+      name: "rowBackgroundColor",
+      type: "color",
+      defaultValue: "#282E35",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastPricingSection, {
+  name: "Yogast Pricing Section",
+  inputs: [
+    {
+      name: "Title",
+      type: "string",
+      defaultValue: "Price List Yoga Class",
+    },
+    {
+      name: "Description",
+      type: "string",
+      defaultValue:
+        "Choose the plan that best fits your needs and start your transformation journey today",
+    },
+    {
+      name: "PlansList",
+      type: "list",
+      defaultValue: [
+        {
+          title: "Basic Class",
+          price: "25.00",
+          features: [
+            {
+              feature: "Access to basic yoga sessions",
+            },
+            {
+              feature: "Online learning materials",
+            },
+            {
+              feature: "Community forum access",
+            },
+            {
+              feature: "Email support",
+            },
+          ],
+          ButtonText: "Get Started",
+        },
+        {
+          title: "Premium Class",
+          price: "45.00",
+          features: [
+            {
+              feature: "All Basic features",
+            },
+            {
+              feature: "Advanced yoga techniques",
+            },
+            {
+              feature: "1-on-1 session monthly",
+            },
+            {
+              feature: "Priority support",
+            },
+          ],
+          ButtonText: "Get Started",
+        },
+        {
+          title: "Ultimate Class",
+          price: "65.00",
+          features: [
+            {
+              feature: "All Premium features",
+            },
+            {
+              feature: "Unlimited class access",
+            },
+            {
+              feature: "Weekly 1-on-1 sessions",
+            },
+            {
+              feature: "Nutrition guidance",
+            },
+          ],
+          ButtonText: "Get Started",
+        },
+      ],
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "price",
+          type: "string",
+        },
+        {
+          name: "features",
+          type: "list",
+          subFields: [
+            {
+              name: "feature",
+              type: "string",
+            },
+          ],
+        },
+        {
+          name: "ButtonText",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "Buttontext",
+      type: "string",
+      defaultValue: "Get Started",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#fdf6ef",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastContactSection, {
+  name: "Yogast Contact Section",
+  inputs: [
+    {
+      name: "logo",
+      type: "url",
+      defaultValue:
+        "https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
+      helperText: "logo Url",
+    },
+    {
+      name: "width",
+      type: "number",
+    },
+    {
+      name: "height",
+      type: "number",
+    },
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Give Us A Shout",
+    },
+    {
+      name: "ButtonText",
+      type: "string",
+      defaultValue: "Get Started",
+    },
+    {
+      name: "message",
+      type: "string",
+      defaultValue: "You'll be contacted by a team member shortly",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#FF5E14",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "inputBackgroundColor",
+      type: "color",
+      defaultValue: "rgba(255, 255, 255, 0.2)",
+    },
+    {
+      name: "inputBorderColor",
+      type: "color",
+      defaultValue: "rgba(255, 255, 255, 0.3)",
+    },
+    {
+      name: "inputPlaceholderTextColor",
+      type: "color",
+      defaultValue: "rgba(255, 255, 255, 0.7)",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastTestimonialsSection, {
+  name: "Yogast Testimonials Section",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "What People Says About Us",
+    },
+    {
+      name: "Description",
+      type: "string",
+      defaultValue:
+        "Hear from our community about their experiences and transformations with Yogast",
+    },
+    {
+      name: "testimonialsList",
+      type: "list",
+      defaultValue: [
+        {
+          content:
+            "Great Company! The Staff Is Knowledgeable And The Classes Are Really Enjoyable. I'll Certainly Be Coming Back!",
+          author: "Sarah Johnson",
+          position: "Yoga Enthusiast",
+        },
+        {
+          content:
+            "The instructors are incredible and the atmosphere is so welcoming. I've seen amazing improvements in my flexibility and peace of mind.",
+          author: "Michael Chen",
+          position: "Regular Member",
+        },
+        {
+          content:
+            "As a beginner, I was nervous to start yoga but the team made me feel comfortable from day one. Highly recommended!",
+          author: "Priya Patel",
+          position: "New Member",
+        },
+      ],
+      subFields: [
+        {
+          name: "content",
+          type: "string",
+        },
+        {
+          name: "author",
+          type: "string",
+        },
+        {
+          name: "position",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "rgba(255, 255, 255, 1)",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "rgba(0, 0, 0, 1)",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastNewsletterSection, {
+  name: "Yogast Newsletter Section",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: " Subscribe To Our Newsletter",
+    },
+    {
+      name: "ButtonText",
+      type: "string",
+      defaultValue: "Submit Now",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "rgba(0, 0, 0, 1)",
+    },
+    {
+      name: "inputBackgroundColor",
+      type: "color",
+      defaultValue: "rgba(255, 255, 255, 1)",
+    },
+    {
+      name: "inputPlaceholderTextColor",
+      type: "color",
+      defaultValue: "rgba(147, 144, 153, 1)",
+    },
+    {
+      name: "inputTextColor",
+      type: "color",
+      defaultValue: "rgba(0, 0, 0, 1)",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastFooter, {
+  name: "Yogast Footer Section",
+  inputs: [
+    {
+      name: "logo",
+      type: "url",
+      defaultValue:
+        "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F1001e504713f4eb9b9a58b6d3276a910",
+      helperText: "Logo Url",
+    },
+    {
+      name: "width",
+      type: "number",
+      defaultValue: 150,
+    },
+    {
+      name: "height",
+      type: "number",
+      defaultValue: 150,
+    },
+    {
+      name: "Description",
+      type: "string",
+      defaultValue:
+        "Create harmony and balance in your life with our yoga classes. Join us for a journey of wellness.",
+    },
+    {
+      name: "FacebookLink",
+      type: "url",
+      defaultValue: "https://www.facebook.com/",
+    },
+    {
+      name: "TwitterLink",
+      type: "url",
+      defaultValue: "https://x.com/",
+    },
+    {
+      name: "InstagramLink",
+      type: "url",
+      defaultValue: "https://www.instagram.com/",
+    },
+    {
+      name: "QuickLinks",
+      type: "list",
+      defaultValue: [
+        {
+          Title: "About Us",
+          LinksList: [
+            {
+              Text: "Our Story",
+              Link: "/",
+            },
+            {
+              Text: "Our Instructors",
+              Link: "/",
+            },
+            {
+              Text: "Blog",
+              Link: "/",
+            },
+            {
+              Text: "Careers",
+              Link: "/",
+            },
+          ],
+        },
+        {
+          Title: "Our Classes",
+          LinksList: [
+            {
+              Text: "Hatha Yoga",
+              Link: "/",
+            },
+            {
+              Text: "Vinyasa Flow",
+              Link: "/",
+            },
+            {
+              Text: "Meditation",
+              Link: "/",
+            },
+            {
+              Text: "Power Yoga",
+              Link: "/",
+            },
+          ],
+        },
+      ],
+      subFields: [
+        {
+          name: "Title",
+          type: "string",
+        },
+        {
+          name: "LinksList",
+          type: "list",
+          subFields: [
+            {
+              name: "Text",
+              type: "string",
+            },
+            {
+              name: "Link",
+              type: "url",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Address",
+      type: "string",
+      defaultValue: "123 Yoga Street, Wellness City",
+    },
+    {
+      name: "PhoneNumber",
+      type: "string",
+      defaultValue: "+1 (234) 567-8910",
+    },
+    {
+      name: "Email",
+      type: "email",
+      defaultValue: "info@yogast.com",
+    },
+    {
+      name: "Timmings",
+      type: "string",
+      defaultValue: "Mon - Sat: 7:00am - 7:00pm",
+    },
+    {
+      name: "CopyRightText",
+      type: "string",
+      defaultValue: "2025 Yogast. All rights reserved.",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#fdf6ef",
+    },
+    {
+      name: "titleTextColor",
+      type: "color",
+      defaultValue: "rgba(0, 0, 0, 1)",
+    },
+    {
+      name: "subTitleTextColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastAbout, {
+  name: "Yogast About",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "About Yogast",
+    },
+    {
+      name: "SubTitle",
+      type: "string",
+      defaultValue: "Our journey, mission, and commitment to wellness",
+    },
+    {
+      name: "Information",
+      type: "list",
+      defaultValue: [
+        {
+          title: "Our Story",
+          description:
+            "Yogast was founded in 2010 with a simple mission: to make the transformative power of yoga accessible to everyone. What began as a small studio with a handful of dedicated practitioners has grown into a thriving community of wellness enthusiasts spanning across multiple locations. Our founder, Sarah Mitchell, discovered yoga during a particularly challenging time in her life and was amazed by how the practice not only strengthened her body but also calmed her mind and rejuvenated her spirit. Inspired by her personal transformation, she decided to create a space where others could experience the same benefits.",
+        },
+        {
+          title: "Our Philosophy",
+          description:
+            "At Yogast, we believe that yoga is more than just physical exercise—it's a holistic approach to life that integrates body, mind, and spirit. We're committed to creating an inclusive environment where practitioners of all levels feel welcome and supported on their wellness journey. Our instructors are not only highly trained in various yoga traditions but also passionate about sharing the gifts of yoga with others. They bring their unique perspectives and specialties to each class, ensuring a rich and diverse experience for our community.",
+        },
+      ],
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "description",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "headerBackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+    {
+      name: "headertitleTextColor",
+      type: "color",
+      defaultValue: "ffffff",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue:"#fdf6ef"
+    },
+    {
+      name: "titleTextColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+  ],
+});
+
+Builder.registerComponent(YogastFeatures, {
+  name: "Yogast Features",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Our Features",
+    },
+    {
+      name: "subTitle",
+      type: "string",
+      defaultValue:
+        "Discover what makes Yogast the perfect place for your yoga journey",
+    },
+    {
+      name: "Features",
+      type: "list",
+      defaultValue: [
+        {
+          title: "Expert Instructors",
+          description:
+            "Learn from certified yoga teachers with years of experience in various yoga traditions.",
+        },
+        {
+          title: "Diverse Class Offerings",
+          description:
+            "From gentle flows to challenging power yoga, find the perfect class for your needs and experience level.",
+        },
+        {
+          title: "Beautiful Studios",
+          description:
+            "Practice in peaceful, clean environments designed to enhance your yoga experience.",
+        },
+        {
+          title: "Community Events",
+          description:
+            "Connect with like-minded individuals through workshops, retreats, and special events.",
+        },
+        {
+          title: "Digital Classes",
+          description:
+            "Access our classes from anywhere with our library of online videos and live streams.",
+        },
+        {
+          title: "Personalized Guidance",
+          description:
+            "Receive individual attention and modifications to support your unique practice.",
+        },
+      ],
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "description",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name:"headerBackgroundColor",
+      type:"color",
+      defaultValue:"#ff5e14"
+    },
+    {
+      name:"headerTitleColor",
+      type:"color",
+      defaultValue:"#ffffff"
+    },
+    {
+      name:"backgroundColor",
+      type:"color",
+      defaultValue:"#fdf6ef"
+    },
+    {
+      name:"cardBackgroundColor",
+      type:"color",
+      defaultValue:"#ffffff"
+    },
+    {
+      name:"TitleTextColor",
+      type:"color",
+      defaultValue:"#000000"
+    },
+    {
+      name:"TextColor",
+      type:"color",
+      defaultValue:"#4a5565"
+    },
+  ],
+});
+
+Builder.registerComponent(YogastPricing, {
+  name: "Yogast Pricing",
+  inputs: [
+    {
+      name: "Title",
+      type: "string",
+      defaultValue: "Pricing & Plans",
+    },
+    {
+      name: "SubTitle",
+      type: "string",
+      defaultValue:
+        "Choose the perfect membership option for your yoga journey",
+    },
+    {
+      name: "PriceListSectionTitle",
+      type: "string",
+      defaultValue: "Price List Yoga Class",
+    },
+    {
+      name: "PriceListSectionSubTitle",
+      type: "string",
+      defaultValue:
+        "Choose the plan that best fits your needs and start your transformation journey today",
+    },
+    {
+      name: "PlansList",
+      type: "list",
+      defaultValue: [
+        {
+          title: "Basic Class",
+          price: "25.00",
+          features: [
+            {
+              feature: "Access to basic yoga sessions",
+            },
+            {
+              feature: "Online learning materials",
+            },
+            {
+              feature: "Community forum access",
+            },
+            {
+              feature: "Email support",
+            },
+          ],
+          ButtonText: "Get Started",
+        },
+        {
+          title: "Premium Class",
+          price: "45.00",
+          features: [
+            {
+              feature: "All Basic features",
+            },
+            {
+              feature: "Advanced yoga techniques",
+            },
+            {
+              feature: "1-on-1 session monthly",
+            },
+            {
+              feature: "Priority support",
+            },
+          ],
+          ButtonText: "Get Started",
+        },
+        {
+          title: "Ultimate Class",
+          price: "65.00",
+          features: [
+            {
+              feature: "All Premium features",
+            },
+            {
+              feature: "Unlimited class access",
+            },
+            {
+              feature: "Weekly 1-on-1 sessions",
+            },
+            {
+              feature: "Nutrition guidance",
+            },
+          ],
+          ButtonText: "Get Started",
+        },
+      ],
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "price",
+          type: "string",
+        },
+        {
+          name: "features",
+          type: "list",
+          subFields: [
+            {
+              name: "feature",
+              type: "string",
+            },
+          ],
+        },
+        {
+          name: "ButtonText",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "FaqTitle",
+      type: "string",
+      defaultValue: "Frequently Asked Questions",
+    },
+    {
+      name: "QuestionsList",
+      type: "list",
+      defaultValue: [
+        {
+          Question: "Do you offer a free trial?",
+          Answer:
+            "Yes! We offer a complimentary class for new members to experience our studio before committing to a membership plan.",
+        },
+        {
+          Question: "Can I switch between different class types?",
+          Answer:
+            "Absolutely. Your membership gives you access to all regular classes on our schedule based on your plan level.",
+        },
+        {
+          Question: "What's your cancellation policy?",
+          Answer:
+            "Monthly memberships can be canceled with 30 days' notice. Annual memberships are non-refundable but can be frozen for up to 3 months per year.",
+        },
+        {
+          Question: "Do I need to bring my own equipment?",
+          Answer:
+            "We provide mats and props for all in-studio classes. However, you're welcome to bring your own if you prefer.",
+        },
+      ],
+      subFields: [
+        { name: "Question", type: "string" },
+        {
+          name: "Answer",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name:"headerBackgroundColor",
+      type:"color",
+      defaultValue:"#ff5e14"
+    },
+    {
+      name:"headerTitleColor",
+      type:"color",
+      defaultValue:"#ededed"
+    },
+    {
+      name: "pricingBackgroundColor",
+      type: "color",
+      defaultValue: "#fdf6ef",
+    },
+    {
+      name: "pricingcardBackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
+    },
+    {
+      name: "pricingTextColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "pricingButtonBackgroundColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name:"FaqBackgroundColor",
+      type:"color",
+      defaultValue:"#fdf6ef"
+    },
+    {
+      name:"questionTextColor",
+      type:"color",
+      defaultValue:"#000000"
+    },
+    {
+      name:"answerTextColor",
+      type:"color",
+      defaultValue:"#4a5565"
+    }
+  ],
 });
