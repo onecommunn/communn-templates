@@ -1,13 +1,11 @@
+'use client';
+
+
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import { IAddUser } from '../models/user.model';
-
 import { jwtDecode } from "jwt-decode";
+import axios from 'axios';
 import type { AxiosResponse } from 'axios';
-
-
-
-
 
 
 const setTokens = ({ accessToken, refreshToken }: any) => {
@@ -47,7 +45,7 @@ const purgeStoredState = () => {
 };
 
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = 'https://communn.io/api/v1';
 
 
 export const useAuth = () => {
@@ -62,71 +60,54 @@ export const useAuth = () => {
   const [community] = useState<string | null>(null);
   const intervalId = useRef<any>(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        setLoading(true);
-        const params = new URLSearchParams(window.location.search);
-        const token = params?.get('token');
-        const userCommunId = params?.get('communityId');
+ useEffect(() => {
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams(window.location.search);
+      const token = params?.get('token');
+      const userCommunId = params?.get('communityId');
 
-        if (params && token && userCommunId) {
-          localStorage.setItem('access-token', token);
-          localStorage.setItem('refresh-token', token);
+      if (params && token) {
+        localStorage.setItem('access-token', token);
+        localStorage.setItem('refresh-token', token);
 
-          const userToken = await axios.get(
-            `${BASE_URL}/auth/get-user-by-token`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-          setTokens(token);
-          setIsAuthenticated(true);
-          setAccessToken(token);
-
-          // console.log('userToken', userToken.data);
-  
-        //   store.dispatch(loginUser(userToken.data)); 
-          //set the usertoken data to the store
-
-          //call the api using user selected admin communityId
-        //   const res = await communityById(token, userCommunId);
-        
-        //   const communities = await getCommunities(token); 
-
-          //set admin communities to store
-          
-
-        
-
-          // window.location.href = '/home';
-        } else if (params && token) {
-          localStorage.setItem('access-token', token);
-          localStorage.setItem('refresh-token', token);
-          const userToken = await axios.get(
-            `${BASE_URL}/auth/get-user-by-token`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          );
-          setTokens(token);
-          setIsAuthenticated(true);
-          setAccessToken(token);
+        interface UserResponseData {
+          user?: any;
         }
-      } catch (error) {
-        console.error('Error processing URL parameters:', error);
-        setLoading(false);
+
+        const userResponse = await axios.get<UserResponseData>(
+          `${BASE_URL}/auth/get-user-by-token`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        
+        console.log('user response:', userResponse.data);
+
+        const user = userResponse.data?.user;
+        if (user) {
+          delete user.token; 
+          setUser(user);   
+        }
+        setTokens(token);
+        setIsAuthenticated(true);
+        setAccessToken(token);
       }
-    };
-    fetchUserData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    } catch (error) {
+      console.error('Error processing URL parameters:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUserData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
 
   const verifyToken = (token: string) => {
     const decoded: { exp: number } = jwtDecode(token);
@@ -177,12 +158,9 @@ export const useAuth = () => {
   };
 
 
- 
-
   const autoLogin = async (
     phoneNumber: string,
     emailId: string,
-    token: any
   ) => {
     try {
       
@@ -195,25 +173,18 @@ export const useAuth = () => {
         { headers: { 'Content-Type': 'application/json' } }
       )) as AxiosResponse;
       if (response.status === 200) {
-        // console.log('response999');
-        const { user, adminCommunities } = response?.data;
+        console.log('response999');
+        const { user } = response?.data;
         const tokens = user?.token;
         setTokens(tokens);
-        setCommunityTols(adminCommunities[0]?.community?._id);
         setIsAuthenticated(true);
         setAccessToken(tokens?.accessToken);
         setRefreshToken(tokens?.refreshToken);
-        let OnlyUser = user;
+         const OnlyUser = user;
         delete OnlyUser['token'];
         setUser(OnlyUser);
-        // store.dispatch(loginUser(OnlyUser));
-        // store.dispatch()
-        // Create a new variable for role type
-        if (adminCommunities && adminCommunities.length > 0) setRoleType(true);
-        // alert('Login ')
-       
-      }
 
+      }
       console.log('response', response);
       return response;
     } catch (err: any) {

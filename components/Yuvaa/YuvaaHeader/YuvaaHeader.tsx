@@ -1,6 +1,9 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "@/app/contexts/Auth.context";
+
 
 const YuvaaHeader = ({
   logoUrl,
@@ -19,7 +22,7 @@ const YuvaaHeader = ({
   textColor: string;
   buttonBackgroundColor: string;
   buttonTextColor: string;
-  buttonText:string
+  buttonText: string
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -27,7 +30,12 @@ const YuvaaHeader = ({
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  
+  const { user, isAuthenticated, logout } = useContext(AuthContext);
+
+  console.log(user, "user");
+
+  console.log(isAuthenticated, "isauth")
+
   return (
     <header
       className="py-4 px-4 lg:px-20 md:px-8 bg-white sticky top-0 z-50 shadow-sm text-black"
@@ -117,11 +125,34 @@ const YuvaaHeader = ({
 
           {/* Auth Button */}
           <div className="hidden md:flex">
-            <Link href="/">
-              <button className="bg-[#FF6347] hover:bg-[#FF6347]-dark text-white rounded-md px-6 py-2">
-                {buttonText}
-              </button>
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <div className="text-center font-medium">
+                  Hi, {user?.name || user?.email}
+                </div>
+                <button
+                  onClick={() => {
+                    // logout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link href="/auto-login" onClick={() => setMobileMenuOpen(false)}>
+                <button
+                  style={{
+                    backgroundColor: buttonBackgroundColor,
+                    color: buttonTextColor,
+                  }}
+                  className="rounded-md px-6 py-2 w-full"
+                >
+                  {buttonText}
+                </button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -166,19 +197,37 @@ const YuvaaHeader = ({
               >
                 Pricing
               </Link>
-              <div className="pt-4">
-                <Link href="/" onClick={() => setMobileMenuOpen(false)}>
-                  <button
-                    style={{
-                      backgroundColor: buttonBackgroundColor,
-                      color: buttonTextColor,
-                    }}
-                    className="rounded-md px-6 py-2 w-full"
-                  >
-                    {buttonText}
-                  </button>
-                </Link>
+              <div className="pt-4 space-y-2">
+                {isAuthenticated ? (
+                  <>
+                    <div className="text-center font-medium">
+                      Hi, {user?.name || user?.email}
+                    </div>
+                    <button
+                      onClick={() => {
+                        // logout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <Link href="/auto-login" onClick={() => setMobileMenuOpen(false)}>
+                    <button
+                      style={{
+                        backgroundColor: buttonBackgroundColor,
+                        color: buttonTextColor,
+                      }}
+                      className="rounded-md px-6 py-2 w-full"
+                    >
+                      {buttonText}
+                    </button>
+                  </Link>
+                )}
               </div>
+
             </nav>
           </div>
         )}

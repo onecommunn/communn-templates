@@ -1,3 +1,7 @@
+
+
+'use client';
+
 // import { createContext, useState } from "react";
 import { useAuth } from '../hooks/useAuth';
 import { AuthContext } from './Auth.context';
@@ -12,6 +16,9 @@ const AuthProvider = ({ children }: any) => {
     autoCreate,
     roleType
   } = useAuth();
+
+  console.log(user, "user");
+
   return (
     <AuthContext.Provider
       value={{
@@ -22,8 +29,7 @@ const AuthProvider = ({ children }: any) => {
         autoLogin,
         autoCreate,
         roleType
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );
