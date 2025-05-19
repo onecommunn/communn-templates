@@ -8,8 +8,6 @@ const AuthProvider = ({ children }: any) => {
     user,
     isAuthenticated,
     getAccessToken,
-    login,
-    logout,
     autoLogin,
     autoCreate,
     roleType
@@ -21,8 +19,6 @@ const AuthProvider = ({ children }: any) => {
         user,
         isAuthenticated,
         getAccessToken,
-        login,
-        logout,
         autoLogin,
         autoCreate,
         roleType
