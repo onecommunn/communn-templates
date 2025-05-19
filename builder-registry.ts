@@ -63,6 +63,22 @@ import YogastAbout from "./components/Yogast/YogastAbout/YogastAbout";
 import YogastFeatures from "./components/Yogast/YogastFeatures/YogastFeatures";
 import YogastPricing from "./components/Yogast/YogastPricing/YogastPricing";
 import { title } from "process";
+import YuvaaHeader from "./components/Yuvaa/YuvaaHeader/YuvaaHeader";
+import YuvaaHeroSection from "./components/Yuvaa/YuvaaHeroSection/YuvaaHeroSection";
+import YuvaaFeatures from "./components/Yuvaa/YuvaaFeatures/YuvaaFeatures";
+import YuvaaFeaturesSection from "./components/Yuvaa/YuvaaFeaturesSection/YuvaaFeaturesSection";
+import YuvaaWorkoutSection from "./components/Yuvaa/YuvaaWorkoutSection/YuvaaWorkoutSection";
+import YuvaaServicesSection from "./components/Yuvaa/YuvaaServicesSection/YuvaaServicesSection";
+import YuvaaTestimonialsSection from "./components/Yuvaa/YuvaaTestimonialsSection/YuvaaTestimonialsSection";
+import YuvaaCtaSection from "./components/Yuvaa/YuvaaCtaSection/YuvaaCtaSection";
+import YuvaaFooter from "./components/Yuvaa/YuvaaFooter/YuvaaFooter";
+import YuvaaAbout from "./components/Yuvaa/YuvaaAbout/YuvaaAbout";
+import YuvaaPricing from "./components/Yuvaa/YuvaaPricing/YuvaaPricing";
+
+import * as LucideIcons from "lucide-react";
+import YuvaaTeamSection from "./components/Yuvaa/YuvaaAbout/YuvaaTeamSection";
+import YuvaaJoinUsCTA from "./components/Yuvaa/YuvaaAbout/YuvaaJoinUsCTA";
+import YuvaaFAQSection from "./components/Yuvaa/YuvaaPricing/YuvaaFAQSection";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -72,7 +88,7 @@ import { title } from "process";
 //   inputs: [
 //     { name: "text", type: "string", defaultValue: "Hello, Builder!" },
 //     {
-//       name: "description",
+//       name: "Our Mission",
 //       type: "string",
 //       defaultValue: "This is a header component.",
 //     },
@@ -2885,6 +2901,11 @@ Builder.registerComponent(YogastFooter, {
       type: "color",
       defaultValue: "#4a5565",
     },
+    {
+      name: "TextHoverColor",
+      type: "color",
+      defaultValue: "",
+    },
   ],
 });
 
@@ -2940,7 +2961,7 @@ Builder.registerComponent(YogastAbout, {
     {
       name: "backgroundColor",
       type: "color",
-      defaultValue:"#fdf6ef"
+      defaultValue: "#fdf6ef",
     },
     {
       name: "titleTextColor",
@@ -3016,34 +3037,34 @@ Builder.registerComponent(YogastFeatures, {
       ],
     },
     {
-      name:"headerBackgroundColor",
-      type:"color",
-      defaultValue:"#ff5e14"
+      name: "headerBackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
     },
     {
-      name:"headerTitleColor",
-      type:"color",
-      defaultValue:"#ffffff"
+      name: "headerTitleColor",
+      type: "color",
+      defaultValue: "#ffffff",
     },
     {
-      name:"backgroundColor",
-      type:"color",
-      defaultValue:"#fdf6ef"
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#fdf6ef",
     },
     {
-      name:"cardBackgroundColor",
-      type:"color",
-      defaultValue:"#ffffff"
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
     },
     {
-      name:"TitleTextColor",
-      type:"color",
-      defaultValue:"#000000"
+      name: "TitleTextColor",
+      type: "color",
+      defaultValue: "#000000",
     },
     {
-      name:"TextColor",
-      type:"color",
-      defaultValue:"#4a5565"
+      name: "TextColor",
+      type: "color",
+      defaultValue: "#4a5565",
     },
   ],
 });
@@ -3199,14 +3220,14 @@ Builder.registerComponent(YogastPricing, {
       ],
     },
     {
-      name:"headerBackgroundColor",
-      type:"color",
-      defaultValue:"#ff5e14"
+      name: "headerBackgroundColor",
+      type: "color",
+      defaultValue: "#ff5e14",
     },
     {
-      name:"headerTitleColor",
-      type:"color",
-      defaultValue:"#ededed"
+      name: "headerTitleColor",
+      type: "color",
+      defaultValue: "#ededed",
     },
     {
       name: "pricingBackgroundColor",
@@ -3229,19 +3250,1422 @@ Builder.registerComponent(YogastPricing, {
       defaultValue: "#000000",
     },
     {
-      name:"FaqBackgroundColor",
-      type:"color",
-      defaultValue:"#fdf6ef"
+      name: "FaqBackgroundColor",
+      type: "color",
+      defaultValue: "#fdf6ef",
     },
     {
-      name:"questionTextColor",
-      type:"color",
-      defaultValue:"#000000"
+      name: "questionTextColor",
+      type: "color",
+      defaultValue: "#000000",
     },
     {
-      name:"answerTextColor",
-      type:"color",
-      defaultValue:"#4a5565"
-    }
+      name: "answerTextColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaHeader, {
+  name: "Yuvaa Header",
+  inputs: [
+    {
+      name: "logoUrl",
+      type: "file",
+      defaultValue:
+        "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F5da7e1a66018428ab7a6081eeee906ad",
+    },
+    {
+      name: "logoWidth",
+      type: "number",
+      defaultValue: "100",
+    },
+    {
+      name: "logoHight",
+      type: "number",
+      defaultValue: "100",
+    },
+    {
+      name: "buttonText",
+      type: "string",
+      defaultValue: "Join Now",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "textColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#ff6347",
+    },
+    {
+      name: "buttonTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaHeroSection, {
+  name: "Yuvaa Hero Section",
+  inputs: [
+    {
+      name: "titleText",
+      type: "string",
+      defaultValue: "Practice At Home With The World's Top Yoga Teachers",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Stream hundreds of expert-led yoga & meditation classes on any device. Your first trial month costs absolutely free.",
+    },
+    {
+      name: "buttonText",
+      type: "string",
+      defaultValue: "Get Started",
+    },
+    {
+      name: "inputPlaceholderText",
+      type: "string",
+      defaultValue: "Enter Your Email",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleTextColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#ff6347",
+    },
+    {
+      name: "buttonTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "placeholderTextColor",
+      type: "color",
+      defaultValue: "#7c7d7d",
+    },
+    {
+      name: "inputBorderColor",
+      type: "color",
+      defaultValue: "#e5e7eb",
+    },
+  ],
+});
+
+const lucideIconEnum = Object.keys(LucideIcons).map((iconName) => ({
+  label: iconName,
+  value: iconName,
+}));
+
+Builder.registerComponent(YuvaaFeaturesSection, {
+  name: "Yuvaa Features Section",
+  inputs: [
+    {
+      name: "Title",
+      type: "string",
+      defaultValue: "Why Choose Yoga?",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Yoga can make you stronger and more flexible. Yoga is good for reducing stress.",
+    },
+    {
+      name: "featuresList",
+      type: "list",
+      defaultValue: [
+        {
+          icon: "Heart",
+          size: 32,
+          featureTitle: "Blood Circulation",
+          fertureDescription:
+            "Yoga can reduce anxiety, stress, and inflammation. In fact, the benefits of yoga run deep.",
+        },
+        {
+          icon: "Wind",
+          size: 32,
+          featureTitle: "Calming Down",
+          fertureDescription:
+            "Yoga can improve your mood and overall feeling of well-being. Yoga can also help heal the lungs.",
+        },
+        {
+          icon: "Stethoscope",
+          size: 32,
+          featureTitle: "Respiratory Fitness",
+          fertureDescription:
+            "Yoga can improve overall breathing capacity and lung health. Yoga can also help heal the lungs.",
+        },
+      ],
+      subFields: [
+        {
+          name: "iconName",
+          type: "enum",
+          enum: lucideIconEnum,
+          defaultValue: "Heart",
+        },
+        {
+          name: "size",
+          type: "number",
+        },
+        {
+          name: "featureTitle",
+          type: "string",
+        },
+        {
+          name: "fertureDescription",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4b5563",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "iconColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "iconBackgroundColor",
+      type: "color",
+      defaultValue: "#20b2aa",
+    },
+    {
+      name: "featureTitleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "fertureDescriptionColor",
+      type: "color",
+      defaultValue: "#4b5563",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaWorkoutSection, {
+  name: "Yuvaa Workout Section",
+  inputs: [
+    {
+      name: "ImageUrl",
+      type: "url",
+      defaultValue:
+        "https://images.unsplash.com/photo-1518310952931-b1de897abd40?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+    },
+    {
+      name: "imageWidth",
+      type: "number",
+      defaultValue: 500,
+    },
+    {
+      name: "imageHeight",
+      type: "number",
+      defaultValue: 500,
+    },
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Workout at home with ease",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        " We believe fitness should be accessible to everyone, everywhere. With hundreds of professional workout, healthy recipes and informative articles, you'll have everything you need to reach your personal fitness goals.",
+    },
+    {
+      name: "buttonText",
+      type: "string",
+      defaultValue: "Get Started",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+    {
+      name: "buttonTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#ff6347",
+    },
+    {
+      name: "lineColor",
+      type: "color",
+      defaultValue: "#20b2aa",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaServicesSection, {
+  name: "Yuvaa Services Section",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Our Services",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Explore and book live and on-demand Yoga, Meditation and Art Therapy classes across the globe.",
+    },
+    {
+      name: "servicesList",
+      type: "list",
+      defaultValue: [
+        {
+          title: "Therapy",
+          imageUrl:
+            "https://images.unsplash.com/photo-1518310952931-b1de897abd40?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+          imageWidth: "",
+          imageHeight: "",
+          rating: 4.8,
+          reviewCount: 124,
+          ctaText: "Join Session",
+        },
+        {
+          title: "Yoga",
+          imageUrl:
+            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+          imageWidth: "",
+          imageHeight: "",
+          rating: 4.7,
+          reviewCount: 214,
+          ctaText: "Join Session",
+        },
+        {
+          title: "Meditation",
+          imageUrl:
+            "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+          imageWidth: "",
+          imageHeight: "",
+          rating: 4.9,
+          reviewCount: 164,
+          ctaText: "Join Session",
+        },
+        {
+          title: "Pilates",
+          imageUrl:
+            "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+          imageWidth: "",
+          imageHeight: "",
+          rating: 4.6,
+          reviewCount: 98,
+          ctaText: "Join Session",
+        },
+        {
+          title: "Meditation",
+          imageUrl:
+            "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+          imageWidth: "",
+          imageHeight: "",
+          rating: 4.6,
+          reviewCount: 98,
+          ctaText: "Join Session",
+        },
+      ],
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "imageUrl",
+          type: "url",
+        },
+        {
+          name: "imageWidth",
+          type: "number",
+          defaultValue: "",
+        },
+        {
+          name: "imageHeight",
+          type: "number",
+          defaultValue: "",
+        },
+        {
+          name: "rating",
+          type: "number",
+        },
+        {
+          name: "reviewCount",
+          type: "number",
+        },
+        {
+          name: "ctaText",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+    {
+      name: "lineColor",
+      type: "color",
+      defaultValue: "#20B2AA",
+    },
+    {
+      name: "navigationIconsColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "navigationBackgroundColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "serviceTitleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "ratingStarsColor",
+      type: "color",
+      defaultValue: "#FDC700",
+    },
+    {
+      name: "ctaTextColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+    {
+      name: "reviewCountColor",
+      type: "color",
+      defaultValue: "#6A7282",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaTestimonialsSection, {
+  name: "Yuvaa Testimonials Section",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "What's our client's say about us",
+    },
+    {
+      name: "testimonialsList",
+      type: "list",
+      defaultValue: [
+        {
+          quote:
+            "I highly recommend Yoga. It really helps in reducing stress levels, make me healthier and help relieve stress. I will definitely join future programs.",
+          rating: 4.7,
+          name: "Tao Jimin",
+          role: "Designer",
+        },
+        {
+          quote:
+            "I highly recommend Yoga. It really helps in reducing anxiety and stress. Classes are easy to understand and practice. Yoga can be practiced anywhere and anytime. I'm very happy I found this app.",
+          rating: 4.7,
+          name: "Shin Ryujin",
+          role: "Student",
+        },
+        {
+          quote:
+            "I highly recommend Yoga. It really helps in reducing pain during yoga routines for beginners like me.",
+          rating: 3.5,
+          name: "Deddy Corbuzier",
+          role: "Podcaster",
+        },
+        {
+          quote:
+            "I highly recommend Yoga. It really helps in reducing anxiety and stress. Classes are easy to understand and practice. Yoga can be practiced anywhere and anytime. I'm very happy I found this app.",
+          rating: 4.7,
+          name: "Shin Ryujin",
+          role: "Student",
+        },
+      ],
+      subFields: [
+        {
+          name: "quote",
+          type: "string",
+        },
+        {
+          name: "rating",
+          type: "number",
+        },
+        {
+          name: "name",
+          type: "string",
+        },
+        {
+          name: "role",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "quoteColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "userTextColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "roleColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "ratingStarsColor",
+      type: "color",
+      defaultValue: "#FDC700",
+    },
+    {
+      name: "avatarBackgroundColor",
+      type: "color",
+      defaultValue: "#E5E7EB",
+    },
+    {
+      name: "avatarTextColor",
+      type: "color",
+      defaultValue: "#6A7282",
+    },
+    {
+      name: "navigationIconsColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "navigationBackgroundColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+    {
+      name: "onHoverNavigationIconsColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "onHoverNavigationBackgroundColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaCtaSection, {
+  name: "Yuvaa CTA Section",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Learn On Demand",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Explore and book live and on-demand Yoga, Meditation and Art Therapy classes across the globe",
+    },
+    {
+      name: "buttonText",
+      type: "string",
+      defaultValue: "Get Started",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#20B2AA",
+    },
+    {
+      name: "sectionBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "buttonTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+    {
+      name: "lineColor",
+      type: "color",
+      defaultValue: "#20B2AA",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaFooter, {
+  name: "Yuvaa Footer",
+  inputs: [
+    {
+      name: "logoUrl",
+      type: "file",
+      defaultValue:
+        "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2Ffa747ef5fa5f4e9eb4f9f2f68f2ff094",
+    },
+    {
+      name: "logoWidth",
+      type: "number",
+      defaultValue: "100",
+    },
+    {
+      name: "logoHight",
+      type: "number",
+      defaultValue: "100",
+    },
+    {
+      name: "tagLine",
+      type: "string",
+      defaultValue: `"We always provide the best service for our users"`,
+    },
+    {
+      name: "FacebookLink",
+      type: "url",
+      defaultValue: "https://www.facebook.com/",
+    },
+    {
+      name: "TwitterLink",
+      type: "url",
+      defaultValue: "https://x.com/",
+    },
+    {
+      name: "InstagramLink",
+      type: "url",
+      defaultValue: "https://www.instagram.com/",
+    },
+    {
+      name: "QuickLinks",
+      type: "list",
+      defaultValue: [
+        {
+          Title: "About Us",
+          LinksList: [
+            {
+              Text: "Our Story",
+              Link: "/",
+            },
+            {
+              Text: "Our Instructors",
+              Link: "/",
+            },
+            {
+              Text: "Blog",
+              Link: "/",
+            },
+            {
+              Text: "Careers",
+              Link: "/",
+            },
+          ],
+        },
+        {
+          Title: "Our Classes",
+          LinksList: [
+            {
+              Text: "Hatha Yoga",
+              Link: "/",
+            },
+            {
+              Text: "Vinyasa Flow",
+              Link: "/",
+            },
+            {
+              Text: "Meditation",
+              Link: "/",
+            },
+            {
+              Text: "Power Yoga",
+              Link: "/",
+            },
+          ],
+        },
+      ],
+      subFields: [
+        {
+          name: "Title",
+          type: "string",
+        },
+        {
+          name: "LinksList",
+          type: "list",
+          subFields: [
+            {
+              name: "Text",
+              type: "string",
+            },
+            {
+              name: "Link",
+              type: "url",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: "titleTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "subTitleTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "textHoverColor",
+      type: "color",
+      defaultValue: "#20b2aa",
+    },
+    {
+      name: "Address",
+      type: "string",
+      defaultValue: "123 Yoga Street, Wellness City",
+    },
+    {
+      name: "PhoneNumber",
+      type: "string",
+      defaultValue: "+1 (234) 567-8910",
+    },
+    {
+      name: "Email",
+      type: "email",
+      defaultValue: "info@yogast.com",
+    },
+    {
+      name: "Timmings",
+      type: "string",
+      defaultValue: "Mon - Sat: 7:00am - 7:00pm",
+    },
+    {
+      name: "CopyRightText",
+      type: "string",
+      defaultValue: "Copyright 2022 made for Yoga. All rights reserved",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaAbout, {
+  name: "Yuvaa About",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Our Mission",
+    },
+    {
+      name: "descriptionsList",
+      type: "list",
+      defaultValue: [
+        {
+          description:
+            "We believe that yoga and mindfulness practices should be accessible to everyone. Our mission is to bring the transformative power of these ancient practices to modern life, helping people find balance, strength, and peace in today's fast-paced world.",
+        },
+        {
+          description:
+            "Founded in 2018, YOGA+ has grown from a small local studio to an online platform with instructors and students from around the globe. We're committed to creating a supportive community where everyone can explore and deepen their practice.",
+        },
+      ],
+      subFields: [
+        {
+          name: "description",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "image",
+      type: "file",
+      defaultValue:
+        "https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
+    },
+    {
+      name: "imageWidth",
+      type: "number",
+      defaultValue: "500",
+    },
+    {
+      name: "imageHeight",
+      type: "number",
+      defaultValue: "300",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "lineColor",
+      type: "color",
+      defaultValue: "#20B2AA",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaTeamSection, {
+  name: "Yuvaa Team Section",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Our Team",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Meet our dedicated team of experienced instructors who are passionate about sharing their knowledge and guiding you on your yoga journey.",
+    },
+    {
+      name: "teamMembersList",
+      type: "list",
+      defaultValue: [
+        {
+          name: "Sarah Johnson",
+          role: "Founder & Lead Instructor",
+          image:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=400",
+        },
+        {
+          name: "Michael Chen",
+          role: "Meditation Specialist",
+          image:
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=400",
+        },
+        {
+          name: "Priya Patel",
+          role: "Vinyasa Instructor",
+          image:
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=400",
+        },
+        {
+          name: "David Wilson",
+          role: "Power Yoga Instructor",
+          image:
+            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=400",
+        },
+      ],
+      subFields: [
+        {
+          name: "name",
+          type: "string",
+        },
+        {
+          name: "role",
+          type: "string",
+        },
+        {
+          name: "image",
+          type: "file",
+        },
+        {
+          name: "imageWidth",
+          type: "number",
+        },
+        {
+          name: "imageHeight",
+          type: "number",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "lineColor",
+      type: "color",
+      defaultValue: "#20B2AA",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "nameColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "roleColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaJoinUsCTA, {
+  name: "Yuvaa Join Us CTA",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Join Our Community",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Whether you're a beginner or an experienced yogi, we welcome you to join our growing community of mindful practitioners. Start your journey today.",
+    },
+    {
+      name: "buttonText",
+      type: "string",
+      defaultValue: "Sign Up Now",
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "buttonBackgroundColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+    {
+      name: "buttonTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaFeatures, {
+  name: "Yuvaa Features",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Features & Benefits",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Discover how yoga can transform your physical and mental wellbeing with our comprehensive approach to mind-body wellness.",
+    },
+    {
+      name: "featuresList",
+      type: "list",
+      defaultValue: [
+        {
+          icon: "Heart",
+          size: 32,
+          featureTitle: "Blood Circulation",
+          fertureDescription:
+            "Yoga can reduce anxiety, stress, and inflammation. In fact, the benefits of yoga run deep.",
+        },
+        {
+          icon: "Wind",
+          size: 32,
+          featureTitle: "Calming Down",
+          fertureDescription:
+            "Yoga can improve your mood and overall feeling of well-being. Yoga can also help heal the lungs.",
+        },
+        {
+          icon: "Stethoscope",
+          size: 32,
+          featureTitle: "Respiratory Fitness",
+          fertureDescription:
+            "Yoga can improve overall breathing capacity and lung health. Yoga can also help heal the lungs.",
+        },
+        {
+          icon: "Brain",
+          size: 32,
+          featureTitle: "Mental Clarity",
+          fertureDescription:
+            "Regular practice improves focus, memory retention and cognitive function through mindfulness techniques.",
+        },
+        {
+          icon: "Coffee",
+          size: 32,
+          featureTitle: "Energy Boost",
+          fertureDescription:
+            "Energizing poses and sequences help combat fatigue and increase natural energy levels without stimulants.",
+        },
+        {
+          icon: "Moon",
+          size: 32,
+          featureTitle: "Better Sleep",
+          fertureDescription:
+            "Restorative yoga and relaxation techniques help regulate sleep cycles and improve overall sleep quality.",
+        },
+        {
+          icon: "Sun",
+          size: 32,
+          featureTitle: "Mood Enhancement",
+          fertureDescription:
+            "Yoga stimulates the production of serotonin and dopamine, hormones associated with happiness and wellbeing.",
+        },
+        {
+          icon: "Shield",
+          size: 32,
+          featureTitle: "Immune Support",
+          fertureDescription:
+            "Regular practice strengthens the immune system by reducing stress hormones that compromise immunity.",
+        },
+        {
+          icon: "Activity",
+          size: 32,
+          featureTitle: "Flexibility & Strength",
+          fertureDescription:
+            "Yoga poses build muscle strength while improving flexibility, creating balanced physical development.",
+        },
+      ],
+      subFields: [
+        {
+          name: "iconName",
+          type: "enum",
+          enum: lucideIconEnum,
+          defaultValue: "Heart",
+        },
+        {
+          name: "IconSize",
+          type: "number",
+        },
+        {
+          name: "featureTitle",
+          type: "string",
+        },
+        {
+          name: "fertureDescription",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "heroBackgroundColor",
+      type: "color",
+      defaultValue: "#F9FAFB",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "lineColor",
+      type: "color",
+      defaultValue: "#20b2aa",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "iconColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "iconBackgroundColor",
+      type: "color",
+      defaultValue: "#20b2aa",
+    },
+    {
+      name: "featureTitleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "fertureDescriptionColor",
+      type: "color",
+      defaultValue: "#4b5563",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaPricing, {
+  name: "Yuvaa Pricing",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Simple, Transparent Pricing",
+    },
+    {
+      name: "description",
+      type: "string",
+      defaultValue:
+        "Choose the plan that fits your wellness journey. All plans include a 7-day free trial.",
+    },
+    {
+      name: "pricingList",
+      type: "list",
+      defaultValue: [
+        {
+          title: "Basic Plan",
+          price: "$12",
+          period: "month",
+          description: "Perfect for beginners starting their yoga journey",
+          features: [
+            {
+              feature: "Access to 50+ basic yoga classes",
+            },
+            {
+              feature: "1 live session per month",
+            },
+            {
+              feature: "Basic pose guides",
+            },
+            {
+              feature: "Community forum access",
+            },
+          ],
+        },
+        {
+          title: "Premium Plan",
+          price: "$29",
+          period: "month",
+          description: "Our most popular plan for dedicated practitioners",
+          features: [
+            {
+              feature: "Access to 200+ yoga classes",
+            },
+            {
+              feature: "4 live sessions per month",
+            },
+            {
+              feature: "Detailed pose guides with adjustments",
+            },
+            {
+              feature: "Personal progress tracking",
+            },
+            {
+              feature: "Exclusive meditation content",
+            },
+          ],
+          isPopular: true,
+        },
+        {
+          title: "Ultimate Plan",
+          price: "$49",
+          period: "month",
+          description: "For those seeking the complete yoga experience",
+          features: [
+            {
+              feature: "Unlimited access to all classes",
+            },
+            {
+              feature: "Unlimited live sessions",
+            },
+            {
+              feature: "1-on-1 instructor sessions monthly",
+            },
+            {
+              feature: "Custom program creation",
+            },
+            {
+              feature: "Nutrition guidance",
+            },
+            {
+              feature: "Premium meditation content",
+            },
+          ],
+        },
+      ],
+      subFields: [
+        {
+          name: "title",
+          type: "string",
+        },
+        {
+          name: "price",
+          type: "string",
+        },
+        {
+          name: "period",
+          type: "string",
+        },
+        {
+          name: "description",
+          type: "string",
+        },
+        {
+          name: "features",
+          type: "list",
+          subFields: [
+            {
+              name: "feature",
+              type: "string",
+            },
+          ],
+        },
+        {
+          name: "isPopular",
+          type: "boolean",
+          defaultValue: false,
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "heroBackgroundColor",
+      type: "color",
+      defaultValue: "#F9FAFB",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "descriptionColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "lineColor",
+      type: "color",
+      defaultValue: "#20B2AA",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "cardPrimaryColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "cardSecondaryColors",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
+    {
+      name: "buttonColor",
+      type: "color",
+      defaultValue: "#FF6347",
+    },
+    {
+      name: "iconsColor",
+      type: "color",
+      defaultValue: "#20B2AA",
+    },
+  ],
+});
+
+Builder.registerComponent(YuvaaFAQSection, {
+  name: "Yuvaa FAQ Section",
+  inputs: [
+    {
+      name: "title",
+      type: "string",
+      defaultValue: "Frequently Asked Questions",
+    },
+    {
+      name: "questionsList",
+      type: "list",
+      defaultValue: [
+        {
+          question: "Can I switch plans later?",
+          answer:
+            "Yes, you can upgrade or downgrade your plan at any time. The changes will take effect on your next billing cycle.",
+        },
+        {
+          question: "Is there a contract or commitment?",
+          answer:
+            "No, all our plans are month-to-month with no long-term contract. You can cancel anytime.",
+        },
+        {
+          question: "How do I access live sessions?",
+          answer:
+            "Live sessions are scheduled in our calendar. You'll receive email notifications and can join via our web platform or mobile app.",
+        },
+        {
+          question: "Do you offer refunds?",
+          answer:
+            "We offer a 7-day money-back guarantee if you're not satisfied with your subscription for any reason.",
+        },
+      ],
+      subFields: [
+        {
+          name: "question",
+          type: "string",
+        },
+        {
+          name: "answer",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "backgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "titleColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "cardBackgroundColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "questionColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "answerColor",
+      type: "color",
+      defaultValue: "#4A5565",
+    },
   ],
 });

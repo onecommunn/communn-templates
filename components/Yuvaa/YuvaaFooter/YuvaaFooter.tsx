@@ -1,6 +1,6 @@
-import React from "react";
 import { Facebook, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
+import React from "react";
 
 interface LinksListProps {
   Text: string;
@@ -12,67 +12,57 @@ interface QuickLinksProps {
   LinksList: LinksListProps[];
 }
 
-const YogastFooter = ({
-  logo,
-  width,
-  height,
-  Description,
-  FacebookLink,
-  InstagramLink,
-  TwitterLink,
-  CopyRightText,
-  QuickLinks,
-  Address,
-  PhoneNumber,
-  Email,
-  Timmings,
-  backgroundColor,
-  titleTextColor,
-  subTitleTextColor,
-  TextHoverColor,
-}: {
-  logo: string;
-  width: string;
-  height: string;
-  Description: string;
+interface YuvaaFooterProps {
+  logoUrl: string;
+  logoWidth: number;
+  logoHight: number;
+  QuickLinks: QuickLinksProps[];
+  titleTextColor: string;
+  subTitleTextColor: string;
+  textHoverColor: string;
   FacebookLink: string;
   TwitterLink: string;
   InstagramLink: string;
-  CopyRightText: string;
-  QuickLinks: QuickLinksProps[];
   Address: string;
   PhoneNumber: string;
   Email: string;
   Timmings: string;
-  backgroundColor: string;
-  titleTextColor: string;
-  subTitleTextColor: string;
-  TextHoverColor: string;
-}) => {
+}
+
+const YuvaaFooter = ({
+  logoHight,
+  logoUrl,
+  logoWidth,
+  QuickLinks,
+  titleTextColor,
+  subTitleTextColor,
+  textHoverColor,
+  FacebookLink,
+  TwitterLink,
+  InstagramLink,
+  Address,
+  PhoneNumber,
+  Email,
+  Timmings,
+}: YuvaaFooterProps) => {
   return (
-    <footer className="py-12" style={{ backgroundColor: backgroundColor }}>
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Logo & Description */}
+    <footer className="bg-[#20B2AA] text-white py-12 px-4 lg:px-20">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Logo & Info */}
           <div>
-            <Link href="/" className="inline-flex items-center mb-4">
-              <div className="text-[#FF5E14] text-xl font-bold flex items-center">
+            <Link href="/home" className="flex items-center space-x-2">
+              <div className="font-bold flex items-center">
                 <img
-                  src={
-                    logo ||
-                    "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F1001e504713f4eb9b9a58b6d3276a910"
-                  }
+                  src={logoUrl}
                   alt={"logo"}
-                  width={width}
-                  height={height}
+                  width={logoWidth}
+                  height={logoHight}
                 />
               </div>
             </Link>
-            <p
-              className="text-sm text-gray-600 mb-4"
-              style={{ color: subTitleTextColor }}
-            >
-              {Description}
+            <p className="text-sm opacity-80 mb-4 mt-4">
+              "We always provide the best service for our users"
             </p>
             <div className="flex space-x-4">
               {FacebookLink && (
@@ -80,11 +70,11 @@ const YogastFooter = ({
                   href={FacebookLink}
                   style={
                     {
-                      "--hover-color": TextHoverColor,
+                      "--hover-color": textHoverColor,
                       "--text-color": subTitleTextColor,
                     } as React.CSSProperties
                   }
-                  className="hover:text-[var(--hover-color)] text-[var(--text-color)]"
+                  className="w-8 h-8 bg-white/20 text-[var(--text-color)] hover:text-[var(--hover-color)] rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
                 >
                   <Facebook size={20} />
                 </a>
@@ -94,11 +84,11 @@ const YogastFooter = ({
                   href={TwitterLink}
                   style={
                     {
-                      "--hover-color": TextHoverColor,
+                      "--hover-color": textHoverColor,
                       "--text-color": subTitleTextColor,
                     } as React.CSSProperties
                   }
-                  className="hover:text-[var(--hover-color)] text-[var(--text-color)]"
+                  className="w-8 h-8 bg-white/20 text-[var(--text-color)] hover:text-[var(--hover-color)] rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
                 >
                   <Twitter size={20} />
                 </a>
@@ -108,11 +98,11 @@ const YogastFooter = ({
                   href={InstagramLink}
                   style={
                     {
-                      "--hover-color": TextHoverColor,
+                      "--hover-color": textHoverColor,
                       "--text-color": subTitleTextColor,
                     } as React.CSSProperties
                   }
-                  className="hover:text-[var(--hover-color)] text-[var(--text-color)]"
+                  className="w-8 h-8 bg-white/20 text-[var(--text-color)] hover:text-[var(--hover-color)] rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
                 >
                   <Instagram size={20} />
                 </a>
@@ -120,7 +110,6 @@ const YogastFooter = ({
             </div>
           </div>
 
-          {/* Quick Links */}
           {QuickLinks?.map((each, index) => (
             <div key={index}>
               <h3
@@ -136,7 +125,7 @@ const YogastFooter = ({
                       href={item.Link}
                       style={
                         {
-                          "--hover-color": TextHoverColor,
+                          "--hover-color": textHoverColor,
                           "--text-color": subTitleTextColor,
                         } as React.CSSProperties
                       }
@@ -149,8 +138,7 @@ const YogastFooter = ({
               </ul>
             </div>
           ))}
-
-          {/* Contact Info */}
+          {/* Contact */}
           <div>
             <h3
               className="text-lg font-bold mb-4"
@@ -170,15 +158,12 @@ const YogastFooter = ({
           </div>
         </div>
 
-        <div
-          className="border-t border-gray-200 mt-10 pt-6 text-center text-sm"
-          style={{ color: subTitleTextColor }}
-        >
-          <p>&copy; {CopyRightText}</p>
+        <div className="border-t border-white border-opacity-20 mt-8 pt-8 text-center text-sm opacity-80">
+          <p>Copyright 2022 made for Yoga. All rights reserved</p>
         </div>
       </div>
     </footer>
   );
 };
 
-export default YogastFooter;
+export default YuvaaFooter;

@@ -62,35 +62,52 @@ const YogastHeader = ({
         </div>
 
         {/* Desktop Menu */}
-        <nav
-          className="hidden md:flex space-x-8"
-          style={{ "--my-color": buttonBackgroundColor } as React.CSSProperties}
-        >
+        <nav className="hidden md:flex space-x-8">
           <Link
             href="/home"
-            className="hover:[color:var(--my-color)] font-medium"
-            style={{color:textColor}}
+            style={
+              {
+                "--hover-color": buttonBackgroundColor,
+                "--text-color": textColor,
+              } as React.CSSProperties
+            }
+            className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             Home
           </Link>
           <Link
             href="/about"
-            className={`hover:[color:var(--my-color)] font-medium`}
-            style={{color:textColor}}
+            style={
+              {
+                "--hover-color": buttonBackgroundColor,
+                "--text-color": textColor,
+              } as React.CSSProperties
+            }
+            className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             About
           </Link>
           <Link
             href="/features"
-            className="hover:[color:var(--my-color)] font-medium"
-            style={{color:textColor}}
+            style={
+              {
+                "--hover-color": buttonBackgroundColor,
+                "--text-color": textColor,
+              } as React.CSSProperties
+            }
+            className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             Features
           </Link>
           <Link
             href="/pricing"
-            className="hover:[color:var(--my-color)] font-medium"
-            style={{color:textColor}}
+            style={
+              {
+                "--hover-color": buttonBackgroundColor,
+                "--text-color": textColor,
+              } as React.CSSProperties
+            }
+            className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             Pricing
           </Link>
