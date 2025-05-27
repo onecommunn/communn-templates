@@ -1,9 +1,8 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "@/app/contexts/Auth.context";
-
 
 const YuvaaHeader = ({
   logoUrl,
@@ -25,16 +24,64 @@ const YuvaaHeader = ({
   buttonText: string
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const authContext = useContext(AuthContext);
+  const [mounted, setMounted] = useState(false);
+
+  // Log context value changes
+  useEffect(() => {
+    console.log('YuvaaHeader - AuthContext Update:', {
+      user: authContext.user,
+      isAuthenticated: authContext.isAuthenticated,
+      loading: authContext.loading
+    });
+  }, [authContext.user, authContext.isAuthenticated, authContext.loading]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  const { user, isAuthenticated, logout } = useContext(AuthContext);
+  // Show a loading state until everything is ready
+  if (!mounted || authContext.loading) {
+    console.log('YuvaaHeader - Loading State:', {
+      mounted,
+      loading: authContext.loading,
+      user: authContext.user ? 'User exists' : 'No user',
+      isAuthenticated: authContext.isAuthenticated
+    });
+    
+    return (
+      <header
+        className="py-4 px-4 lg:px-20 md:px-8 bg-white sticky top-0 z-50 shadow-sm text-black"
+        style={{ backgroundColor: backgroundColor, color: textColor }}
+      >
+        <div className="container mx-auto">
+          <div className="flex justify-between items-center">
+            <Link href="/home" className="flex items-center space-x-2">
+              <div className="font-bold flex items-center">
+                <img
+                  src={logoUrl}
+                  alt={"logo"}
+                  width={logoWidth}
+                  height={logoHight}
+                />
+              </div>
+            </Link>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
-  console.log(user, "user");
-
-  console.log(isAuthenticated, "isauth")
+  console.log('YuvaaHeader - Final State:', {
+    user: authContext.user,
+    isAuthenticated: authContext.isAuthenticated,
+    loading: authContext.loading,
+    mounted
+  });
 
   return (
     <header
@@ -125,14 +172,16 @@ const YuvaaHeader = ({
 
           {/* Auth Button */}
           <div className="hidden md:flex">
-            {isAuthenticated ? (
+            {authContext.isAuthenticated ? (
               <>
                 <div className="text-center font-medium">
-                  Hi, {user?.name || user?.email}
+                  Hi, {authContext.user?.firstName || authContext.user?.email}
                 </div>
                 <button
                   onClick={() => {
-                    // logout();
+                    if (authContext.logout) {
+                      authContext.logout();
+                    }
                     setMobileMenuOpen(false);
                   }}
                   className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600"
@@ -198,14 +247,16 @@ const YuvaaHeader = ({
                 Pricing
               </Link>
               <div className="pt-4 space-y-2">
-                {isAuthenticated ? (
+                {authContext.isAuthenticated ? (
                   <>
                     <div className="text-center font-medium">
-                      Hi, {user?.name || user?.email}
+                      Hi, {authContext.user?.firstName || authContext.user?.email}
                     </div>
                     <button
                       onClick={() => {
-                        // logout();
+                        if (authContext.logout) {
+                          authContext.logout();
+                        }
                         setMobileMenuOpen(false);
                       }}
                       className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600"
@@ -227,7 +278,6 @@ const YuvaaHeader = ({
                   </Link>
                 )}
               </div>
-
             </nav>
           </div>
         )}
