@@ -106,22 +106,21 @@ const YuvaaPricingCard = ({
           ))}
         </ul>
       </div>
-
-      <button
-        // onClick={handleNavigate}
-        style={
-          {
-            "--bg-color": buttonColor,
-            "--text-color": cardBackgroundColor,
-          } as React.CSSProperties
-        }
-        className={`w-full py-3 rounded-md ${!isUserSubscribed
-          ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
-          : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
-          }`}
-      >
-        {isUserSubscribed ? "Already Subscribed" : "Start Now"}
-      </button>
+      <Link href={`/subscriptions/?planid=${planId}`}>
+        <button
+          style={
+            {
+              "--bg-color": buttonColor,
+              "--text-color": cardBackgroundColor,
+            } as React.CSSProperties
+          }
+          className={`w-full py-3 rounded-md ${!isUserSubscribed
+              ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
+              : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+            }`}
+        >
+          {isUserSubscribed ? "Already Subscribed" : "Start Now"}
+        </button>
 
     </div>
   );

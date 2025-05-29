@@ -89,12 +89,13 @@ const createSubscriptionSequencesByPlanAndCommunityId = async (
       setIsLoading(false);
     }
   };
-const getSequencesById = async (subscriptionId: string, userId: string, courseId?:string) => {
+
+const getSequencesById = async (subscriptionId: string, planId: string, courseId?:string) => {
     setIsLoading(true);
     try {
       const response = await getSequencesBySubscriptionId(
         subscriptionId,
-        userId,
+        planId,
         courseId
       );
       // console.log("response", response);
@@ -115,7 +116,7 @@ const getSequencesById = async (subscriptionId: string, userId: string, courseId
     plans,
     getPlansList,
     getCommunityPlansList,
-    // getPlansById
+    getSequencesById,
     createSubscriptionSequencesByPlanAndCommunityId
 
   };

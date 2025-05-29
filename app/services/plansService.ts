@@ -55,7 +55,7 @@ export const getSequencesBySubscriptionId = async (
 ) => {
   try {
     const response = await axios.post(
-      `https://communn.io/api/v2.0//subscription/${subscriptionId}/user/${userId}/get-all-sequences`,
+      `https://communn.io/api/v2.0/subscription/${subscriptionId}/user/${userId}/get-all-sequences`,
       {
         courseId:courseId
       }
