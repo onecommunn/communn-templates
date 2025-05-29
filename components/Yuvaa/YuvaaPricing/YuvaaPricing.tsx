@@ -1,6 +1,8 @@
 import { Check } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import YuvaaPricingCard from "./YuvaaPricingCard";
+import { usePlans } from "@/app/hooks/usePlan";
+import { TrainingPlan } from "@/app/models/plan.model";
 
 interface Features {
   feature: string;
@@ -46,6 +48,42 @@ const YuvaaPricing = ({
   buttonColor,
   iconsColor,
 }: YuvaaPricingProps) => {
+
+
+
+  const { getPlansList } = usePlans();
+
+
+  const [plans, setPlans] = useState<TrainingPlan[]>([]);
+
+  const [community, setCommunity] = useState<string>('')
+
+  const communityId = '677e1c869f13316e61af6a6e';
+
+  console.log(plans, "plans");
+
+  console.log(community, 'communnity')
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await getPlansList(communityId);
+        if (Array.isArray(response)) {
+          setPlans(response);
+        } else if (response && Array.isArray(response.data)) {
+          setPlans(response.data as TrainingPlan[]);
+        } else {
+          setPlans([]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch plans:', error);
+      }
+    };
+
+    fetchPlans();
+  }, [getPlansList]);
+
+
   return (
     <main
       className="flex-grow bg-white text-black"

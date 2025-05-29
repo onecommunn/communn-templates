@@ -51,7 +51,7 @@ export async function getCommunityData(hostOrSubdomain: string): Promise<{ commu
         category: '',
         logo: '',
         banner: '',
-        description: 'No data found for this domain.',
+        description: '',
         directorMessage: '',
         fullAddress: '',
         phoneNumber: '',

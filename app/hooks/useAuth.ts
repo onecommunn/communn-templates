@@ -102,13 +102,13 @@ export const useAuth = () => {
   const fetchUserData = useCallback(async (token: string) => {
     try {
       if (!token) {
-        console.log('No token provided to fetchUserData');
+        // console.log('No token provided to fetchUserData');
         setLoading(false);
         return;
       }
 
       setLoading(true);
-      console.log('Fetching user data with token:', token);
+      // console.log('Fetching user data with token:', token);
 
       try {
         const userResponse = await axios.get<UserResponseData>(
@@ -121,7 +121,7 @@ export const useAuth = () => {
           }
         );
         
-        console.log('User response:', userResponse.data);
+        // console.log('User response:', userResponse.data);
 
         // Handle both cases: user data directly in response or nested under user property
         const userData = userResponse.data?.user || userResponse.data;
@@ -134,21 +134,21 @@ export const useAuth = () => {
           setIsAuthenticated(true);
           setAccessToken(token);
           
-          console.log('Auth state updated:', {
-            user: userWithoutToken,
-            isAuthenticated: true,
-            token
-          });
+          // console.log('Auth state updated:', {
+          //   user: userWithoutToken,
+          //   isAuthenticated: true,
+          //   token
+          // });
         } else {
           console.log('No user data in response:', userResponse.data);
           // Check if token is still valid
           try {
             const decoded: { exp: number } = jwtDecode(token);
             const remainingTime = decoded.exp - ((Date.now() / 1000) | 0);
-            console.log('Token expiration check:', {
-              remainingTime,
-              isExpired: remainingTime < 0
-            });
+            // console.log('Token expiration check:', {
+            //   remainingTime,
+            //   isExpired: remainingTime < 0
+            // });
             
             if (remainingTime < 0) {
               console.log('Token is expired, clearing auth state');
@@ -202,12 +202,12 @@ export const useAuth = () => {
       const remainingTime = decoded.exp - ((Date.now() / 1000) | 0);
       
       if (remainingTime < 100) {
-        console.log('Token expired, clearing interval');
+        // console.log('Token expired, clearing interval');
         clearInterval(intervalId.current);
         getNewToken();
       } else {
         if (!isAuthenticated || !user) {
-          console.log('Token valid but no user data, fetching user data');
+          // console.log('Token valid but no user data, fetching user data');
           await fetchUserData(token);
         }
       }
@@ -227,7 +227,7 @@ export const useAuth = () => {
   useEffect(() => {
     const initializeAuth = async () => {
       if (isInitialized.current) {
-        console.log('Auth already initialized');
+        // console.log('Auth already initialized');
         return;
       }
       
@@ -236,7 +236,7 @@ export const useAuth = () => {
         const params = new URLSearchParams(window.location.search);
         const token = params?.get('token') || localStorage.getItem('access-token');
 
-        console.log('Initializing auth with token:', token ? 'Token exists' : 'No token');
+        // console.log('Initializing auth with token:', token ? 'Token exists' : 'No token');
 
         if (token) {
           if (params.get('token')) {
