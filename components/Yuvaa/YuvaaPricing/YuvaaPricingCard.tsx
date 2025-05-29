@@ -92,7 +92,7 @@ const YuvaaPricingCard = ({
           ))}
         </ul>
       </div>
-      <Link href={`/subscriptions/${planId}`}>
+      <Link href={`/subscriptions/?planid=${planId}`}>
         <button
           style={
             {
