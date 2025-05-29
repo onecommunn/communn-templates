@@ -48,21 +48,24 @@ const YuvaaPricing = ({
   buttonColor,
   iconsColor,
 }: YuvaaPricingProps) => {
-
-
-
   const { getPlansList } = usePlans();
-
 
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
 
-  const [community, setCommunity] = useState<string>('')
+  const [community, setCommunity] = useState<string>("");
 
-  const communityId = '677e1c869f13316e61af6a6e';
+  const communityId = "677e1c869f13316e61af6a6e";
 
   console.log(plans, "plans");
 
-  console.log(community, 'communnity')
+  function capitalizeFirstLetter(str: string) {
+    if (!str) {
+      return ""; // Handle empty strings
+    }
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+
+  //console.log(community, 'communnity')
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -76,13 +79,12 @@ const YuvaaPricing = ({
           setPlans([]);
         }
       } catch (error) {
-        console.error('Failed to fetch plans:', error);
+        console.error("Failed to fetch plans:", error);
       }
     };
 
     fetchPlans();
   }, [getPlansList]);
-
 
   return (
     <main
@@ -112,29 +114,59 @@ const YuvaaPricing = ({
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 lg:px-20">
         <div className="container mx-auto">
-          {Array.isArray(pricingList) && pricingList.length > 0 ? (
+          {plans.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {pricingList.map((plan, index) => (
-                <YuvaaPricingCard
-                  key={index}
-                  title={plan.title}
-                  price={plan.price}
-                  period={plan.period}
-                  description={plan.description}
-                  features={plan.features}
-                  isPopular={plan.isPopular}
-                  cardBackgroundColor={cardBackgroundColor}
-                  cardPrimaryColor={cardPrimaryColor}
-                  cardSecondaryColors={cardSecondaryColors}
-                  buttonColor={buttonColor}
-                  iconsColor={iconsColor}
-                />
-              ))}
+              {plans.map((plan, index) => {
+                const features: Features[] = [
+                  {
+                    feature: `Duration: ${plan.interval} ${capitalizeFirstLetter(plan.duration)}`,
+                  },
+                  // {
+                  //   feature: `Starts on: ${new Date(plan.startDate).toDateString()}`,
+                  // },
+                  { feature: `Offer: ₹${plan.offerValue}` },
+                  {
+                    feature: plan.isUserSubscribed
+                      ? "Already Subscribed"
+                      : "Not Subscribed",
+                  },
+                  {
+                    feature: plan.isSequenceAvailable
+                      ? `Has ${plan.totalSequences} Sequences`
+                      : "No Sequences",
+                  },
+
+                  { feature: `Subscribers: ${plan.subscribers?.length || 0}` },
+                ];
+
+                console.log(features, "features");
+
+                return (
+                  <YuvaaPricingCard
+                    key={plan._id || index}
+                    title={plan.name}
+                    price={plan.pricing || `${plan.totalPlanValue}`}
+                    period={`${plan.interval} ${capitalizeFirstLetter(plan.duration)}`}
+                    description={plan.description || plan.summary}
+                    features={features}
+                    //isPopular={parseFloat(plan.pricing || "0") < 1000} // example logic
+                    cardBackgroundColor={cardBackgroundColor}
+                    cardPrimaryColor={cardPrimaryColor}
+                    cardSecondaryColors={cardSecondaryColors}
+                    buttonColor={buttonColor}
+                    iconsColor={iconsColor}
+                    isUserSubscribed={plan.isUserSubscribed}
+                  />
+                );
+              })}
             </div>
           ) : (
-            <p className="text-center text-gray-500 italic" style={{ color: descriptionColor }}>
+            <p
+              className="text-center text-gray-500 italic"
+              style={{ color: descriptionColor }}
+            >
               No pricing plans available at the moment.
             </p>
           )}

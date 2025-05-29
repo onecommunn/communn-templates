@@ -16,7 +16,8 @@ const YuvaaPricingCard = ({
   cardSecondaryColors,
   cardPrimaryColor,
   cardBackgroundColor,
-  iconsColor
+  iconsColor,
+  isUserSubscribed
 }: {
   title: string;
   price: string;
@@ -28,7 +29,8 @@ const YuvaaPricingCard = ({
   buttonColor: string;
   cardSecondaryColors: string;
   cardPrimaryColor: string;
-  iconsColor:string
+  iconsColor:string;
+  isUserSubscribed?: boolean;
 }) => {
   return (
     <div
@@ -45,7 +47,7 @@ const YuvaaPricingCard = ({
       )}
       <div>
         <h3
-          className="text-2xl font-bold mb-2"
+          className="text-2xl font-bold mb-2 capitalize"
           style={{ color: cardPrimaryColor }}
         >
           {title}
@@ -55,13 +57,13 @@ const YuvaaPricingCard = ({
             className="text-4xl font-bold"
             style={{ color: cardPrimaryColor }}
           >
-            {price}
+            ₹{price}
           </span>
           <span
-            className="text-gray-500 ml-1"
+            className="text-gray-500 ml-1 capitalize"
             style={{ color: cardSecondaryColors }}
           >
-            /{period}
+            / {period}
           </span>
         </div>
         <p
@@ -82,13 +84,13 @@ const YuvaaPricingCard = ({
 
       <button
         style={{ "--bg-color": buttonColor,"--text-color":cardBackgroundColor } as React.CSSProperties}
-        className={`w-full py-3 ${
-          isPopular
+        className={`w-full py-3 rounded-md ${
+          !isUserSubscribed
             ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
             : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
         }`}
       >
-        {isPopular ? "Start Now" : "Choose Plan"}
+        {isUserSubscribed ? "Already Subscribed" : "Start Now"}
       </button>
     </div>
   );
