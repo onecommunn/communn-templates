@@ -78,6 +78,7 @@ const YuvaaSubscriptions = () => {
   const planId = "67d3ecabad5e57b8d6aaef08";
   const communityId = "677e1c869f13316e61af6a6e";
 
+
   const searchParams = useSearchParams();
   const planId1 = searchParams.get("planid");
 
@@ -127,13 +128,21 @@ const YuvaaSubscriptions = () => {
 
   const totalAmount = selectedPayments.length * parseFloat(placePrice || "0");
 
-  const tabs = ["All", "Paid", "Unpaid"];
+  const tabs = ["All", "PAID", "NOT_PAID"];
 
   const selectAllUnpaid = () => {
     const unpaidIndexes = sequencesList
-      .map((item, index) => (item.status === "not paid" ? index : null))
+      .map((item, index) => (item.status === "Not Paid" ? index : null))
       .filter((index): index is number => index !== null);
     setSelectedPayments(unpaidIndexes);
+  };
+
+  const formatStatus = (status: string) => {
+    return status
+      .toLowerCase() // "not_paid"
+      .split("_") // ["not", "paid"]
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // ["Not", "Paid"]
+      .join(" "); // "Not Paid"
   };
 
   return (
@@ -198,12 +207,12 @@ const YuvaaSubscriptions = () => {
                         : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
                     }`}
                   >
-                    {tab}
+                    {formatStatus(tab)}
                   </button>
                 ))}
                 <button
                   onClick={selectAllUnpaid}
-                  className="ml-auto px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm"
+                  className="ml-auto px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm text-black"
                 >
                   Select All Unpaid
                 </button>
@@ -212,10 +221,8 @@ const YuvaaSubscriptions = () => {
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
                 {sequencesList.map((payment, index) => {
                   const isVisible =
-                    activeTab === "All" ||
-                    payment.status === activeTab.toLowerCase();
+                    activeTab === "All" || payment.previousStatus === activeTab;
                   if (!isVisible) return null;
-
                   return (
                     <PaymentScheduleItem
                       key={payment._id}
