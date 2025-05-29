@@ -173,8 +173,8 @@ const YuvaaHeader = ({
           {/* Auth Button */}
           <div className="hidden md:flex">
             {authContext.isAuthenticated ? (
-              <>
-                <div className="text-center font-medium">
+              <div className="flex items-center gap-4">
+                <div className="text-center font-medium min-w-fit">
                   Hi, {authContext.user?.firstName || authContext.user?.email}
                 </div>
                 <button
@@ -188,7 +188,7 @@ const YuvaaHeader = ({
                 >
                   Logout
                 </button>
-              </>
+              </div>
             ) : (
               <Link href="/auto-login" onClick={() => setMobileMenuOpen(false)}>
                 <button

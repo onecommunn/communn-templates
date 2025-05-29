@@ -82,6 +82,7 @@ import YuvaaFAQSection from "./components/Yuvaa/YuvaaPricing/YuvaaFAQSection";
 import YuvaaLogin from "./components/Yuvaa/YuvaaLogin/YuvaaLogin";
 import YuvaaSignup from "./components/Yuvaa/YuvaaSignup/YuvaaSignup";
 import AutoLogin from "./components/Yuvaa/YuvaaLogin/auto-login";
+import YuvaaSubscriptions from "./components/Yuvaa/YuvaaSubscriptions/YuvaaSubscriptions";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -4673,14 +4674,18 @@ Builder.registerComponent(YuvaaFAQSection, {
   ],
 });
 
-Builder.registerComponent(YuvaaLogin,{
-  name:"Yuvaa Login"
-})
+Builder.registerComponent(YuvaaLogin, {
+  name: "Yuvaa Login",
+});
 
-Builder.registerComponent(YuvaaSignup,{
-  name:"Yuvaa SignUp"
-})
+Builder.registerComponent(YuvaaSignup, {
+  name: "Yuvaa SignUp",
+});
 
-Builder.registerComponent(AutoLogin,{
-  name:"AutoLogin"
-})
+Builder.registerComponent(AutoLogin, {
+  name: "AutoLogin",
+});
+
+Builder.registerComponent(YuvaaSubscriptions, {
+  name: "Yuvaa Subscriptions",
+});

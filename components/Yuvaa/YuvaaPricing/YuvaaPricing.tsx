@@ -146,6 +146,7 @@ const YuvaaPricing = ({
                 return (
                   <YuvaaPricingCard
                     key={plan._id || index}
+                    planId={plan._id}
                     title={plan.name}
                     price={plan.pricing || `${plan.totalPlanValue}`}
                     period={`${plan.interval} ${capitalizeFirstLetter(plan.duration)}`}

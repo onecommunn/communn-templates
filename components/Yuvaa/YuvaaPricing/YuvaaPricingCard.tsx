@@ -1,4 +1,5 @@
 import { Check } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 interface Features {
@@ -17,7 +18,8 @@ const YuvaaPricingCard = ({
   cardPrimaryColor,
   cardBackgroundColor,
   iconsColor,
-  isUserSubscribed
+  isUserSubscribed,
+  planId
 }: {
   title: string;
   price: string;
@@ -29,18 +31,24 @@ const YuvaaPricingCard = ({
   buttonColor: string;
   cardSecondaryColors: string;
   cardPrimaryColor: string;
-  iconsColor:string;
+  iconsColor: string;
   isUserSubscribed?: boolean;
+  planId:string
 }) => {
   return (
     <div
       className={`bg-white rounded-lg flex flex-col justify-between shadow-lg p-8 border ${isPopular ? "border-[var(--border-color)]" : "border-transparent"} relative`}
-       style={{ "--border-color": buttonColor, } as React.CSSProperties}
+      style={{ "--border-color": buttonColor } as React.CSSProperties}
     >
       {isPopular && (
         <span
           className="absolute top-0 right-0 bg-[var(--bg-color)]  text-[var(--text-color)] text-xs font-bold px-3 py-1 transform translate-x-2 -translate-y-2 rounded-md"
-          style={{ "--bg-color": buttonColor,"--text-color":cardBackgroundColor } as React.CSSProperties}
+          style={
+            {
+              "--bg-color": buttonColor,
+              "--text-color": cardBackgroundColor,
+            } as React.CSSProperties
+          }
         >
           POPULAR
         </span>
@@ -75,23 +83,32 @@ const YuvaaPricingCard = ({
         <ul className="mb-8 space-y-3">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
-              <Check className="mr-2 h-5 w-5 text-[#20B2AA] flex-shrink-0 mt-0.5" style={{color:iconsColor}}/>
-              <span style={{color:cardPrimaryColor}}>{feature.feature}</span>
+              <Check
+                className="mr-2 h-5 w-5 text-[#20B2AA] flex-shrink-0 mt-0.5"
+                style={{ color: iconsColor }}
+              />
+              <span style={{ color: cardPrimaryColor }}>{feature.feature}</span>
             </li>
           ))}
         </ul>
       </div>
-
-      <button
-        style={{ "--bg-color": buttonColor,"--text-color":cardBackgroundColor } as React.CSSProperties}
-        className={`w-full py-3 rounded-md ${
-          !isUserSubscribed
-            ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
+      <Link href={`/subscriptions/${planId}`}>
+        <button
+          style={
+            {
+              "--bg-color": buttonColor,
+              "--text-color": cardBackgroundColor,
+            } as React.CSSProperties
+          }
+          className={`w-full py-3 rounded-md ${
+            !isUserSubscribed
+              ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
             : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
         }`}
       >
         {isUserSubscribed ? "Already Subscribed" : "Start Now"}
       </button>
+      </Link>
     </div>
   );
 };
