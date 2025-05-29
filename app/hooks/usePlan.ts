@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 // import store from "../store";
 // import { useSelector } from "react-redux";
 import { TrainingPlan } from "../models/plan.model";
-import { getPlansCommunity } from "../services/plansService";
+import { createSubscriptionSequences, getPlansCommunity, getSequencesBySubscriptionId } from "../services/plansService";
 // import { deletePost } from "../services/post.service";
 
 export const usePlans = () => {
@@ -65,12 +65,58 @@ export const usePlans = () => {
 //   };
 
 
+const createSubscriptionSequencesByPlanAndCommunityId = async (
+    userId:string,
+    communityId: string,
+    planId: string,
+  ) => {
+    setIsLoading(true);
+    try {
+      const response = await createSubscriptionSequences(
+        userId,
+        communityId,
+        planId,
+      );
+      // console.log("response", response);
+      return response;
+    } catch (err) {
+      enqueueSnackbar("Couldn't create Subscription", {
+        variant: 'error',
+        autoHideDuration: 3000,
+      });
+      return err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+const getSequencesById = async (subscriptionId: string, userId: string, courseId?:string) => {
+    setIsLoading(true);
+    try {
+      const response = await getSequencesBySubscriptionId(
+        subscriptionId,
+        userId,
+        courseId
+      );
+      // console.log("response", response);
+      return response;
+    } catch (err) {
+      enqueueSnackbar("Couldn't create Subscription", {
+        variant: 'error',
+        autoHideDuration: 3000,
+      });
+      return err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     isLoading,
     plans,
     getPlansList,
     getCommunityPlansList,
     // getPlansById
+    createSubscriptionSequencesByPlanAndCommunityId
 
   };
 };

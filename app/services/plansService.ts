@@ -24,3 +24,47 @@ export const getPlansCommunity = async (token: string, id: string) => {
     return { status: 500, data: [] };
   }
 };
+
+
+
+export const createSubscriptionSequences = async (
+  userId: string,
+  communityId: string,
+  planId: string,
+) => {
+  try {
+    const response = await axios.post(
+      `https://communn.io/api/v2.0/subscription/user/${userId}/create-fetch-subscription`,
+      {
+        communityId,
+        planId,
+      },
+    );
+    return response?.data;
+  } catch (err) {
+    
+    return { status: 500, data: [] };
+  }
+};
+
+
+export const getSequencesBySubscriptionId = async (
+  subscriptionId: string,
+  userId: string,
+  courseId?:string
+) => {
+  try {
+    const response = await axios.post(
+      `https://communn.io/api/v2.0//subscription/${subscriptionId}/user/${userId}/get-all-sequences`,
+      {
+        courseId:courseId
+      }
+    );
+    return response?.data;
+  } catch (err) {
+    
+    return { status: 500, data: [] };
+  }
+};
+
+
