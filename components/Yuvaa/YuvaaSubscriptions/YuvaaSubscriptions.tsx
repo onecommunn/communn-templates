@@ -23,26 +23,23 @@ const PaymentScheduleItem = ({
   return (
     <div
       onClick={() => !isDisabled && onSelect()}
-      className={`flex flex-col items-center space-y-2 cursor-pointer ${
-        isDisabled ? "opacity-50 cursor-not-allowed" : ""
-      }`}
+      className={`flex flex-col items-center space-y-2 cursor-pointer ${isDisabled ? "opacity-50 cursor-not-allowed" : ""
+        }`}
     >
       <div className="text-sm text-gray-600">{date}</div>
       <div
-        className={`w-24 md:w-28 h-10 rounded-2xl border-2 flex items-center justify-center text-sm font-medium ${
-          status === "paid"
-            ? "border-teal bg-teal text-white"
-            : isSelected
-              ? "border-blue-500 bg-blue-100 text-blue-700"
-              : "border-gray-300 bg-white text-gray-600"
-        }`}
+        className={`w-24 md:w-28 h-10 rounded-2xl border-2 flex items-center justify-center text-sm font-medium ${status === "paid"
+          ? "border-teal bg-teal text-white"
+          : isSelected
+            ? "border-blue-500 bg-blue-100 text-blue-700"
+            : "border-gray-300 bg-white text-gray-600"
+          }`}
       >
         ₹{amount}
       </div>
       <div
-        className={`text-xs ${
-          status === "paid" ? "text-teal" : "text-red-500"
-        }`}
+        className={`text-xs ${status === "paid" ? "text-teal" : "text-red-500"
+          }`}
       >
         {status === "paid" ? "Paid" : "Not Paid"}
       </div>
@@ -175,18 +172,17 @@ const YuvaaSubscriptions = () => {
                 <div className="font-medium">
                   {plan?.startDate
                     ? new Date(plan.startDate).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })
+                      day: "2-digit",
+                      month: "short",
+                      year: "numeric",
+                    })
                     : "N/A"}
                 </div>
               </div>
             </div>
             <ChevronDown
-              className={`w-5 h-5 text-gray-400 transform transition-transform ${
-                isExpanded ? "rotate-180" : ""
-              }`}
+              className={`w-5 h-5 text-gray-400 transform transition-transform ${isExpanded ? "rotate-180" : ""
+                }`}
             />
           </div>
 
@@ -201,11 +197,10 @@ const YuvaaSubscriptions = () => {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                      activeTab === tab
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === tab
                         ? "bg-blue-100 text-blue-700"
                         : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
-                    }`}
+                      }`}
                   >
                     {formatStatus(tab)}
                   </button>
@@ -229,13 +224,13 @@ const YuvaaSubscriptions = () => {
                       date={
                         payment?.startDate
                           ? new Date(payment.startDate).toLocaleDateString(
-                              "en-GB",
-                              {
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                              }
-                            )
+                            "en-GB",
+                            {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            }
+                          )
                           : "N/A"
                       }
                       amount={placePrice}
@@ -249,11 +244,10 @@ const YuvaaSubscriptions = () => {
 
               <div className="flex items-center justify-end mt-8 pt-4 border-t">
                 <button
-                  className={`px-6 py-2 rounded-md text-white ${
-                    totalAmount > 0
+                  className={`px-6 py-2 rounded-md text-white ${totalAmount > 0
                       ? "bg-[#FF6347] hover:bg-[#e54b30]"
                       : "bg-gray-300 cursor-not-allowed"
-                  }`}
+                    }`}
                   disabled={totalAmount === 0}
                 >
                   Pay ₹{totalAmount.toFixed(2)}

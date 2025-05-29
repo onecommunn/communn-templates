@@ -1,5 +1,8 @@
+'use client';
+
 import { Check } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 interface Features {
@@ -33,8 +36,19 @@ const YuvaaPricingCard = ({
   cardPrimaryColor: string;
   iconsColor: string;
   isUserSubscribed?: boolean;
-  planId:string
+  planId: string
 }) => {
+
+  // const router = useRouter()
+
+  // const handleNavigate = () => {
+  //   router.push({
+  //     pathname: '/subscriptions',
+  //     query: { planId },
+  //   })
+  // }
+
+
   return (
     <div
       className={`bg-white rounded-lg flex flex-col justify-between shadow-lg p-8 border ${isPopular ? "border-[var(--border-color)]" : "border-transparent"} relative`}
@@ -100,15 +114,14 @@ const YuvaaPricingCard = ({
               "--text-color": cardBackgroundColor,
             } as React.CSSProperties
           }
-          className={`w-full py-3 rounded-md ${
-            !isUserSubscribed
+          className={`w-full py-3 rounded-md ${!isUserSubscribed
               ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
-            : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
-        }`}
-      >
-        {isUserSubscribed ? "Already Subscribed" : "Start Now"}
-      </button>
-      </Link>
+              : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+            }`}
+        >
+          {isUserSubscribed ? "Already Subscribed" : "Start Now"}
+        </button>
+
     </div>
   );
 };

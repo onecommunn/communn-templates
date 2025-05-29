@@ -1,3 +1,6 @@
+'use client';
+
+
 import { Check } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import YuvaaPricingCard from "./YuvaaPricingCard";
@@ -48,6 +51,8 @@ const YuvaaPricing = ({
   buttonColor,
   iconsColor,
 }: YuvaaPricingProps) => {
+
+
   const { getPlansList } = usePlans();
 
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
@@ -56,7 +61,7 @@ const YuvaaPricing = ({
 
   const communityId = "677e1c869f13316e61af6a6e";
 
-  console.log(plans, "plans");
+  // console.log(plans, "plans");
 
   function capitalizeFirstLetter(str: string) {
     if (!str) {
