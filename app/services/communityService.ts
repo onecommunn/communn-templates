@@ -1,3 +1,5 @@
+
+
 import axios from 'axios';
 
 export type Community = {
@@ -32,7 +34,7 @@ export async function getCommunityData(hostOrSubdomain: string): Promise<{ commu
   if (isCustomDomain) {
     endpoint = `${DOMAIN_API_BASE}/${cleanedHost}`;
   } else {
-    const subdomain = cleanedHost.split('.')[0];
+    const subdomain = cleanedHost?.split('.')[0];
     endpoint = `${COMMUNITY_API_BASE}/by-subdomain/${subdomain}`;
   }
 

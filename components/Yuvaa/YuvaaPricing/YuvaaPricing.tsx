@@ -1,11 +1,12 @@
-'use client';
 
 
-import { Check } from "lucide-react";
-import React, { useEffect, useState } from "react";
+
+import React, { useContext, useEffect, useState } from "react";
 import YuvaaPricingCard from "./YuvaaPricingCard";
 import { usePlans } from "@/app/hooks/usePlan";
 import { TrainingPlan } from "@/app/models/plan.model";
+import { AuthContext } from "@/app/contexts/Auth.context";
+import { Community, getCommunityData } from "@/app/services/communityService";
 
 interface Features {
   feature: string;
@@ -34,9 +35,10 @@ interface YuvaaPricingProps {
   cardSecondaryColors: string;
   buttonColor: string;
   iconsColor: string;
+  // host: string;
 }
 
-const YuvaaPricing = ({
+const YuvaaPricing = async ({
   title,
   description,
   pricingList,
@@ -50,6 +52,8 @@ const YuvaaPricing = ({
   cardSecondaryColors,
   buttonColor,
   iconsColor,
+
+
 }: YuvaaPricingProps) => {
 
 
@@ -57,7 +61,28 @@ const YuvaaPricing = ({
 
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
 
-  const [community, setCommunity] = useState<string>("");
+
+
+
+  const [community, setCommunity] = useState<Community | null>(null);
+
+  // useEffect(() => {
+  //   const fetchCommunity = async () => {
+  //     try {
+  //       const { community } = await getCommunityData(host);
+  //       setCommunity(community);
+  //     } catch (error) {
+  //       console.error("Error fetching community:", error);
+  //     }
+  //   };
+
+  //   fetchCommunity();
+  // }, [host]);
+
+
+  console.log('🟡 Community response:', community);
+
+
 
   const communityId = "677e1c869f13316e61af6a6e";
 
@@ -90,6 +115,9 @@ const YuvaaPricing = ({
 
     fetchPlans();
   }, [getPlansList]);
+
+
+  const authContext = useContext(AuthContext);
 
   return (
     <main
@@ -146,7 +174,7 @@ const YuvaaPricing = ({
                   { feature: `Subscribers: ${plan.subscribers?.length || 0}` },
                 ];
 
-                console.log(features, "features");
+                // console.log(features, "features");
 
                 return (
                   <YuvaaPricingCard
@@ -164,6 +192,7 @@ const YuvaaPricing = ({
                     buttonColor={buttonColor}
                     iconsColor={iconsColor}
                     isUserSubscribed={plan.isUserSubscribed}
+                    communityId={plan?.community}
                   />
                 );
               })}

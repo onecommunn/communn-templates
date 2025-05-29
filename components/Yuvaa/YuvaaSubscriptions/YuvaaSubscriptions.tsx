@@ -1,9 +1,10 @@
 "use client";
 
+import { AuthContext } from "@/app/contexts/Auth.context";
 import { usePlans } from "@/app/hooks/usePlan";
 import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const PaymentScheduleItem = ({
   date,
@@ -71,34 +72,55 @@ const YuvaaSubscriptions = () => {
   const [sequencesList, setSequencesList] = useState<Sequences[]>([]);
   const [plan, setPlan] = useState<Plan>();
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  const planId = "67d3ecabad5e57b8d6aaef08";
-  const communityId = "677e1c869f13316e61af6a6e";
+  const authContext = useContext(AuthContext);
+  const userId = authContext?.user?.id;
+
+  console.log(authContext?.user?.id, "authContext")
+
+  useEffect(() => {
+  }, [authContext.user, authContext.isAuthenticated, authContext.loading, authContext?.user?.id]);
+
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  useEffect(() => {
+
+  }, [authContext])
 
   const searchParams = useSearchParams();
-  const planId1 = searchParams.get("planid");
+  const planId = searchParams.get("planid");
+  const communityId = searchParams.get("communityid");
 
-  const { createSubscriptionSequencesByPlanAndCommunityId, getSequencesById } =
-    usePlans();
+  const { createSubscriptionSequencesByPlanAndCommunityId, getSequencesById } = usePlans();
 
   const handleCreateSubscription = async () => {
+    if (!userId) {
+      console.warn("User ID not ready yet");
+      return;
+    }
     try {
       const response: any =
         await createSubscriptionSequencesByPlanAndCommunityId(
-          planId,
-          communityId,
-          planId
+          userId,
+          communityId || "",
+          planId || ""
         );
-      setPlan(response.subscription.plan);
-      setSubscriptionId(response.subscription._id);
+      setPlan(response?.subscription?.plan);
+      setSubscriptionId(response?.subscription?._id);
     } catch (error) {
       console.error("Error creating subscription:", error);
     }
   };
 
+
+
+
   const handlegetSequencesById = async () => {
     try {
-      const response: any = await getSequencesById(subscriptionId, planId);
+      const response: any = await getSequencesById(subscriptionId, userId);
       setPlacePrice(response?.pricing || "0");
       setSequencesList(response?.sequences || []);
     } catch (error) {
@@ -107,8 +129,17 @@ const YuvaaSubscriptions = () => {
   };
 
   useEffect(() => {
-    handleCreateSubscription();
-  }, []);
+    if (
+      authContext?.isAuthenticated &&
+      !authContext?.loading &&
+      userId &&
+      communityId &&
+      planId
+    ) {
+      handleCreateSubscription();
+    }
+  }, [userId, communityId, planId, authContext?.isAuthenticated, authContext?.loading]);
+
 
   useEffect(() => {
     if (subscriptionId) {
@@ -141,6 +172,7 @@ const YuvaaSubscriptions = () => {
             className="flex items-center justify-between p-6 cursor-pointer"
             onClick={() => setIsExpanded(!isExpanded)}
           >
+
             <div className="grid grid-cols-2 md:grid-cols-4 md:gap-8 flex-grow text-black">
               <div>
                 <div className="text-sm text-gray-500 mb-1">Plan Name</div>
@@ -149,20 +181,20 @@ const YuvaaSubscriptions = () => {
               <div>
                 <div className="text-sm text-gray-500 mb-1">Plan Type</div>
                 <div className="font-medium capitalize">
-                  {plan?.duration.toLowerCase()}
+                  {plan?.duration?.toLowerCase()}
                 </div>
               </div>
               <div>
                 <div className="text-sm text-gray-500 mb-1">Price</div>
                 <div className="font-medium capitalize">
-                  ₹{plan?.pricing} / {plan?.duration.toLowerCase()}
+                  ₹{plan?.pricing} / {plan?.duration?.toLowerCase()}
                 </div>
               </div>
               <div>
                 <div className="text-sm text-gray-500 mb-1">Start Date</div>
                 <div className="font-medium">
                   {plan?.startDate
-                    ? new Date(plan.startDate).toLocaleDateString("en-GB", {
+                    ? new Date(plan?.startDate).toLocaleDateString("en-GB", {
                       day: "2-digit",
                       month: "short",
                       year: "numeric",
@@ -189,8 +221,8 @@ const YuvaaSubscriptions = () => {
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === tab
-                        ? "bg-blue-100 text-blue-700"
-                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                      ? "bg-blue-100 text-blue-700"
+                      : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
                       }`}
                   >
                     {tab}
@@ -238,8 +270,8 @@ const YuvaaSubscriptions = () => {
               <div className="flex items-center justify-end mt-8 pt-4 border-t">
                 <button
                   className={`px-6 py-2 rounded-md text-white ${totalAmount > 0
-                      ? "bg-[#FF6347] hover:bg-[#e54b30]"
-                      : "bg-gray-300 cursor-not-allowed"
+                    ? "bg-[#FF6347] hover:bg-[#e54b30]"
+                    : "bg-gray-300 cursor-not-allowed"
                     }`}
                   disabled={totalAmount === 0}
                 >

@@ -29,11 +29,11 @@ const YuvaaHeader = ({
 
   // Log context value changes
   useEffect(() => {
-    console.log('YuvaaHeader - AuthContext Update:', {
-      user: authContext.user,
-      isAuthenticated: authContext.isAuthenticated,
-      loading: authContext.loading
-    });
+    // console.log('YuvaaHeader - AuthContext Update:', {
+    //   user: authContext.user,
+    //   isAuthenticated: authContext.isAuthenticated,
+    //   loading: authContext.loading
+    // });
   }, [authContext.user, authContext.isAuthenticated, authContext.loading]);
 
   useEffect(() => {
@@ -46,13 +46,13 @@ const YuvaaHeader = ({
 
   // Show a loading state until everything is ready
   if (!mounted || authContext.loading) {
-    console.log('YuvaaHeader - Loading State:', {
-      mounted,
-      loading: authContext.loading,
-      user: authContext.user ? 'User exists' : 'No user',
-      isAuthenticated: authContext.isAuthenticated
-    });
-    
+    // console.log('YuvaaHeader - Loading State:', {
+    //   mounted,
+    //   loading: authContext.loading,
+    //   user: authContext.user ? 'User exists' : 'No user',
+    //   isAuthenticated: authContext.isAuthenticated
+    // });
+
     return (
       <header
         className="py-4 px-4 lg:px-20 md:px-8 bg-white sticky top-0 z-50 shadow-sm text-black"
@@ -166,7 +166,7 @@ const YuvaaHeader = ({
              after:bg-[var(--hover-underline)]
              hover:text-[var(--hover-underline)]"
             >
-              Pricing
+              Plans
             </Link>
           </nav>
 
