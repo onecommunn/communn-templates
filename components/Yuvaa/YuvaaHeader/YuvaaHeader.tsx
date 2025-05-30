@@ -91,7 +91,7 @@ const YuvaaHeader = ({
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/home" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="font-bold flex items-center">
               <img
                 src={logoUrl}

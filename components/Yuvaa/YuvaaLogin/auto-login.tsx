@@ -29,7 +29,7 @@ export default function AutoLogin() {
     setLoader(false);
     if (response?.status === 200) {
       enqueueSnackbar('Login Success', { variant: 'success' });
-      router.push('/home');
+      router.push('/');
     } else if (response?.status === 404) {
       enqueueSnackbar('User Not Found', { variant: 'error' });
     } else {

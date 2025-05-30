@@ -3,7 +3,7 @@ import { AuthContext } from "@/app/contexts/Auth.context";
 import { ISubscribers } from "@/app/models/plan.model";
 import { Check } from "lucide-react";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 
 interface Features {
@@ -59,10 +59,21 @@ const YuvaaPricingCard = ({
 
   const authContext = useContext(AuthContext);
   const userId = authContext?.user?.id;
-
+  const [mounted, setMounted] = useState(false);
   // console.log(userId, "loggedInUserData");
 
   const isSubscribed = subscribers?.some(sub => sub._id === userId);
+
+
+
+  // Log context value changes
+  useEffect(() => {
+
+  }, [authContext.user, authContext.isAuthenticated, authContext.loading]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div
@@ -109,22 +120,43 @@ const YuvaaPricingCard = ({
           ))}
         </ul>
       </div>
-      <Link href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}>
-        <button
-          style={
-            {
-              "--bg-color": buttonColor,
-              "--text-color": cardBackgroundColor,
-            } as React.CSSProperties
-          }
-          className={`w-full py-3 rounded-md ${isSubscribed
-            ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
-            : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
-            }`}
-        >
-          {isSubscribed ? "Already Subscribed" : "Subscribe"}
-        </button>
-      </Link>
+
+
+      {authContext.isAuthenticated ? (
+        <Link href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}>
+          <button
+            style={
+              {
+                "--bg-color": buttonColor,
+                "--text-color": cardBackgroundColor,
+              } as React.CSSProperties
+            }
+            className={`w-full py-3 rounded-md ${isSubscribed
+              ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
+              : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+              }`}
+          >
+            {isSubscribed ? "Subscribed" : "Subscribe"}
+          </button>
+        </Link>
+      ) : (
+        <Link href="/auto-login">
+          <button
+            style={
+              {
+                "--bg-color": buttonColor,
+                "--text-color": cardBackgroundColor,
+              } as React.CSSProperties
+            }
+            className={`w-full py-3 rounded-md ${isSubscribed
+              ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
+              : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+              }`}
+          >
+            Subscribe
+          </button>
+        </Link>
+      )}
     </div>
   );
 };
