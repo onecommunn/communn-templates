@@ -17,7 +17,7 @@ export default async function DynamicPage() {
 
     const response = await getCommunityData(host);
 
-    console.log('🟡 Community response:', response);
+    // console.log('🟡 Community response:', response);
 
     const community: Community = response?.community;
 

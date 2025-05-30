@@ -1,10 +1,15 @@
 "use client";
 
 import { AuthContext } from "@/app/contexts/Auth.context";
+import { usePayment } from "@/app/hooks/usePayments";
 import { usePlans } from "@/app/hooks/usePlan";
+import { IPaymentList } from "@/app/models/payment.model";
+import { ISequences, ISubscribers } from "@/app/models/plan.model";
 import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
+
+
 
 const PaymentScheduleItem = ({
   date,
@@ -21,16 +26,16 @@ const PaymentScheduleItem = ({
 }) => {
   const isDisabled = status === "paid";
 
+
+
   return (
     <div
-
       onClick={() => !isDisabled && onSelect()}
       className={`flex flex-col items-center space-y-2 cursor-pointer ${isDisabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
     >
       <div className="text-sm text-gray-600">{date}</div>
       <div
-
         className={`w-24 md:w-28 h-10 rounded-2xl border-2 flex items-center justify-center text-sm font-medium ${status === "PAID"
           ? "border-green-600 text-green-600"
           : isSelected
@@ -65,6 +70,7 @@ interface Plan {
   pricing: string;
 }
 
+
 const YuvaaSubscriptions = () => {
   const [activeTab, setActiveTab] = useState("All");
   const [isExpanded, setIsExpanded] = useState(true);
@@ -75,9 +81,18 @@ const YuvaaSubscriptions = () => {
   const [plan, setPlan] = useState<Plan>();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [community, setCommunity] = useState('');
+  const [sequenceId, setSequenceId] = useState<string[]>([]);
+  const [payLoading, setPayLoading] = useState(false);
+  const [planId, setplanId] = useState('');
+  const [selectedAmounts, setSelectedAmounts] = useState<{ id: string; amount: number; startDate: string, courseAmount?: string }[]>([]);
+  const [subscriptions, setSubscriptions] = useState<ISubscribers>();
+  const [sequences, setSequences] = useState<ISequences[]>([]);
 
   const authContext = useContext(AuthContext);
   const userId = authContext?.user?.id;
+
+
 
   // console.log(authContext?.user?.id, "authContext")
 
@@ -94,7 +109,8 @@ const YuvaaSubscriptions = () => {
 
 
   const searchParams = useSearchParams();
-  const planId = searchParams.get("planid");
+  const planID = searchParams.get("planid");
+
   const communityId = searchParams.get("communityid");
 
   const { createSubscriptionSequencesByPlanAndCommunityId, getSequencesById } = usePlans();
@@ -109,7 +125,7 @@ const YuvaaSubscriptions = () => {
         await createSubscriptionSequencesByPlanAndCommunityId(
           userId,
           communityId || "",
-          planId || ""
+          planID || ""
         );
       setPlan(response?.subscription?.plan);
       setSubscriptionId(response?.subscription?._id);
@@ -117,9 +133,6 @@ const YuvaaSubscriptions = () => {
       console.error("Error creating subscription:", error);
     }
   };
-
-
-
 
   const handlegetSequencesById = async () => {
     try {
@@ -137,11 +150,11 @@ const YuvaaSubscriptions = () => {
       !authContext?.loading &&
       userId &&
       communityId &&
-      planId
+      planID
     ) {
       handleCreateSubscription();
     }
-  }, [userId, communityId, planId, authContext?.isAuthenticated, authContext?.loading]);
+  }, [userId, communityId, planID, authContext?.isAuthenticated, authContext?.loading]);
 
 
   useEffect(() => {
@@ -156,7 +169,7 @@ const YuvaaSubscriptions = () => {
     );
   };
 
-  const totalAmount = selectedPayments.length * parseFloat(placePrice || "0");
+  // const totalAmount = selectedPayments.length * parseFloat(placePrice || "0");
 
   const tabs = ["All", "PAID", "NOT_PAID"];
 
@@ -169,11 +182,139 @@ const YuvaaSubscriptions = () => {
 
   const formatStatus = (status: string) => {
     return status
-      .toLowerCase() // "not_paid"
-      .split("_") // ["not", "paid"]
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // ["Not", "Paid"]
-      .join(" "); // "Not Paid"
+      .toLowerCase()
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   };
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [timer, setTimer] = useState(5);
+  const [failureOpen, setFailureOpen] = useState(false);
+  const [transaction, setTransaction] = useState<IPaymentList>();
+
+
+
+  const {
+    initiatePaymentByIds,
+    getPaymentStatusById,
+    updateSequencesPaymentStatus,
+  } = usePayment();
+
+  enum PaymentStatus {
+    SUCCESS = 'SUCCESS',
+    PENDING = 'PENDING',
+    FAILED = 'FAILED',
+    USERCANCELLED = 'USERCANCELLED',
+  }
+
+
+
+  const paymentResponse = async (response: any, selectedSequences: any) => {
+    try {
+      console.log('💬 FULL PAYMENT RESPONSE:', response);
+
+      const tnxId = response?.transactionId;
+      const transaction = response?.transaction as IPaymentList;
+      if (transaction) {
+        setTransaction(transaction);
+      }
+      if (response?.url) {
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const width = Math.min(1000, screenWidth);
+        const height = Math.min(1000, screenHeight);
+        const left = (screenWidth - width) / 2;
+        const top = (screenHeight - height) / 2;
+
+        const windowRef = window.open(
+          response.url,
+          `addressbar=no,directories=no,titlebar=no,toolbar=no,location=0,status=no,menubar=no,scrollbars=no,resizable=no, width=${width},height=${height},left=${left},top=${top}`
+        );
+
+        const intervalRef = setInterval(async () => {
+          const paymentStatus = await getPaymentStatusById(tnxId);
+          if (paymentStatus && paymentStatus.length > 0) {
+            clearInterval(intervalRef);
+            windowRef?.close();
+            if (paymentStatus[0]?.status === PaymentStatus.SUCCESS) {
+              await updateSequencesPaymentStatus(
+                communityId || "",
+                selectedSequences
+              );
+              // setSuccessOpen(true);
+            } else {
+              // setFailureOpen(true);
+            }
+          }
+        }, 1000);
+      } else {
+        console.error('Payment URL not provided in response');
+      }
+    } catch (error) {
+      console.error('An error occurred in paymentResponse:', error);
+    }
+  };
+
+  const handleClickPay = async (communityId: string, planId: string,) => {
+
+    try {
+      setPayLoading(true);
+      setCommunity(communityId);
+      setplanId(planId);
+      const amount = totalAmount.toString();
+      const response = await initiatePaymentByIds(
+        userId,
+        planId,
+        sequenceId,
+        amount,
+      );
+      const sequenceIds = selectedAmounts
+        ?.filter((item: any) => item?.id)
+        .map((item: any) => item.id);
+      paymentResponse(response, sequenceIds);
+      console.log("🚀 handleClickPay triggered");
+      console.log({ userId, planId, sequenceId, amount: totalAmount });
+    } catch (error) {
+      console.error('Payment failed:', error);
+    } finally {
+      setPayLoading(false);
+    }
+  };
+
+
+  const handleSelectAmount = (
+    id: string,
+    amount: number,
+    startDate: string,
+  ) => {
+    setSelectedAmounts((prev) => {
+      if (prev.some((item) => item.id === id)) {
+        const updatedAmounts = prev.filter((item) => item.id !== id);
+        const sequenceIds = updatedAmounts.map((item) => item.id);
+        setSequenceId(sequenceIds);
+        // setErrorMessage(null);
+        return updatedAmounts;
+      } else if (prev.length < 10) {
+        const updatedAmounts = [...prev, { id, amount, startDate }];
+        const sequenceIds = updatedAmounts.map((item) => item.id);
+        setSequenceId(sequenceIds);
+        // setErrorMessage(null);
+        return updatedAmounts;
+      }
+      // enqueueSnackbar('You can select a maximum of 10 items.', {
+      //   variant: 'error',
+      // });
+      return prev;
+    });
+  };
+
+
+
+  const totalAmount = selectedAmounts.reduce(
+    (acc, curr) => acc + curr.amount + (Number(subscriptions?.courseAmount) || 0),
+    0
+  );
+
 
   return (
     <main className="flex-grow bg-white">
@@ -270,7 +411,8 @@ const YuvaaSubscriptions = () => {
                       amount={placePrice}
                       status={payment.status}
                       isSelected={selectedPayments.includes(index)}
-                      onSelect={() => toggleSelectPayment(index)}
+                      // onSelect={() => toggleSelectPayment(index)}
+                      onSelect={() => handleSelectAmount(payment._id, 1, payment?.startDate)}
                     />
                   );
                 })}
@@ -278,11 +420,14 @@ const YuvaaSubscriptions = () => {
 
               <div className="flex items-center justify-end mt-8 pt-4 border-t">
                 <button
-                  className={`px-6 py-2 rounded-md text-white ${totalAmount > 0
-                    ? "bg-[#FF6347] hover:bg-[#e54b30]"
-                    : "bg-gray-300 cursor-not-allowed"
+                  className={`px-6 py-2 rounded-md text-white 
+                    ${totalAmount > 0
+                      ? "bg-[#FF6347] hover:bg-[#e54b30]"
+                      : "bg-gray-300 cursor-not-allowed"
                     }`}
                   disabled={totalAmount === 0}
+                  onClick={() => handleClickPay(communityId || "", planID || "")
+                  }
                 >
                   Pay ₹{totalAmount.toFixed(2)}
                 </button>

@@ -1,3 +1,6 @@
+import { ICommunity } from "./community.model";
+import { IUserInfo } from "./user.model";
+
 export interface Subscriber {
   _id: string;
   firstName: string;
@@ -45,4 +48,30 @@ export interface TrainingPlan {
   initialPayment: string;
   isUserSubscribed: boolean;
   nextDueDate: string; // ISO string
+}
+
+
+export interface ISequences {
+    previousStatus:string;
+    startDate: string;
+    status: string;
+    _id: string;
+}
+
+
+export interface ISubscribers {
+    _id: string;
+    community: ICommunity;
+    createdAt: string;
+    plan: TrainingPlan;
+    initialPayment:string,
+    pricing:string,
+    isInitialPaymentPaid:boolean,
+    sequences: ISequences[];
+    status: string;
+    user: IUserInfo;
+    startDate: string;
+    subscription_status: string;
+    courseAmount:string
+
 }

@@ -9,15 +9,7 @@ type PlansCommunityResponse = {
 
 export const getPlansCommunity = async (token: string, id: string) => {
   try {
-    const response = await axios.get<PlansCommunityResponse>(`https://communn.io/api/v1/plans/community/${id}/user`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    // Optional: Log the response for debugging
-    // console.log(response, "response");
+    const response = await axios.get<PlansCommunityResponse>(`https://communn.io/api/v2.0/builders/community/${id}/user-plan`, {});
     return response?.data?.myPlans;
   } catch (err) {
     console.error('Error fetching plans:', err);

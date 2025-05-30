@@ -76,12 +76,12 @@ const YuvaaHeader = ({
     );
   }
 
-  console.log('YuvaaHeader - Final State:', {
-    user: authContext.user,
-    isAuthenticated: authContext.isAuthenticated,
-    loading: authContext.loading,
-    mounted
-  });
+  // console.log('YuvaaHeader - Final State:', {
+  //   user: authContext.user,
+  //   isAuthenticated: authContext.isAuthenticated,
+  //   loading: authContext.loading,
+  //   mounted
+  // });
 
   return (
     <header
