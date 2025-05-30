@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "@/app/contexts/Auth.context";
+import { logoutService } from "@/app/services/logoutService";
 
 const YuvaaHeader = ({
   logoUrl,
@@ -82,6 +83,18 @@ const YuvaaHeader = ({
   //   loading: authContext.loading,
   //   mounted
   // });
+
+
+  const handleLogout = async () => {
+    const success = await logoutService();
+    if (success) {
+      localStorage.removeItem('access-token');
+      localStorage.removeItem('refresh-token');
+      window.location.reload();
+    } else {
+      console.error('Logout failed, unable to navigate to login.');
+    }
+  };
 
   return (
     <header
@@ -170,7 +183,6 @@ const YuvaaHeader = ({
             </Link>
           </nav>
 
-          {/* Auth Button */}
           <div className="hidden md:flex">
             {authContext.isAuthenticated ? (
               <div className="flex items-center gap-4">
@@ -179,15 +191,17 @@ const YuvaaHeader = ({
                 </div>
                 <button
                   onClick={() => {
-                    if (authContext.logout) {
-                      authContext.logout();
+                    const confirmLogout = window.confirm("Are you sure you want to logout?");
+                    if (confirmLogout) {
+                      handleLogout();
+                      setMobileMenuOpen(false);
                     }
-                    setMobileMenuOpen(false);
                   }}
                   className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600"
                 >
                   Logout
                 </button>
+
               </div>
             ) : (
               <Link href="/auto-login" onClick={() => setMobileMenuOpen(false)}>
