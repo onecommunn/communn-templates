@@ -1,12 +1,11 @@
+'use client';
 
 
-
-import React, { useContext, useEffect, useState } from "react";
+import { Check } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import YuvaaPricingCard from "./YuvaaPricingCard";
 import { usePlans } from "@/app/hooks/usePlan";
 import { TrainingPlan } from "@/app/models/plan.model";
-import { AuthContext } from "@/app/contexts/Auth.context";
-import { Community, getCommunityData } from "@/app/services/communityService";
 
 interface Features {
   feature: string;
@@ -35,10 +34,9 @@ interface YuvaaPricingProps {
   cardSecondaryColors: string;
   buttonColor: string;
   iconsColor: string;
-  // host: string;
 }
 
-const YuvaaPricing = async ({
+const YuvaaPricing = ({
   title,
   description,
   pricingList,
@@ -52,8 +50,6 @@ const YuvaaPricing = async ({
   cardSecondaryColors,
   buttonColor,
   iconsColor,
-
-
 }: YuvaaPricingProps) => {
 
 
@@ -61,28 +57,7 @@ const YuvaaPricing = async ({
 
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
 
-
-
-
-  const [community, setCommunity] = useState<Community | null>(null);
-
-  // useEffect(() => {
-  //   const fetchCommunity = async () => {
-  //     try {
-  //       const { community } = await getCommunityData(host);
-  //       setCommunity(community);
-  //     } catch (error) {
-  //       console.error("Error fetching community:", error);
-  //     }
-  //   };
-
-  //   fetchCommunity();
-  // }, [host]);
-
-
-  console.log('🟡 Community response:', community);
-
-
+  const [community, setCommunity] = useState<string>("");
 
   const communityId = "677e1c869f13316e61af6a6e";
 
@@ -115,9 +90,6 @@ const YuvaaPricing = async ({
 
     fetchPlans();
   }, [getPlansList]);
-
-
-  const authContext = useContext(AuthContext);
 
   return (
     <main
