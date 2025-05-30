@@ -23,14 +23,16 @@ const PaymentScheduleItem = ({
 
   return (
     <div
+
       onClick={() => !isDisabled && onSelect()}
       className={`flex flex-col items-center space-y-2 cursor-pointer ${isDisabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
     >
       <div className="text-sm text-gray-600">{date}</div>
       <div
-        className={`w-24 md:w-28 h-10 rounded-2xl border-2 flex items-center justify-center text-sm font-medium ${status === "paid"
-          ? "border-teal bg-teal text-white"
+
+        className={`w-24 md:w-28 h-10 rounded-2xl border-2 flex items-center justify-center text-sm font-medium ${status === "PAID"
+          ? "border-green-600 text-green-600"
           : isSelected
             ? "border-blue-500 bg-blue-100 text-blue-700"
             : "border-gray-300 bg-white text-gray-600"
@@ -39,10 +41,10 @@ const PaymentScheduleItem = ({
         ₹{amount}
       </div>
       <div
-        className={`text-xs ${status === "paid" ? "text-teal" : "text-red-500"
+        className={`text-xs ${status === "PAID" ? "text-green-600" : "text-red-500"
           }`}
       >
-        {status === "paid" ? "Paid" : "Not Paid"}
+        {status === "PAID" ? "Paid" : "Not Paid"}
       </div>
     </div>
   );
