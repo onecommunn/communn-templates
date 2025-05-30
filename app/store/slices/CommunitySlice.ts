@@ -1,5 +1,6 @@
+import { ICommunity } from '@/app/models/community.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICommunity } from '../../models/communities.modal';
+
 
 interface ICommunityState {
   logo: any;
