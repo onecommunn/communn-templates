@@ -77,7 +77,7 @@ const YuvaaSubscriptions = () => {
   const authContext = useContext(AuthContext);
   const userId = authContext?.user?.id;
 
-  console.log(authContext?.user?.id, "authContext")
+  // console.log(authContext?.user?.id, "authContext")
 
   useEffect(() => {
   }, [authContext.user, authContext.isAuthenticated, authContext.loading, authContext?.user?.id]);

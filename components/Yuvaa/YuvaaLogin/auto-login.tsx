@@ -25,7 +25,7 @@ export default function AutoLogin() {
       return;
     }
     setLoader(true);
-    const response = await authContext.autoLogin('', emailId, null);
+    const response: any = await authContext.autoLogin('', emailId, null);
     setLoader(false);
     if (response?.status === 200) {
       enqueueSnackbar('Login Success', { variant: 'success' });
