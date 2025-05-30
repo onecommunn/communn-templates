@@ -7,6 +7,22 @@ type PlansCommunityResponse = {
   [key: string]: any;
 };
 
+export const getPlansCommunityAuth = async (token: string, id: string) => {
+  try {
+    const response = await axios.get<PlansCommunityResponse>(`https://communn.io/api/v1/plans/community/${id}/user`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response?.data?.myPlans;
+  } catch (err) {
+    console.error('Error fetching plans:', err);
+    return { status: 500, data: [] };
+  }
+};
+
+
 export const getPlansCommunity = async (token: string, id: string) => {
   try {
     const response = await axios.get<PlansCommunityResponse>(`https://communn.io/api/v2.0/builders/community/${id}/user-plan`, {});
@@ -16,7 +32,6 @@ export const getPlansCommunity = async (token: string, id: string) => {
     return { status: 500, data: [] };
   }
 };
-
 
 
 export const createSubscriptionSequences = async (

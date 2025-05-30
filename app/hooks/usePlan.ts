@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 // import store from "../store";
 // import { useSelector } from "react-redux";
 import { TrainingPlan } from "../models/plan.model";
-import { createSubscriptionSequences, getPlansCommunity, getSequencesBySubscriptionId } from "../services/plansService";
+import { createSubscriptionSequences, getPlansCommunity, getPlansCommunityAuth, getSequencesBySubscriptionId } from "../services/plansService";
 // import { deletePost } from "../services/post.service";
 
 export const usePlans = () => {
@@ -26,10 +26,10 @@ export const usePlans = () => {
 
 
 
-  const getCommunityPlansList = async (id: string) => {
+  const getCommunityPlansListAuth = async (id: string) => {
     try {
       setIsLoading(true);
-      const response = await getPlansCommunity(getAccessToken(), id);
+      const response = await getPlansCommunityAuth(getAccessToken(), id);
       return response;
     } catch (error) {
       console.error("Error fetching community plans:", error);
@@ -115,9 +115,8 @@ const getSequencesById = async (subscriptionId: string, planId: string, courseId
     isLoading,
     plans,
     getPlansList,
-    getCommunityPlansList,
+    getCommunityPlansListAuth,
     getSequencesById,
-    createSubscriptionSequencesByPlanAndCommunityId
-
+    createSubscriptionSequencesByPlanAndCommunityId,
   };
 };

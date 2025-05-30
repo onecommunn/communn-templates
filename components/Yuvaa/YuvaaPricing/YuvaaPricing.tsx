@@ -2,10 +2,11 @@
 
 
 import { Check } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import YuvaaPricingCard from "./YuvaaPricingCard";
 import { usePlans } from "@/app/hooks/usePlan";
 import { TrainingPlan } from "@/app/models/plan.model";
+import { AuthContext } from "@/app/contexts/Auth.context";
 
 interface Features {
   feature: string;
@@ -18,6 +19,7 @@ interface PricingListProps {
   description: string;
   features: Features[];
   isPopular?: boolean;
+  nextDueDate: string
 }
 
 interface YuvaaPricingProps {
@@ -53,13 +55,17 @@ const YuvaaPricing = ({
 }: YuvaaPricingProps) => {
 
 
-  const { getPlansList } = usePlans();
+  const { getPlansList, getCommunityPlansListAuth } = usePlans();
 
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
 
   const [community, setCommunity] = useState<string>("");
 
   const communityId = "677e1c869f13316e61af6a6e";
+
+
+  const authContext = useContext(AuthContext);
+  const isAuthenticated = authContext?.isAuthenticated;
 
   // console.log(plans, "plans");
 
@@ -75,10 +81,17 @@ const YuvaaPricing = ({
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await getPlansList(communityId);
+        let response;
+
+        if (isAuthenticated) {
+          response = await getCommunityPlansListAuth(communityId);
+        } else {
+          response = await getPlansList(communityId);
+        }
+
         if (Array.isArray(response)) {
           setPlans(response);
-        } else if (response && Array.isArray(response.data)) {
+        } else if (response?.data && Array.isArray(response.data)) {
           setPlans(response.data as TrainingPlan[]);
         } else {
           setPlans([]);
@@ -89,7 +102,10 @@ const YuvaaPricing = ({
     };
 
     fetchPlans();
-  }, [getPlansList]);
+  }, [communityId, isAuthenticated, getPlansList, getCommunityPlansListAuth]);
+
+
+
 
   return (
     <main
@@ -131,14 +147,25 @@ const YuvaaPricing = ({
                   // {
                   //   feature: `Starts on: ${new Date(plan.startDate).toDateString()}`,
                   // },
-                  { feature: `Offer: ₹${plan.pricing}` },
-                  {
-                    feature: plan.isSequenceAvailable
-                      ? `Has ${plan.totalSequences} Sequences`
-                      : "No Sequences",
-                  },
+                  // { feature: `Offer: ₹${plan.pricing}` },
+                  // {
+                  //   feature: plan.isSequenceAvailable
+                  //     ? `Has ${plan.totalSequences} Sequences`
+                  //     : "No Sequences",
+                  // },
 
                   { feature: `Subscribers: ${plan.subscribers?.length || 0}` },
+
+                  { feature: `Next Due: ${plan?.nextDueDate ? plan.nextDueDate : 'No Dues'}` },
+                  {
+                    feature: `Status: ${!plan?.nextDueDate
+                      ? 'Not Subscribed'
+                      : new Date(plan.nextDueDate) >= new Date()
+                        ? 'Active'
+                        : 'Expired'
+                      }`
+                  }
+
                 ];
 
                 // console.log(features, "features");
@@ -160,6 +187,7 @@ const YuvaaPricing = ({
                     isUserSubscribed={plan.isUserSubscribed}
                     communityId={plan?.community}
                     subscribers={plan?.subscribers}
+                    nextDueDate={plan?.nextDueDate}
                   />
                 );
               })}

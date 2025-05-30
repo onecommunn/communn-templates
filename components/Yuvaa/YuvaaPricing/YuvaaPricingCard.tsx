@@ -25,7 +25,8 @@ const YuvaaPricingCard = ({
   isUserSubscribed,
   planId,
   communityId,
-  subscribers
+  subscribers,
+  nextDueDate
 }: {
   title: string;
   price: string;
@@ -42,6 +43,7 @@ const YuvaaPricingCard = ({
   planId: string;
   communityId: string
   subscribers: { _id: string }[];
+  nextDueDate: string,
 }) => {
 
   // const router = useRouter()
@@ -101,6 +103,7 @@ const YuvaaPricingCard = ({
           >
             / {period}
           </span>
+
         </div>
         <p
           className="text-gray-600 mb-6"
