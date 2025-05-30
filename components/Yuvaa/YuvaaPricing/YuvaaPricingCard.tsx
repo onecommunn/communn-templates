@@ -1,7 +1,10 @@
 
+import { AuthContext } from "@/app/contexts/Auth.context";
+import { ISubscribers } from "@/app/models/plan.model";
 import { Check } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
+import { useSelector } from 'react-redux';
 
 interface Features {
   feature: string;
@@ -22,6 +25,7 @@ const YuvaaPricingCard = ({
   isUserSubscribed,
   planId,
   communityId,
+  subscribers
 }: {
   title: string;
   price: string;
@@ -37,6 +41,7 @@ const YuvaaPricingCard = ({
   isUserSubscribed?: boolean;
   planId: string;
   communityId: string
+  subscribers: { _id: string }[];
 }) => {
 
   // const router = useRouter()
@@ -48,31 +53,29 @@ const YuvaaPricingCard = ({
   //   })
   // }
 
+  // const loggedInUserData = useSelector((state: any) => state?.loggedInUser);
+  // const userId = loggedInUserData?.user?.id
+  // console.log(userId, "loggedInUserData");
+
+  const authContext = useContext(AuthContext);
+  const userId = authContext?.user?.id;
+
+  // console.log(userId, "loggedInUserData");
+
+  const isSubscribed = subscribers?.some(sub => sub._id === userId);
 
   return (
     <div
       className={`bg-white rounded-lg flex flex-col justify-between shadow-lg p-8 border ${isPopular ? "border-[var(--border-color)]" : "border-transparent"} relative`}
       style={{ "--border-color": buttonColor } as React.CSSProperties}
     >
-      {isPopular && (
-        <span
-          className="absolute top-0 right-0 bg-[var(--bg-color)]  text-[var(--text-color)] text-xs font-bold px-3 py-1 transform translate-x-2 -translate-y-2 rounded-md"
-          style={
-            {
-              "--bg-color": buttonColor,
-              "--text-color": cardBackgroundColor,
-            } as React.CSSProperties
-          }
-        >
-          POPULAR
-        </span>
-      )}
+
       <div>
         <h3
           className="text-2xl font-bold mb-2 capitalize"
           style={{ color: cardPrimaryColor }}
         >
-          {title}
+          {title.length > 25 ? description?.slice(0, 25) + "..." : title}
         </h3>
         <div className="flex items-end mb-4">
           <span
@@ -92,7 +95,7 @@ const YuvaaPricingCard = ({
           className="text-gray-600 mb-6"
           style={{ color: cardSecondaryColors }}
         >
-          {description}
+          {description.length > 100 ? description?.slice(0, 100) + "..." : description}
         </p>
         <ul className="mb-8 space-y-3">
           {features.map((feature, index) => (
@@ -114,12 +117,12 @@ const YuvaaPricingCard = ({
               "--text-color": cardBackgroundColor,
             } as React.CSSProperties
           }
-          className={`w-full py-3 rounded-md ${!isUserSubscribed
+          className={`w-full py-3 rounded-md ${isSubscribed
             ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
             : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
             }`}
         >
-          {isUserSubscribed ? "Already Subscribed" : "Start Now"}
+          {isSubscribed ? "Already Subscribed" : "Subscribe"}
         </button>
       </Link>
     </div>

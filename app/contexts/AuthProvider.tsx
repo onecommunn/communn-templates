@@ -29,11 +29,11 @@ const AuthProvider = ({ children }: any) => {
 
   // Log only when values actually change
   useEffect(() => {
-    console.log('AuthProvider State Update:', {
-      loading,
-      user: user ? 'User exists' : 'No user',
-      isAuthenticated
-    });
+    // console.log('AuthProvider State Update:', {
+    //   loading,
+    //   user: user ? 'User exists' : 'No user',
+    //   isAuthenticated
+    // });
   }, [loading, user, isAuthenticated]);
 
   return (

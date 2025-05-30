@@ -28,7 +28,7 @@ const PaymentScheduleItem = ({
 }) => {
   const isDisabled = status === "paid";
 
-  console.log(isSelected, "isSelected")
+  // console.log(isSelected, "isSelected")
 
   return (
     <div

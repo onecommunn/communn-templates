@@ -33,14 +33,14 @@ const YuvaaHeroSection = ({
     setEmail("");
   };
   return (
-    <section className="py-12 md:py-20 px-4 lg:px-20 text-black" style={{backgroundColor:backgroundColor}}>
+    <section className="py-12 md:py-20 px-4 lg:px-20 text-black" style={{ backgroundColor: backgroundColor }}>
       <div className="container mx-auto ">
         <div className="flex flex-col md:flex-row items-center justify-between gap-14">
           <div className="md:w-1/2 mb-8 md:mb-0">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4" style={{color:titleTextColor}}>
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4" style={{ color: titleTextColor }}>
               {titleText}
             </h1>
-            <p className="text-gray-600 mb-8 max-w-lg" style={{color:descriptionColor}}>
+            <p className="text-gray-600 mb-8 max-w-lg" style={{ color: descriptionColor }}>
               {description}
             </p>
 
@@ -48,7 +48,7 @@ const YuvaaHeroSection = ({
               onSubmit={handleSubmit}
               className="flex flex-col sm:flex-row gap-3"
             >
-              <input
+              {/* <input
                 type="email"
                 placeholder={inputPlaceholderText}
                 value={email}
@@ -63,7 +63,7 @@ const YuvaaHeroSection = ({
                 style={{backgroundColor:buttonBackgroundColor,color:buttonTextColor}}
               >
                 {buttonText}
-              </button>
+              </button> */}
             </form>
           </div>
 
@@ -74,8 +74,8 @@ const YuvaaHeroSection = ({
               className="w-full rounded-3xl shadow-lg"
             />
             {/* Animated circles */}
-            <div className="absolute -top-8 -right-8 w-12 h-12 rounded-full opacity-70" style={{backgroundColor:buttonBackgroundColor}}></div>
-            <div className="absolute -left-6 bottom-1/3 w-8 h-8 rounded-full opacity-70" style={{backgroundColor:buttonBackgroundColor}}></div>
+            <div className="absolute -top-8 -right-8 w-12 h-12 rounded-full opacity-70" style={{ backgroundColor: buttonBackgroundColor }}></div>
+            <div className="absolute -left-6 bottom-1/3 w-8 h-8 rounded-full opacity-70" style={{ backgroundColor: buttonBackgroundColor }}></div>
           </div>
         </div>
       </div>

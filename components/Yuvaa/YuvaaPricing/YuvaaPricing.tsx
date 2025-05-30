@@ -23,7 +23,7 @@ interface PricingListProps {
 interface YuvaaPricingProps {
   title: string;
   description: string;
-  pricingList?: PricingListProps[]; // made optional
+  pricingList?: PricingListProps[];
   backgroundColor: string;
   heroBackgroundColor: string;
   titleColor: string;
@@ -131,12 +131,7 @@ const YuvaaPricing = ({
                   // {
                   //   feature: `Starts on: ${new Date(plan.startDate).toDateString()}`,
                   // },
-                  { feature: `Offer: ₹${plan.offerValue}` },
-                  {
-                    feature: plan.isUserSubscribed
-                      ? "Already Subscribed"
-                      : "Not Subscribed",
-                  },
+                  { feature: `Offer: ₹${plan.pricing}` },
                   {
                     feature: plan.isSequenceAvailable
                       ? `Has ${plan.totalSequences} Sequences`
@@ -157,7 +152,6 @@ const YuvaaPricing = ({
                     period={`${plan.interval} ${capitalizeFirstLetter(plan.duration)}`}
                     description={plan.description || plan.summary}
                     features={features}
-                    //isPopular={parseFloat(plan.pricing || "0") < 1000} // example logic
                     cardBackgroundColor={cardBackgroundColor}
                     cardPrimaryColor={cardPrimaryColor}
                     cardSecondaryColors={cardSecondaryColors}
@@ -165,6 +159,7 @@ const YuvaaPricing = ({
                     iconsColor={iconsColor}
                     isUserSubscribed={plan.isUserSubscribed}
                     communityId={plan?.community}
+                    subscribers={plan?.subscribers}
                   />
                 );
               })}
