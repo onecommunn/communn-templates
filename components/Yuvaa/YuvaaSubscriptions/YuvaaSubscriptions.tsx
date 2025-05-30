@@ -8,6 +8,8 @@ import { ISequences, ISubscribers } from "@/app/models/plan.model";
 import { ChevronDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
+import PaymentSuccess from "./PaymentSuccessPopup";
+import PaymentFailure from "./PaymentFailure";
 
 
 
@@ -26,12 +28,19 @@ const PaymentScheduleItem = ({
 }) => {
   const isDisabled = status === "paid";
 
-
+  console.log(isSelected, "isSelected")
 
   return (
     <div
-      onClick={() => !isDisabled && onSelect()}
-      className={`flex flex-col items-center space-y-2 cursor-pointer ${isDisabled ? "opacity-50 cursor-not-allowed" : ""
+      onClick={() => {
+        if (status !== "PAID") onSelect();
+      }}
+      className={`flex flex-col items-center space-y-2 cursor-pointer px-3 py-2 rounded-lg border 
+       ${isDisabled
+          ? "opacity-50 cursor-not-allowed border-gray-200"
+          : isSelected
+            ? "border-none bg-blue-50"
+            : "border-transparent"
         }`}
     >
       <div className="text-sm text-gray-600">{date}</div>
@@ -208,10 +217,20 @@ const YuvaaSubscriptions = () => {
   }
 
 
+  const handleSuccessClose = () => {
+    setTimer(3);
+    setSuccessOpen(false);
+  };
+
+  const handleFailureClose = () => {
+    setTimer(3);
+    setFailureOpen(false);
+  };
+
 
   const paymentResponse = async (response: any, selectedSequences: any) => {
     try {
-      console.log('💬 FULL PAYMENT RESPONSE:', response);
+      // console.log('💬 FULL PAYMENT RESPONSE:', response);
 
       const tnxId = response?.transactionId;
       const transaction = response?.transaction as IPaymentList;
@@ -241,9 +260,9 @@ const YuvaaSubscriptions = () => {
                 communityId || "",
                 selectedSequences
               );
-              // setSuccessOpen(true);
+              setSuccessOpen(true);
             } else {
-              // setFailureOpen(true);
+              setFailureOpen(true);
             }
           }
         }, 1000);
@@ -272,8 +291,8 @@ const YuvaaSubscriptions = () => {
         ?.filter((item: any) => item?.id)
         .map((item: any) => item.id);
       paymentResponse(response, sequenceIds);
-      console.log("🚀 handleClickPay triggered");
-      console.log({ userId, planId, sequenceId, amount: totalAmount });
+      // console.log("🚀 handleClickPay triggered");
+      // console.log({ userId, planId, sequenceId, amount: totalAmount });
     } catch (error) {
       console.error('Payment failed:', error);
     } finally {
@@ -292,18 +311,13 @@ const YuvaaSubscriptions = () => {
         const updatedAmounts = prev.filter((item) => item.id !== id);
         const sequenceIds = updatedAmounts.map((item) => item.id);
         setSequenceId(sequenceIds);
-        // setErrorMessage(null);
         return updatedAmounts;
       } else if (prev.length < 10) {
         const updatedAmounts = [...prev, { id, amount, startDate }];
         const sequenceIds = updatedAmounts.map((item) => item.id);
         setSequenceId(sequenceIds);
-        // setErrorMessage(null);
         return updatedAmounts;
       }
-      // enqueueSnackbar('You can select a maximum of 10 items.', {
-      //   variant: 'error',
-      // });
       return prev;
     });
   };
@@ -380,12 +394,7 @@ const YuvaaSubscriptions = () => {
                     {formatStatus(tab)}
                   </button>
                 ))}
-                <button
-                  onClick={selectAllUnpaid}
-                  className="ml-auto px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 text-sm text-black"
-                >
-                  Select All Unpaid
-                </button>
+
               </div>
 
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
@@ -410,9 +419,8 @@ const YuvaaSubscriptions = () => {
                       }
                       amount={placePrice}
                       status={payment.status}
-                      isSelected={selectedPayments.includes(index)}
-                      // onSelect={() => toggleSelectPayment(index)}
-                      onSelect={() => handleSelectAmount(payment._id, 1, payment?.startDate)}
+                      isSelected={selectedAmounts.some((item) => item.id === payment._id)}
+                      onSelect={() => handleSelectAmount(payment._id, Number(placePrice), payment?.startDate)}
                     />
                   );
                 })}
@@ -436,7 +444,22 @@ const YuvaaSubscriptions = () => {
           )}
         </div>
       </div>
+      <PaymentSuccess
+        txnid={transaction?.txnid || ''}
+        open={successOpen}
+        amount={transaction?.amount || ''}
+        timer={timer}
+        onClose={handleSuccessClose}
+      />
+      <PaymentFailure
+        open={failureOpen}
+        onClose={handleFailureClose}
+        amount={transaction?.amount || ''}
+        txnid={transaction?.txnid || ''}
+        timer={timer}
+      />
     </main>
+
   );
 };
 
