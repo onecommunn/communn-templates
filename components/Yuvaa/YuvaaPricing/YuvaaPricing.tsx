@@ -64,6 +64,7 @@ const YuvaaPricing = ({
   const communityId = "677e1c869f13316e61af6a6e";
 
 
+
   const authContext = useContext(AuthContext);
   const isAuthenticated = authContext?.isAuthenticated;
 
