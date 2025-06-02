@@ -1,5 +1,4 @@
-'use client';
-
+"use client";
 
 import { Check } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import YuvaaPricingCard from "./YuvaaPricingCard";
 import { usePlans } from "@/app/hooks/usePlan";
 import { TrainingPlan } from "@/app/models/plan.model";
 import { AuthContext } from "@/app/contexts/Auth.context";
+import { getCommunityData } from "@/app/services/communityService";
 
 interface Features {
   feature: string;
@@ -19,7 +19,7 @@ interface PricingListProps {
   description: string;
   features: Features[];
   isPopular?: boolean;
-  nextDueDate: string
+  nextDueDate: string;
 }
 
 interface YuvaaPricingProps {
@@ -53,17 +53,28 @@ const YuvaaPricing = ({
   buttonColor,
   iconsColor,
 }: YuvaaPricingProps) => {
-
-
   const { getPlansList, getCommunityPlansListAuth } = usePlans();
 
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
 
-  const [community, setCommunity] = useState<string>("");
+  const [communityId, setCommunityId] = useState<string>("");
 
-  const communityId = "677e1c869f13316e61af6a6e";
+  //const communityId = "677e1c869f13316e61af6a6e";
 
+  const getCommunityId = async () => {
+    try {
+      const communityData: any = await getCommunityData(
+        window.location.hostname
+      );
+      setCommunityId(communityData?.community?._id || "");
+      return communityData?.community._id || "";
+    } catch (error) {
+      console.error("Error fetching community ID:", error);
+      return "";
+    }
+  };
 
+  //console.log(communityId,' communityId');
 
   const authContext = useContext(AuthContext);
   const isAuthenticated = authContext?.isAuthenticated;
@@ -80,10 +91,19 @@ const YuvaaPricing = ({
   //console.log(community, 'communnity')
 
   useEffect(() => {
+    const fetchCommunityId = async () => {
+      const id = await getCommunityId();
+      setCommunityId(id);
+    };
+    fetchCommunityId();
+  }, []); // Run only once on mount
+
+  useEffect(() => {
     const fetchPlans = async () => {
+      if (!communityId) return;
+
       try {
         let response;
-
         if (isAuthenticated) {
           response = await getCommunityPlansListAuth(communityId);
         } else {
@@ -103,10 +123,7 @@ const YuvaaPricing = ({
     };
 
     fetchPlans();
-  }, [communityId, isAuthenticated, getPlansList, getCommunityPlansListAuth]);
-
-
-
+  }, [communityId, isAuthenticated]);
 
   return (
     <main
@@ -157,16 +174,18 @@ const YuvaaPricing = ({
 
                   { feature: `Subscribers: ${plan.subscribers?.length || 0}` },
 
-                  { feature: `Next Due: ${plan?.nextDueDate ? plan.nextDueDate : 'No Dues'}` },
                   {
-                    feature: `Status: ${!plan?.nextDueDate
-                      ? 'Not Subscribed'
-                      : new Date(plan.nextDueDate) >= new Date()
-                        ? 'Active'
-                        : 'Expired'
-                      }`
-                  }
-
+                    feature: `Next Due: ${plan?.nextDueDate ? plan.nextDueDate : "No Dues"}`,
+                  },
+                  {
+                    feature: `Status: ${
+                      !plan?.nextDueDate
+                        ? "Not Subscribed"
+                        : new Date(plan.nextDueDate) >= new Date()
+                          ? "Active"
+                          : "Expired"
+                    }`,
+                  },
                 ];
 
                 // console.log(features, "features");
