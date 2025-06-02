@@ -150,7 +150,7 @@ const YuvaaHeader = ({
               About
             </Link>
             <Link
-              href="/features"
+              href="/courses"
               style={
                 {
                   "--hover-underline": buttonBackgroundColor,
@@ -163,7 +163,23 @@ const YuvaaHeader = ({
              after:bg-[var(--hover-underline)]
              hover:text-[var(--hover-underline)]"
             >
-              Features
+              Courses
+            </Link>
+            <Link
+              href="/events"
+              style={
+                {
+                  "--hover-underline": buttonBackgroundColor,
+                } as React.CSSProperties
+              }
+              className="relative font-medium text-black transition-colors duration-300
+             after:content-[''] after:absolute after:left-0 after:-bottom-1
+             after:h-[2px] after:w-0 hover:after:w-full
+             after:transition-all after:duration-300
+             after:bg-[var(--hover-underline)]
+             hover:text-[var(--hover-underline)]"
+            >
+              Events
             </Link>
             <Link
               href="/pricing"
@@ -180,6 +196,22 @@ const YuvaaHeader = ({
              hover:text-[var(--hover-underline)]"
             >
               Plans
+            </Link>
+             <Link
+              href="/contact"
+              style={
+                {
+                  "--hover-underline": buttonBackgroundColor,
+                } as React.CSSProperties
+              }
+              className="relative font-medium text-black transition-colors duration-300
+             after:content-[''] after:absolute after:left-0 after:-bottom-1
+             after:h-[2px] after:w-0 hover:after:w-full
+             after:transition-all after:duration-300
+             after:bg-[var(--hover-underline)]
+             hover:text-[var(--hover-underline)]"
+            >
+              Contact
             </Link>
           </nav>
 

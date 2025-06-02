@@ -83,6 +83,9 @@ import YuvaaLogin from "./components/Yuvaa/YuvaaLogin/YuvaaLogin";
 import YuvaaSignup from "./components/Yuvaa/YuvaaSignup/YuvaaSignup";
 import AutoLogin from "./components/Yuvaa/YuvaaLogin/auto-login";
 import YuvaaSubscriptions from "./components/Yuvaa/YuvaaSubscriptions/YuvaaSubscriptions";
+import YuvaaContact from "./components/Yuvaa/YuvaaContact/YuvaaContact";
+import YuvaaCourses from "./components/Yuvaa/YuvaaCourses/YuvaaCourses";
+import YuvaaEvents from "./components/Yuvaa/YuvaaEvents/YuvaaEvents";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -3327,19 +3330,20 @@ Builder.registerComponent(YuvaaHeroSection, {
       defaultValue: "Practice At Home With The World's Top Yoga Teachers",
     },
     {
-      name:'heroImage',
-      type:"file",
-      defaultValue:"https://images.unsplash.com/photo-1518310952931-b1de897abd40?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+      name: "heroImage",
+      type: "file",
+      defaultValue:
+        "https://images.unsplash.com/photo-1518310952931-b1de897abd40?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200",
     },
     {
-      name:"imageWidth",
-      type:"number",
-      defaultValue:120
+      name: "imageWidth",
+      type: "number",
+      defaultValue: 120,
     },
-     {
-      name:"imageHeight",
-      type:"number",
-      defaultValue:120
+    {
+      name: "imageHeight",
+      type: "number",
+      defaultValue: 120,
     },
     {
       name: "description",
@@ -4703,4 +4707,16 @@ Builder.registerComponent(AutoLogin, {
 
 Builder.registerComponent(YuvaaSubscriptions, {
   name: "Yuvaa Subscriptions",
+});
+
+Builder.registerComponent(YuvaaContact, {
+  name: "Yuvaa Contact",
+});
+
+Builder.registerComponent(YuvaaCourses, {
+  name: "Yuvaa Courses",
+});
+
+Builder.registerComponent(YuvaaEvents, {
+  name: "Yuvaa Events",
 });
