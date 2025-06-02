@@ -116,13 +116,13 @@ const YuvaaFooter = ({
                 className="text-lg font-bold mb-4"
                 style={{ color: titleTextColor }}
               >
-                {each.Title}
+                {each?.Title}
               </h3>
               <ul className="space-y-2 text-sm text-gray-600">
                 {each?.LinksList?.map((item, index) => (
                   <li key={index}>
                     <Link
-                      href={item.Link}
+                      href={item?.Link}
                       style={
                         {
                           "--hover-color": textHoverColor,
@@ -131,7 +131,7 @@ const YuvaaFooter = ({
                       }
                       className="hover:text-[var(--hover-color)] text-[var(--text-color)]"
                     >
-                      {item.Text}
+                      {item?.Text}
                     </Link>
                   </li>
                 ))}
