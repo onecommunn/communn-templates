@@ -3327,6 +3327,21 @@ Builder.registerComponent(YuvaaHeroSection, {
       defaultValue: "Practice At Home With The World's Top Yoga Teachers",
     },
     {
+      name:'heroImage',
+      type:"file",
+      defaultValue:"https://images.unsplash.com/photo-1518310952931-b1de897abd40?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+    },
+    {
+      name:"imageWidth",
+      type:"number",
+      defaultValue:120
+    },
+     {
+      name:"imageHeight",
+      type:"number",
+      defaultValue:120
+    },
+    {
       name: "description",
       type: "string",
       defaultValue:

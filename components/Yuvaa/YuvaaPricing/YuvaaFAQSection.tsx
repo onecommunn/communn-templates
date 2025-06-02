@@ -1,4 +1,5 @@
-import React from "react";
+import { getCommunityData } from "@/app/services/communityService";
+import React, { useEffect } from "react";
 
 interface QuestionsListProps {
     question:string,
@@ -16,6 +17,28 @@ interface YuvaaFAQSectionProps {
 }
 
 const YuvaaFAQSection = ({title,questionsList,backgroundColor,cardBackgroundColor,titleColor,questionColor,answerColor}:YuvaaFAQSectionProps) => {
+  const [FAQList, setFAQList] = React.useState<QuestionsListProps[]>([]);
+  const getFaqList = async () => {
+      try {
+        const communityData: any = await getCommunityData(
+          window.location.hostname
+        );
+        return communityData?.community.faq || [];
+      } catch (error) {
+        console.error("Error fetching FAQ list:", error);
+        return [];
+      }
+    };
+  
+    useEffect(() => {
+      const fetchServicesList = async () => {
+        const services = await getFaqList();
+        setFAQList(services);
+      };
+  
+      fetchServicesList();
+    }, []);
+  
   return (
     <section className="py-16 px-4 bg-gray-50 text-black" style={{backgroundColor:backgroundColor}}>
       <div className="container mx-auto">
@@ -23,7 +46,7 @@ const YuvaaFAQSection = ({title,questionsList,backgroundColor,cardBackgroundColo
           {title}
         </h2>
         <div className="max-w-3xl mx-auto space-y-8">
-          {questionsList?.map((faq, index) => (
+          {FAQList?.map((faq, index) => (
             <div key={index} className="bg-white p-6 rounded-lg shadow-sm" style={{backgroundColor:cardBackgroundColor}}>
               <h3 className="text-xl font-semibold mb-2" style={{color:questionColor}}>{faq.question}</h3>
               <p className="text-gray-600" style={{color:answerColor}}>{faq.answer}</p>

@@ -12,6 +12,9 @@ const YuvaaHeroSection = ({
   buttonTextColor,
   placeholderTextColor,
   inputBorderColor,
+  heroImage,
+  imageHeight,
+  imageWidth
 }: {
   titleText: string;
   description: string;
@@ -24,6 +27,9 @@ const YuvaaHeroSection = ({
   buttonTextColor: string;
   placeholderTextColor: string;
   inputBorderColor: string;
+  heroImage:string,
+  imageWidth:number,
+  imageHeight:number,
 }) => {
   const [email, setEmail] = useState("");
 
@@ -40,7 +46,7 @@ const YuvaaHeroSection = ({
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4" style={{ color: titleTextColor }}>
               {titleText}
             </h1>
-            <p className="text-gray-600 mb-8 max-w-lg" style={{ color: descriptionColor }}>
+            <p className="text-gray-600 mb-8 max-w-full" style={{ color: descriptionColor }}>
               {description}
             </p>
 
@@ -56,22 +62,24 @@ const YuvaaHeroSection = ({
                 className="px-4 py-3 border border-[var(--border-color)] placeholder:text-[var(--placeholder-text-color)] rounded-md flex-grow"
                 style={{"--border-color":inputBorderColor,"--placeholder-text-color":placeholderTextColor} as React.CSSProperties}
                 required
-              />
+              />*/}
               <button
                 type="submit"
-                className="font-semibold py-3 px-6 rounded-md"
+                className="py-3 px-6 rounded-md"
                 style={{backgroundColor:buttonBackgroundColor,color:buttonTextColor}}
               >
                 {buttonText}
-              </button> */}
+              </button> 
             </form>
           </div>
 
           <div className="md:w-1/2 relative">
             <img
-              src="https://images.unsplash.com/photo-1518310952931-b1de897abd40?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200"
+              src={heroImage}
               alt="Yoga practice"
-              className="w-full rounded-3xl shadow-lg"
+              className="rounded-3xl shadow-lg"
+              height={imageHeight}
+              width={imageWidth}
             />
             {/* Animated circles */}
             <div className="absolute -top-8 -right-8 w-12 h-12 rounded-full opacity-70" style={{ backgroundColor: buttonBackgroundColor }}></div>

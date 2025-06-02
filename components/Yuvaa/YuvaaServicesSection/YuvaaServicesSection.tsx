@@ -1,21 +1,12 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import YuvaaServiceCard from "./YuvaaServiceCard";
-
-interface ServicesList {
-  title: string;
-  imageUrl: string;
-  imageWidth: number;
-  imageHeight: number;
-  rating: number;
-  reviewCount: number;
-  ctaText: string;
-}
+import { getCommunityData } from "@/app/services/communityService";
 
 const YuvaaServicesSection = ({
   title,
   description,
-  servicesList,
+  //servicesList,
   titleColor,
   descriptionColor,
   lineColor,
@@ -30,7 +21,7 @@ const YuvaaServicesSection = ({
 }: {
   title: string;
   description: string;
-  servicesList?: ServicesList[]; // allow undefined
+  //servicesList?: ServicesList[]; // allow undefined
   titleColor: string;
   descriptionColor: string;
   lineColor: string;
@@ -45,6 +36,7 @@ const YuvaaServicesSection = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [servicesList, setServicesList] = useState<any[]>([]);
 
   const slideNext = () => {
     if (servicesList && currentSlide < servicesList.length - 3) {
@@ -65,6 +57,28 @@ const YuvaaServicesSection = ({
       });
     }
   };
+
+  const getServicesList = async () => {
+    try {
+      const communityData: any = await getCommunityData(
+        window.location.hostname
+      );
+      return communityData?.community.services || [];
+    } catch (error) {
+      console.error("Error fetching services list:", error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    const fetchServicesList = async () => {
+      const services = await getServicesList();
+      setServicesList(services);
+    };
+
+    fetchServicesList();
+  }, []);
+
 
   return (
     <section
@@ -91,7 +105,35 @@ const YuvaaServicesSection = ({
           </p>
         </div>
 
-        {servicesList && servicesList.length > 0 ? (
+        {servicesList.length < 4 ? (
+          <div
+            className={`text-center mb-8 grid gap-6 ${
+              servicesList.length === 1
+                ? "grid-cols-1"
+                : servicesList.length === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-3"
+            }`}
+          >
+            {servicesList.map((service, index) => (
+              <YuvaaServiceCard
+                key={index}
+                image={service.image}
+                imageWidth={service.imageWidth}
+                imageHeight={service.imageHeight}
+                title={service.title}
+                ctaText={service.ctaText}
+                rating={service.rating}
+                reviewCount={service.reviewCount}
+                cardBackgroundColor={cardBackgroundColor}
+                serviceTitleColor={serviceTitleColor}
+                ratingStarsColor={ratingStarsColor}
+                ctaTextColor={ctaTextColor}
+                reviewCountColor={reviewCountColor}
+              />
+            ))}
+          </div>
+        ) : servicesList && servicesList.length > 0 ? (
           <div className="relative">
             <button
               className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full"
@@ -113,7 +155,7 @@ const YuvaaServicesSection = ({
               {servicesList.map((service, index) => (
                 <div key={index} className="min-w-[300px] max-w-[300px]">
                   <YuvaaServiceCard
-                    image={service.imageUrl}
+                    image={service.image}
                     imageWidth={service.imageWidth}
                     imageHeight={service.imageHeight}
                     title={service.title}
@@ -143,7 +185,10 @@ const YuvaaServicesSection = ({
             </button>
           </div>
         ) : (
-          <p className="text-center text-lg" style={{ color: descriptionColor }}>
+          <p
+            className="text-center text-lg"
+            style={{ color: descriptionColor }}
+          >
             No services available at the moment.
           </p>
         )}

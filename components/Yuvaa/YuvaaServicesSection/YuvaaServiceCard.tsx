@@ -49,10 +49,10 @@ const YuvaaServiceCard = ({
       </div>
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2" style={{color:serviceTitleColor}}>{title}</h3>
-        <div className="flex items-center mb-3">
+        {/* <div className="flex items-center mb-3">
           <div className="flex mr-2">{renderStars()}</div>
           <span className="text-sm text-gray-500" style={{color:reviewCountColor}}>({reviewCount})</span>
-        </div>
+        </div> */}
         <div className="flex justify-end">
           <a href="#" className="text-[#FF6347] text-sm flex items-center" style={{color:ctaTextColor}}>
             Join Session <ChevronRight size={16} />
