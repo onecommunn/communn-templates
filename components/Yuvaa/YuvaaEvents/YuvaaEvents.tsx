@@ -125,7 +125,7 @@ const YuvaaEvents = ({
                   </div>
 
                   <CardHeader>
-                    <CardTitle className="text-xl text-[#20B2AA] cap">
+                    <CardTitle className="text-xl text-[#20B2AA] capitalize">
                       {event?.title ?? "Untitled Event"}
                     </CardTitle>
                   </CardHeader>
