@@ -22,11 +22,13 @@ export interface IService {
 }
 
 
-interface SocialLink {
+export interface SocialLink {
   type: string;
   value: string;
   _id: string;
 }
+
+
 
 
 export interface ICommunity {

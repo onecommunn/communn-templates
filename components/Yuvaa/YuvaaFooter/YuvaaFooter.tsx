@@ -1,6 +1,8 @@
+import { useCommunity } from "@/app/hooks/useCommunity";
+import { SocialLink } from "@/app/models/community.model";
 import { Facebook, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
-import React from "react";
+import React, { use, useEffect, useState } from "react";
 
 interface LinksListProps {
   Text: string;
@@ -27,6 +29,8 @@ interface YuvaaFooterProps {
   PhoneNumber: string;
   Email: string;
   Timmings: string;
+  CopyRightText: string;
+  tagLine:string
 }
 
 const YuvaaFooter = ({
@@ -44,7 +48,22 @@ const YuvaaFooter = ({
   PhoneNumber,
   Email,
   Timmings,
+  CopyRightText,
+  tagLine
 }: YuvaaFooterProps) => {
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
+
+  const { getSocialLinks } = useCommunity();
+
+  useEffect(() => {
+    const fetchSocialLinks = async () => {
+      const links = await getSocialLinks(window.location.hostname);
+      setSocialLinks(links || []);
+    };
+
+    fetchSocialLinks();
+  }, [getSocialLinks]);
+
   return (
     <footer className="bg-[#20B2AA] text-white py-12 px-4 lg:px-20">
       <div className="container mx-auto">
@@ -62,12 +81,12 @@ const YuvaaFooter = ({
               </div>
             </Link>
             <p className="text-sm opacity-80 mb-4 mt-4">
-              "We always provide the best service for our users"
+              {tagLine}
             </p>
             <div className="flex space-x-4">
-              {FacebookLink && (
+              {socialLinks[0]?.type == "facebook" && socialLinks[0]?.value && (
                 <a
-                  href={FacebookLink}
+                  href={socialLinks[0]?.value}
                   style={
                     {
                       "--hover-color": textHoverColor,
@@ -79,9 +98,9 @@ const YuvaaFooter = ({
                   <Facebook size={20} />
                 </a>
               )}
-              {TwitterLink && (
+              {socialLinks[1]?.type == "twitter" && socialLinks[1]?.value && (
                 <a
-                  href={TwitterLink}
+                  href={socialLinks[1]?.value}
                   style={
                     {
                       "--hover-color": textHoverColor,
@@ -93,9 +112,9 @@ const YuvaaFooter = ({
                   <Twitter size={20} />
                 </a>
               )}
-              {InstagramLink && (
+              {socialLinks[2]?.type == "instagram" && socialLinks[2]?.value && (
                 <a
-                  href={InstagramLink}
+                  href={socialLinks[2]?.value}
                   style={
                     {
                       "--hover-color": textHoverColor,
@@ -159,7 +178,7 @@ const YuvaaFooter = ({
         </div>
 
         <div className="border-t border-white border-opacity-20 mt-8 pt-8 text-center text-sm opacity-80">
-          <p>Copyright 2022 made for Yoga. All rights reserved</p>
+          <p>{CopyRightText}</p>
         </div>
       </div>
     </footer>

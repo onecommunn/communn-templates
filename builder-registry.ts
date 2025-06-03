@@ -4055,7 +4055,7 @@ Builder.registerComponent(YuvaaFooter, {
     },
     {
       name: "Email",
-      type: "email",
+      type: "string",
       defaultValue: "info@yogast.com",
     },
     {
@@ -4100,6 +4100,20 @@ Builder.registerComponent(YuvaaAbout, {
       ],
     },
     {
+      name:"heroTitle",
+      type:"string",
+      defaultValue:"About Us"
+    },
+    {
+      name:"heroDescription",
+      type:"string",
+    },
+    {
+      name:"heroBackgroundColor",
+      type:"color",
+      defaultValue:"#20B2AA"
+    },
+    {
       name: "image",
       type: "file",
       defaultValue:
@@ -4135,6 +4149,11 @@ Builder.registerComponent(YuvaaAbout, {
       type: "color",
       defaultValue: "#20B2AA",
     },
+    {
+      name:"heroTextColor",
+      type:"color",
+      defaultValue:"#ffffff"
+    }
   ],
 });
 
@@ -4735,7 +4754,7 @@ Builder.registerComponent(YuvaaContact, {
     },
     {
       name: "emailId",
-      type: "email",
+      type: "string",
       defaultValue: "info@yogaplus.com",
     },
     {

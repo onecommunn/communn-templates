@@ -14,6 +14,7 @@ interface ServiceCardProps {
   ctaTextColor:string,
   reviewCountColor:string,
   ctaText:string,
+  description:string,
 }
 
 const YuvaaServiceCard = ({
@@ -23,6 +24,7 @@ const YuvaaServiceCard = ({
   reviewCount,
   imageHeight,
   imageWidth,
+  description,
   cardBackgroundColor,
   serviceTitleColor,
   ratingStarsColor,
@@ -42,21 +44,22 @@ const YuvaaServiceCard = ({
   };
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-sm text-black" style={{backgroundColor:cardBackgroundColor}}>
-      <div className="relative w-full h-48 overflow-hidden">
+      <div className="relative w-full overflow-hidden ">
         <div className="aspect-16/9">
-          <img src={image} alt={title} className="w-full h-full object-cover" style={{width:imageWidth,height:imageHeight}}/>
+          <img src={image} alt={title} className="w-full h-full" style={{width:imageWidth,height:imageHeight}}/>
         </div>
       </div>
       <div className="p-4">
-        <h3 className="text-xl font-semibold mb-2" style={{color:serviceTitleColor}}>{title}</h3>
+        <h3 className="text-xl font-semibold mb-2 text-left" style={{color:serviceTitleColor}}>{title}</h3>
+        <p className="text-gray-600 text-left">{description}</p>
         {/* <div className="flex items-center mb-3">
           <div className="flex mr-2">{renderStars()}</div>
           <span className="text-sm text-gray-500" style={{color:reviewCountColor}}>({reviewCount})</span>
         </div> */}
         <div className="flex justify-end">
-          <a href="#" className="text-[#FF6347] text-sm flex items-center" style={{color:ctaTextColor}}>
+          {/* <a href="#" className="text-[#FF6347] text-sm flex items-center" style={{color:ctaTextColor}}>
             Join Session <ChevronRight size={16} />
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

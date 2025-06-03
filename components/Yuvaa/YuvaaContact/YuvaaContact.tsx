@@ -1,4 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/Ui/Card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/Ui/CustomCard";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import React, { CSSProperties, useState } from "react";
 
@@ -21,9 +26,9 @@ const YuvaaContact = ({
   primaryTextColor: string;
   secondaryTextColor: string;
   heroTextColor: string;
-  address:string;
-  contactNumbers:string;
-  emailId:string;
+  address: string;
+  contactNumbers: string;
+  emailId: string;
 }) => {
   const [form, setForm] = useState({
     name: "",
@@ -228,6 +233,17 @@ const YuvaaContact = ({
                   </form>
                 </CardContent>
               </Card>
+              <div className="rounded-md overflow-hidden shadow-md mt-8">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d8009.761250057285!2d77.56887259107936!3d12.944298367119004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1senergy%20groove%2082%2C%20S%20End%20Rd%2C%20above%20to%20BUTTER%20SPONGE%20BAKERY%20STORE%2C%20next%20to%20kamala%20neharu%20school%2C%20Basavanagudi!5e1!3m2!1sen!2sin!4v1748929442138!5m2!1sen!2sin"
+                  width="100%"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
             </div>
 
             {/* Contact Information */}
@@ -268,10 +284,16 @@ const YuvaaContact = ({
                         <MapPin className="w-6 h-6 text-[#20B2AA]" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg mb-2 text-black" style={{ color: primaryTextColor }}>
+                        <h3
+                          className="font-semibold text-lg mb-2 text-black"
+                          style={{ color: primaryTextColor }}
+                        >
                           Visit Our Studio
                         </h3>
-                        <p className="text-gray-600" style={{ color: secondaryTextColor }}>
+                        <p
+                          className="text-gray-600"
+                          style={{ color: secondaryTextColor }}
+                        >
                           {address}
                         </p>
                       </div>
@@ -296,10 +318,16 @@ const YuvaaContact = ({
                         <Phone className="w-6 h-6 text-[#FF6347]" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg mb-2 text-black" style={{ color: primaryTextColor }}>
+                        <h3
+                          className="font-semibold text-lg mb-2 text-black"
+                          style={{ color: primaryTextColor }}
+                        >
                           Call Us
                         </h3>
-                        <p className="text-gray-600" style={{ color: secondaryTextColor }}>
+                        <p
+                          className="text-gray-600"
+                          style={{ color: secondaryTextColor }}
+                        >
                           {contactNumbers}
                         </p>
                       </div>
@@ -324,10 +352,16 @@ const YuvaaContact = ({
                         <Mail className="w-6 h-6 text-[#20B2AA]" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-lg mb-2 text-black" style={{ color: primaryTextColor }}>
+                        <h3
+                          className="font-semibold text-lg mb-2 text-black"
+                          style={{ color: primaryTextColor }}
+                        >
                           Email Us
                         </h3>
-                        <p className="text-gray-600" style={{ color: secondaryTextColor }}>
+                        <p
+                          className="text-gray-600"
+                          style={{ color: secondaryTextColor }}
+                        >
                           {emailId}
                         </p>
                       </div>
