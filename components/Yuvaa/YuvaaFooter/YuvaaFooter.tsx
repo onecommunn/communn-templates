@@ -62,7 +62,7 @@ const YuvaaFooter = ({
     };
 
     fetchSocialLinks();
-  }, [getSocialLinks]);
+  }, []);
 
   return (
     <footer className="bg-[#20B2AA] text-white py-12 px-4 lg:px-20">
