@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/Ui/CustomCard";
+import { Skeleton } from "@/components/Ui/skeleton";
 import { Calendar, Clock, MapPin, Star, Users } from "lucide-react";
 import React, { use, useEffect, useState } from "react";
 
@@ -52,10 +53,33 @@ const YuvaaEvents = ({
     }
   }, [communityId]);
 
+  
+  if (isloading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-4 lg:px-20">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div
+            key={index}
+            className="border rounded-lg overflow-hidden shadow-sm p-4 space-y-4"
+          >
+            <Skeleton className="h-48 w-full rounded-md" />
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <div className="flex justify-between items-center">
+              <Skeleton className="h-6 w-20" />
+              <Skeleton className="h-10 w-24 rounded-md" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   if (!Array.isArray(events) || events.length === 0) {
     return (
       <div className="text-center w-full h-[80vh] flex items-center justify-center">
-        <p>{isloading ? "Events Loading..." : "No Events available."}</p>
+        <p>No Events available.</p>
       </div>
     );
   }

@@ -5,6 +5,7 @@ import { getCommunityData } from "@/app/services/communityService";
 import { useCommunity } from "@/app/hooks/useCommunity";
 import { Service } from "@/app/models/service.model";
 import { getServices } from "@/app/services/ServicesService";
+import { Skeleton } from "@/components/Ui/skeleton";
 
 const YuvaaServicesSection = ({
   title,
@@ -85,9 +86,42 @@ const YuvaaServicesSection = ({
 
   if (isloading) {
     return (
-      <div className="col-span-full text-center text-gray-500 text-lg w-full">
-        Loading Services...
-      </div>
+      <section className="py-16 px-4 lg:px-20" style={{ backgroundColor }}>
+        <div className="container mx-auto">
+          <div className="text-center mb-8">
+            <h2
+              className="text-3xl md:text-4xl font-bold mb-2"
+              style={{ color: titleColor }}
+            >
+              {title}
+            </h2>
+            <div
+              className="w-24 h-1 mb-6 mt-2 mx-auto"
+              style={{ backgroundColor: lineColor }}
+            ></div>
+            <p
+              className="text-gray-600 mb-8 max-w-2xl mx-auto"
+              style={{ color: descriptionColor }}
+            >
+              {description}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(3)].map((_, index) => (
+              <div
+                key={index}
+                className="p-4 rounded-lg"
+                style={{ backgroundColor: cardBackgroundColor }}
+              >
+                <Skeleton className="w-full h-72 rounded-lg mb-4" />
+                <Skeleton className="w-3/4 h-6 mb-2" />
+                <Skeleton className="w-1/2 h-4" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     );
   }
 

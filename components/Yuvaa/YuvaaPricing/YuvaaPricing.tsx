@@ -7,6 +7,7 @@ import { usePlans } from "@/app/hooks/usePlan";
 import { TrainingPlan } from "@/app/models/plan.model";
 import { AuthContext } from "@/app/contexts/Auth.context";
 import { getCommunityData } from "@/app/services/communityService";
+import { Skeleton } from "@/components/Ui/skeleton";
 
 interface Features {
   feature: string;
@@ -128,10 +129,25 @@ const YuvaaPricing = ({
     fetchPlans();
   }, [communityId, isAuthenticated]);
 
+
   if (isLoading) {
     return (
-      <div className="text-center w-full h-[80vh] flex items-center justify-center">
-        <p>Plans Loading...</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-4 lg:px-20">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div
+            key={index}
+            className="border rounded-lg overflow-hidden shadow-sm p-4 space-y-4"
+          >
+            <Skeleton className="h-48 w-full rounded-md" />
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <div className="flex justify-between items-center">
+              <Skeleton className="h-6 w-20" />
+              <Skeleton className="h-10 w-24 rounded-md" />
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
