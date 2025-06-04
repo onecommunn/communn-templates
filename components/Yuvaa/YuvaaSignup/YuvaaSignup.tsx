@@ -1,169 +1,157 @@
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/Ui/CustomInputOtp";
+import { AuthContext } from "@/app/contexts/Auth.context";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const YuvaaSignup = () => {
-  const [name, setName] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [otp, setOtp] = useState('');
-  const [step, setStep] = useState<'details' | 'otp'>('details');
-  const [useEmail, setUseEmail] = useState(false);
-  const [agreeTerms, setAgreeTerms] = useState(false);
-
+  const [formData, setFormData] = useState({
+    firstName: "",
+    phoneNumber: "",
+    emailId: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const authContext = useContext(AuthContext);
+  const router = useRouter();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const mobileFromQuery = searchParams.get('mobile');
+    const mobileFromQuery = searchParams.get("mobile");
+    const emailFromQuery = searchParams.get("email");
+
     if (mobileFromQuery) {
-      setMobileNumber(mobileFromQuery);
+      setFormData((prev) => ({ ...prev, phoneNumber: mobileFromQuery }));
+    } else if (emailFromQuery) {
+      setFormData((prev) => ({ ...prev, emailId: emailFromQuery }));
     }
   }, [searchParams]);
 
-  const handleGetOtp = () => {
-    console.log('Getting OTP for signup:', { name, mobileNumber });
-    setStep('otp');
-    // OTP logic would go here
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
-  const handleSignup = () => {
-    console.log('Signup with OTP:', { name, mobileNumber, otp, agreeTerms });
-    // Signup verification logic would go here
+  const handleLoginResponse = async (response: any) => {
+    if (response.status === 200) {
+      toast.success("Account Created successfully");
+      router.push("/");
+    } else if (response.status === 404) {
+      toast.error("User not found. Please sign up.");
+    } else {
+      toast.error("Login failed. Please try again.");
+    }
   };
 
-  const toggleAuthMethod = () => {
-    setUseEmail(!useEmail);
-    setMobileNumber('');
-    setOtp('');
-    setStep('details');
+  const handleSignup = async () => {
+    const data = JSON.stringify(formData);
+    try {
+      setIsLoading(true);
+      const response: any = await authContext.autoCreate(data);
+      await handleLoginResponse(response);
+    } catch (err) {
+      toast.error("Registration failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
+  const isEmailValid = /^\S+@\S+\.\S+$/.test(formData.emailId);
+  const isMobileValid = /^[6-9]\d{9}$/.test(formData.phoneNumber);
+  const isFormValid = formData.firstName && isEmailValid && isMobileValid;
 
   return (
     <main className="flex-grow flex items-center justify-center py-12 px-4">
-        <div className="w-full max-w-md">
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <h2 className="text-2xl font-bold mb-8 text-center">Create Account</h2>
-            
-            {step === 'details' ? (
-              <div className="space-y-6">
-                <div className="text-center mb-6">
-                  <button
-                    onClick={toggleAuthMethod}
-                    className="text-[#FF6347] hover:text-[#FF6347]-dark text-sm font-medium"
-                  >
-                    {useEmail ? 'Use Mobile No' : 'Use Email ID'}
-                  </button>
-                </div>
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-bold mb-8 text-center">
+            Create Account
+          </h2>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSignup();
+            }}
+            className="space-y-6"
+          >
+            <div>
+              <label className="block text-sm text-gray-600 mb-2">
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="Enter your full name"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]"
+              />
+            </div>
 
-                <div>
-                  <label className="block text-sm text-gray-600 mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your full name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]"
-                  />
-                </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-2">
+                Mobile Number
+              </label>
+              <input
+                type="tel"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                placeholder="Enter your mobile number"
+                required
+                className={`w-full px-4 py-3 border ${
+                  isMobileValid ? "border-gray-300" : "border-red-400"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
+              />
+            </div>
 
-                <div>
-                  <label className="block text-sm text-gray-600 mb-2">
-                    {useEmail ? 'Enter Email ID' : 'Enter Mobile No'}
-                  </label>
-                  <div className="flex gap-3">
-                    <input
-                      type={useEmail ? 'email' : 'tel'}
-                      value={mobileNumber}
-                      onChange={(e) => setMobileNumber(e.target.value)}
-                      placeholder={useEmail ? 'Enter your email' : 'Enter your mobile number'}
-                      className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]"
-                    />
-                    <button
-                      onClick={handleGetOtp}
-                      disabled={!mobileNumber || !name}
-                      className="bg-[#FF6347] text-white px-6 py-3 rounded-lg font-medium"
-                    >
-                      Get OTP
-                    </button>
-                  </div>
-                </div>
+            <div>
+              <label className="block text-sm text-gray-600 mb-2">
+                Email Address
+              </label>
+              <input
+                type="email"
+                name="emailId"
+                value={formData.emailId}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+                className={`w-full px-4 py-3 border ${
+                  isEmailValid ? "border-gray-300" : "border-red-400"
+                } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
+              />
+            </div>
 
-                <div className="flex items-center">
-                  <input
-                    id="agree-terms"
-                    type="checkbox"
-                    checked={agreeTerms}
-                    onChange={(e) => setAgreeTerms(e.target.checked)}
-                    className="h-4 w-4 text-[#FF6347] focus:ring-[#FF6347] border-gray-300 rounded"
-                  />
-                  <label htmlFor="agree-terms" className="ml-2 block text-sm text-gray-700">
-                    I agree to the <a href="#" className="text-[#FF6347] hover:text-[#FF6347]-dark">Terms of Service</a> and <a href="#" className="text-[#FF6347] hover:text-[#FF6347]-dark">Privacy Policy</a>
-                  </label>
-                </div>
+            <div>
+              <button
+                type="submit"
+                disabled={!isFormValid || isLoading}
+                className={`${
+                  isFormValid && !isLoading
+                    ? "bg-[#FF6347]"
+                    : "bg-gray-300 cursor-not-allowed"
+                } text-white px-6 py-3 rounded-lg font-medium w-full`}
+              >
+                {isLoading ? "Submitting..." : "Save & Continue"}
+              </button>
+            </div>
+          </form>
 
-                <p className="text-center text-sm text-gray-600 mt-8">
-                  Already have an account?{' '}
-                  <Link href="/login" className="font-medium text-[#FF6347] hover:text-[#FF6347]-dark">
-                    Sign in
-                  </Link>
-                </p>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm text-gray-600 mb-4">
-                    Enter OTP
-                  </label>
-                  <div className="flex justify-center">
-                    <InputOTP 
-                      maxLength={6} 
-                      value={otp} 
-                      onChange={setOtp}
-                      className="gap-2"
-                    >
-                      <InputOTPGroup>
-                        <InputOTPSlot index={0} className="w-12 h-12 border-2 border-gray-300 rounded-lg text-center text-lg font-medium focus:border-[#FF6347]" />
-                        <InputOTPSlot index={1} className="w-12 h-12 border-2 border-gray-300 rounded-lg text-center text-lg font-medium focus:border-[#FF6347]" />
-                        <InputOTPSlot index={2} className="w-12 h-12 border-2 border-gray-300 rounded-lg text-center text-lg font-medium focus:border-[#FF6347]" />
-                        <InputOTPSlot index={3} className="w-12 h-12 border-2 border-gray-300 rounded-lg text-center text-lg font-medium focus:border-[#FF6347]" />
-                        <InputOTPSlot index={4} className="w-12 h-12 border-2 border-gray-300 rounded-lg text-center text-lg font-medium focus:border-[#FF6347]" />
-                        <InputOTPSlot index={5} className="w-12 h-12 border-2 border-gray-300 rounded-lg text-center text-lg font-medium focus:border-[#FF6347]" />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleSignup}
-                  disabled={otp.length !== 6 || !agreeTerms}
-                  className="w-full bg-gradient-to-r from-[#20B2AA]-400 to-green-500 hover:from-[#20B2AA]-500 hover:to-green-600 text-white py-3 rounded-lg font-medium"
-                >
-                  Create Account
-                </button>
-
-                <div className="text-center">
-                  <button
-                    onClick={() => setStep('details')}
-                    className="text-sm text-gray-600 hover:text-[#FF6347]"
-                  >
-                    Change details?
-                  </button>
-                </div>
-
-                <p className="text-center text-sm text-gray-600">
-                  Already have an account?{' '}
-                  <Link href="/login" className="font-medium text-[#FF6347] hover:text-[#FF6347]-dark">
-                    Sign in
-                  </Link>
-                </p>
-              </div>
-            )}
-          </div>
+          <p className="text-center text-sm text-gray-600 mt-8">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="font-medium text-[#FF6347] hover:underline"
+            >
+              Sign in
+            </Link>
+          </p>
         </div>
-      </main>
+      </div>
+    </main>
   );
 };
 

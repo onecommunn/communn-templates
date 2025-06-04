@@ -229,20 +229,20 @@ const YuvaaHeader = ({
                       setMobileMenuOpen(false);
                     }
                   }}
-                  className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600"
+                  className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600 cursor-pointer"
                 >
                   Logout
                 </button>
 
               </div>
             ) : (
-              <Link href="/auto-login" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
                 <button
                   style={{
                     backgroundColor: buttonBackgroundColor,
                     color: buttonTextColor,
                   }}
-                  className="rounded-md px-6 py-2 w-full"
+                  className="rounded-md px-6 py-2 w-full cursor-pointer"
                 >
                   {buttonText}
                 </button>

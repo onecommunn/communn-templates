@@ -350,9 +350,9 @@ export const useAuth = () => {
       }
       return response;
     } catch (err: any) {
-      console.error('AutoLogin error:', err);
+      console.log('AutoLogin error:', err);
       setIsAuthenticated(false);
-      return err?.response ? err?.response : err;
+      //return err?.response ? err?.response : err;
     }
   }, []);
 

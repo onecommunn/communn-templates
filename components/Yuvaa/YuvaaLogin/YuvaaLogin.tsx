@@ -1,7 +1,11 @@
 "use client";
 import { AuthContext } from "@/app/contexts/Auth.context";
 import { useOtp } from "@/app/hooks/useOtp";
-import { getOtp, sendOtpEmailService, verifyOtp } from "@/app/services/otpService";
+import {
+  getOtp,
+  sendOtpEmailService,
+  verifyOtp,
+} from "@/app/services/otpService";
 import {
   InputOTP,
   InputOTPGroup,
@@ -20,7 +24,7 @@ const YuvaaLogin = () => {
   const [loading, setLoading] = useState(false);
   const authContext = useContext(AuthContext);
 
-  const {verifyEmailOtp } = useOtp();
+  const { verifyEmailOtp } = useOtp();
 
   const router = useRouter();
 
@@ -61,17 +65,20 @@ const YuvaaLogin = () => {
     }
   };
 
-  const handleLoginResponse = async (response: any) => {
-    if (response.status === 200) {
-      toast.success("Login successful!");
-      router.push("/");
-    } else if (response.status === 404) {
-      toast.error("User not found. Please sign up.");
-     router.push(`/sign-up?mobile=${encodeURIComponent(mobileNumber)}`);
-    } else {
-      toast.error("Login failed. Please try again.");
-    }
-  };
+ const handleLoginResponse = async (response: any) => {
+  if (response.status === 200) {
+    toast.success("Login successful!");
+    router.push("/");
+  } else if (response.status === 404) {
+    toast.error("User not found. Please sign up.");
+    const encodedValue = encodeURIComponent(mobileNumber);
+    const queryKey = useEmail ? "email" : "mobile";
+    router.push(`/sign-up?${queryKey}=${encodedValue}`);
+  } else {
+    toast.error("Login failed. Please try again.");
+  }
+};
+
 
   const handleLogin = async () => {
     if (otp.length !== 6) {
@@ -90,7 +97,10 @@ const YuvaaLogin = () => {
       }
 
       if (verifyResponse.status === 200) {
-        const res: any = await authContext.autoLogin('', mobileNumber, null);
+        const res: any = await authContext.autoLogin(
+          useEmail ? "" : mobileNumber,
+          useEmail ? mobileNumber : "",null
+        );
         handleLoginResponse(res);
         console.log(res, "Response from auto login");
         if (res?.status === 200) {
@@ -154,7 +164,11 @@ const YuvaaLogin = () => {
                   <button
                     onClick={handleGetOtp}
                     disabled={!mobileNumber || loading}
-                    className="bg-[#FF6347] text-white px-6 py-2 rounded-lg font-medium"
+                    className={`${
+                      mobileNumber || loading
+                        ? "bg-[#FF6347]"
+                        : "bg-gray-300 cursor-not-allowed"
+                    } text-white px-6 py-3 rounded-lg font-medium w-full`}
                   >
                     {loading ? "Sending..." : "Get OTP"}
                   </button>
