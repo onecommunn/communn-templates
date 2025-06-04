@@ -55,7 +55,7 @@ const YuvaaEvents = ({
   if (!Array.isArray(events) || events.length === 0) {
     return (
       <div className="text-center w-full h-[80vh] flex items-center justify-center">
-        <p>No Events available.</p>
+        <p>{isloading ? "Events Loading..." : "No Events available."}</p>
       </div>
     );
   }
@@ -149,7 +149,7 @@ const YuvaaEvents = ({
                         <Clock className="w-4 h-4 mr-2 text-[#FF6347]" />
                         <span>
                           {event?.availability[0]?.availableTimes[0]?.startTime}{" "}
-                          to{" "}
+                          to
                           {event?.availability[0]?.availableTimes[0]?.endTime}
                         </span>
                       </div>
@@ -165,9 +165,9 @@ const YuvaaEvents = ({
 
                     <div className="flex justify-between items-center">
                       <span className="text-2xl font-bold text-[#20B2AA]">
-                        {`₹${event?.pricing ?? "Free"}`}
+                       {event?.pricing != null && `₹${event.pricing}`}
                       </span>
-                      <button className="bg-[#FF6347] hover:bg-[#FF6347]-dark text-white rounded-md px-6 py-2 transition-colors">
+                      <button className="bg-[#FF6347] cursor-pointer hover:bg-[#FF6347]-dark text-white rounded-md px-6 py-2 transition-colors">
                         Book Now
                       </button>
                     </div>

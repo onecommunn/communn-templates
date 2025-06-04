@@ -65,7 +65,7 @@ const YuvaaHeroSection = ({
               />*/}
               <button
                 type="submit"
-                className="py-3 px-6 rounded-md"
+                className="py-3 px-6 rounded-md cursor-pointer"
                 style={{backgroundColor:buttonBackgroundColor,color:buttonTextColor}}
               >
                 {buttonText}

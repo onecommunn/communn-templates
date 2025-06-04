@@ -300,7 +300,7 @@ const YuvaaHeader = ({
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden"
+            className="md:hidden cursor-pointer"
             onClick={toggleMenu}
             aria-label="Toggle Menu"
           >
@@ -354,7 +354,7 @@ const YuvaaHeader = ({
                         }
                         setMobileMenuOpen(false);
                       }}
-                      className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600"
+                      className="bg-red-500 text-white cursor-pointer px-6 py-2 w-full rounded-md hover:bg-red-600"
                     >
                       Logout
                     </button>
@@ -369,7 +369,7 @@ const YuvaaHeader = ({
                         backgroundColor: buttonBackgroundColor,
                         color: buttonTextColor,
                       }}
-                      className="rounded-md px-6 py-2 w-full"
+                      className="rounded-md px-6 py-2 w-full cursor-pointer"
                     >
                       {buttonText}
                     </button>

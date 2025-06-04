@@ -39,7 +39,7 @@ const YuvaaCtaSection = ({
             </p>
           </div>
           <div className="flex justify-center">
-            <button className="bg-[#FF6347] text-white rounded-md px-4 py-2" style={{color:buttonTextColor,backgroundColor:buttonBackgroundColor}}>
+            <button className="bg-[#FF6347] cursor-pointer text-white rounded-md px-4 py-2" style={{color:buttonTextColor,backgroundColor:buttonBackgroundColor}}>
              {buttonText}
             </button>
           </div>

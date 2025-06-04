@@ -137,7 +137,7 @@ const YuvaaSignup = () => {
                   isFormValid && !isLoading
                     ? "bg-[#FF6347]"
                     : "bg-gray-300 cursor-not-allowed"
-                } text-white px-6 py-3 rounded-lg font-medium w-full`}
+                } text-white px-6 py-3 cursor-pointer rounded-lg font-medium w-full`}
               >
                 {isLoading ? "Submitting..." : "Save & Continue"}
               </button>

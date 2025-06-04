@@ -147,7 +147,7 @@ const YuvaaLogin = () => {
               <div className="text-center mb-6">
                 <button
                   onClick={toggleAuthMethod}
-                  className="text-[#FF6347] hover:text-[#FF6347]-dark text-sm font-medium"
+                  className="text-[#FF6347] cursor-pointer hover:text-[#FF6347]-dark text-sm font-medium"
                   disabled={loading}
                 >
                   {useEmail ? "Use Mobile No" : "Use Email ID"}
@@ -174,9 +174,9 @@ const YuvaaLogin = () => {
                     disabled={!mobileNumber || loading}
                     className={`${
                       mobileNumber || loading
-                        ? "bg-[#FF6347]"
+                        ? "bg-[#FF6347] cursor-pointer"
                         : "bg-gray-300 cursor-not-allowed"
-                    } text-white px-6 py-3 rounded-lg font-medium w-full`}
+                    } text-white px-6 py-3  rounded-lg font-medium w-full`}
                   >
                     {loading ? "Sending..." : "Get OTP"}
                   </button>
@@ -240,7 +240,7 @@ const YuvaaLogin = () => {
               <button
                 onClick={handleLogin}
                 disabled={otp.length !== 6 || loading}
-                className="w-full bg-[#FF6347] text-white py-3 rounded-lg font-medium"
+                className="w-full bg-[#FF6347] cursor-pointer text-white py-3 rounded-lg font-medium"
               >
                 {loading ? "Verifying..." : "Login"}
               </button>
@@ -248,7 +248,7 @@ const YuvaaLogin = () => {
               <div className="text-center">
                 <button
                   onClick={() => setStep("mobile")}
-                  className="text-sm text-gray-600 hover:text-[#FF6347]"
+                  className="text-sm text-gray-600 cursor-pointer hover:text-[#FF6347]"
                   disabled={loading}
                 >
                   Change {useEmail ? "email" : "mobile number"}?

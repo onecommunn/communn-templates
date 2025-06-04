@@ -37,7 +37,7 @@ const YuvaaJoinUsCTA = ({
           {description}
         </p>
         <button
-          className="bg-[#FF6347] text-white px-8 py-3 rounded-md"
+          className="bg-[#FF6347] cursor-pointer text-white px-8 py-3 rounded-md"
           style={{
             color: buttonTextColor,
             backgroundColor: buttonBackgroundColor,

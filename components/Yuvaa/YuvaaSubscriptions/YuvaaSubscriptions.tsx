@@ -386,7 +386,7 @@ const YuvaaSubscriptions = () => {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === tab
+                    className={`px-4 py-2 cursor-pointer rounded-md text-sm font-medium transition-colors ${activeTab === tab
                       ? "bg-blue-100 text-blue-700"
                       : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
                       }`}
@@ -428,7 +428,7 @@ const YuvaaSubscriptions = () => {
 
               <div className="flex items-center justify-end mt-8 pt-4 border-t">
                 <button
-                  className={`px-6 py-2 rounded-md text-white 
+                  className={`px-6 py-2 cursor-pointer rounded-md text-white 
                     ${totalAmount > 0
                       ? "bg-[#FF6347] hover:bg-[#e54b30]"
                       : "bg-gray-300 cursor-not-allowed"

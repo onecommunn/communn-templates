@@ -91,7 +91,7 @@ const YogastTestimonialsSection = ({
 
               <button
                 onClick={nextTestimonial}
-                className="bg-black/20 hover:bg-black/30 rounded-full p-2"
+                className="bg-black/20cursor-pointer hover:bg-black/30 rounded-full p-2"
               >
                 <ArrowRight size={18} color={backgroundColor}/>
               </button>

@@ -220,7 +220,7 @@ const YuvaaContact = ({
 
                     <button
                       type="submit"
-                      className="w-full bg-[#FF6347]  text-white py-2 px-4 rounded-md"
+                      className="w-full bg-[#FF6347]  text-white cursor-pointer py-2 px-4 rounded-md"
                       style={
                         {
                           backgroundColor: secondaryBackgroundColor,

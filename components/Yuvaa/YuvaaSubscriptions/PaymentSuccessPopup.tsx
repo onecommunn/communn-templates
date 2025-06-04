@@ -68,7 +68,7 @@ const PaymentSuccess = ({
                     <span className="text-sm text-gray-500">Auto closing in {time}s</span>
                     <button
                         onClick={onClose}
-                        className="bg-blue-500 hover:bg-blue-600 text-white p-1 rounded-full"
+                        className="bg-blue-500 cursor-pointer hover:bg-blue-600 text-white p-1 rounded-full"
                     >
                         <IoClose size={18} />
                     </button>

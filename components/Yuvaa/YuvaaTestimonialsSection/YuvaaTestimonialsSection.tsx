@@ -122,7 +122,7 @@ const YuvaaTestimonialsSection = ({
             <div className="flex justify-center mt-8 gap-2">
               <button
                 onClick={slidePrev}
-                className="p-2 rounded-md transition-colors"
+                className="p-2 rounded-md transition-colors cursor-pointer"
                 style={{
                   backgroundColor: navigationBackgroundColor,
                   color: navigationIconsColor,
@@ -142,7 +142,7 @@ const YuvaaTestimonialsSection = ({
               </button>
               <button
                 onClick={slideNext}
-                className="p-2 rounded-md transition-colors hover:text-[var(--hover-color)] text-[var(--color)] bg-[var(--bgColor)] hover:bg-[var(--hover-bgColor)]"
+                className="p-2 rounded-md cursor-pointer transition-colors hover:text-[var(--hover-color)] text-[var(--color)] bg-[var(--bgColor)] hover:bg-[var(--hover-bgColor)]"
                 style={
                   {
                     "--hover-color": onHoverNavigationIconsColor,

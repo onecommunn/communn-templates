@@ -50,7 +50,7 @@ const YuvaaWorkoutSection = ({
             <p className="text-gray-600 mb-8" style={{color:descriptionColor}}>
               {description}
             </p>
-            <button className="bg-[#FF6347] text-white px-4 rounded-md py-2" style={{backgroundColor:buttonBackgroundColor,color:buttonTextColor}}>
+            <button className="bg-[#FF6347] cursor-pointer text-white px-4 rounded-md py-2" style={{backgroundColor:buttonBackgroundColor,color:buttonTextColor}}>
               {buttonText}
             </button>
           </div>

@@ -134,7 +134,7 @@ const YuvaaPricingCard = ({
                 "--text-color": cardBackgroundColor,
               } as React.CSSProperties
             }
-            className={`w-full py-3 rounded-md ${isSubscribed
+            className={`w-full py-3 cursor-pointer rounded-md ${isSubscribed
               ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
               : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
               }`}
@@ -143,7 +143,7 @@ const YuvaaPricingCard = ({
           </button>
         </Link>
       ) : (
-        <Link href="/auto-login">
+        <Link href="/login">
           <button
             style={
               {
@@ -151,12 +151,12 @@ const YuvaaPricingCard = ({
                 "--text-color": cardBackgroundColor,
               } as React.CSSProperties
             }
-            className={`w-full py-3 rounded-md ${isSubscribed
+            className={`w-full py-3 cursor-pointer rounded-md ${isSubscribed
               ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
               : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
               }`}
           >
-            Subscribe
+            {isSubscribed ? "Subscribed" : "Subscribe"}
           </button>
         </Link>
       )}

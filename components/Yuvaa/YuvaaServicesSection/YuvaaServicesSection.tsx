@@ -170,7 +170,7 @@ const YuvaaServicesSection = ({
               <button
                 onClick={slidePrev}
                 disabled={currentSlide === 0}
-                className="p-2 rounded-md transition-colors"
+                className="p-2 rounded-md cursor-pointer transition-colors"
                 style={{
                   backgroundColor: navigationBackgroundColor,
                   color: navigationIconsColor,
@@ -181,7 +181,7 @@ const YuvaaServicesSection = ({
               <button
                 onClick={slideNext}
                 disabled={currentSlide >= servicesList.length - 3}
-                className="p-2 rounded-md transition-colors text-[var(--color)] bg-[var(--bgColor)]"
+                className="p-2 rounded-md transition-colors cursor-pointer text-[var(--color)] bg-[var(--bgColor)]"
                 style={
                   {
                     "--color": navigationIconsColor,

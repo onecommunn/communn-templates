@@ -54,7 +54,7 @@ const YuvaaPricing = ({
   iconsColor,
 }: YuvaaPricingProps) => {
   const { getPlansList, getCommunityPlansListAuth } = usePlans();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
 
   const [communityId, setCommunityId] = useState<string>("");
@@ -103,6 +103,7 @@ const YuvaaPricing = ({
       if (!communityId) return;
 
       try {
+        setIsLoading(true);
         let response;
         if (isAuthenticated) {
           response = await getCommunityPlansListAuth(communityId);
@@ -119,11 +120,21 @@ const YuvaaPricing = ({
         }
       } catch (error) {
         console.error("Failed to fetch plans:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchPlans();
   }, [communityId, isAuthenticated]);
+
+  if (isLoading) {
+    return (
+      <div className="text-center w-full h-[80vh] flex items-center justify-center">
+        <p>Plans Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <main

@@ -143,7 +143,7 @@ const YuvaaCourses = ({
   if (!Array.isArray(coursesList) || coursesList.length === 0) {
     return (
       <div className="text-center w-full h-[80vh] flex items-center justify-center">
-        <p>No courses available.</p>
+        <p>{isloading ? `Courses Loading...` : `No courses available.`}</p>
       </div>
     );
   }
@@ -188,7 +188,10 @@ const YuvaaCourses = ({
                 >
                   <div className="h-48 overflow-hidden">
                     <img
-                      src={course?.coverImage?.value}
+                      src={
+                        course?.coverImage?.value ||
+                        "https://upload-community-files-new.s3.ap-south-1.amazonaws.com/undefined/Default%20Events.png"
+                      }
                       alt={course?.coverImage?.label}
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     />
@@ -203,27 +206,32 @@ const YuvaaCourses = ({
                   </CardHeader>
                   <CardContent>
                     <p
-                      className="text-gray-600 mb-4"
+                      className="text-gray-600 mb-4 capitalize"
                       style={{ color: secondaryTextColor }}
                     >
                       {course?.description}
                     </p>
 
                     <div className="space-y-2 mb-4">
-                      <div
-                        className="flex items-center text-sm text-gray-500 text-capitalize"
-                        style={{ color: secondaryTextColor }}
-                      >
-                        <Clock className="w-4 h-4 mr-2" />
-                        <span>{course?.endDateDuration}</span>
-                      </div>
-                      <div
-                        className="flex items-center text-sm text-gray-500"
-                        style={{ color: secondaryTextColor }}
-                      >
-                        <Users className="w-4 h-4 mr-2" />
-                        <span>Instructor: {course?.instructorName}</span>
-                      </div>
+                      {course?.endDateDuration && (
+                        <div
+                          className="flex items-center text-sm text-gray-500 text-capitalize"
+                          style={{ color: secondaryTextColor }}
+                        >
+                          <Clock className="w-4 h-4 mr-2" />
+                          <span>{course?.endDateDuration}</span>
+                        </div>
+                      )}
+
+                      {course?.instructorName && (
+                        <div
+                          className="flex items-center text-sm text-gray-500"
+                          style={{ color: secondaryTextColor }}
+                        >
+                          <Users className="w-4 h-4 mr-2" />
+                          <span>Instructor: {course?.instructorName}</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex justify-between items-center">
@@ -231,10 +239,11 @@ const YuvaaCourses = ({
                         className="text-2xl font-bold text-[#20B2AA]"
                         style={{ color: primaryBackgroundColor }}
                       >
-                        {course?.amount}
+                        {course?.amount != null && `₹${course?.amount}`}
+
                       </span>
                       <button
-                        className="bg-[#FF6347] hover:bg-[#FF6347]-dark text-white py-2 px-6 rounded-md"
+                        className="bg-[#FF6347] cursor-pointer hover:bg-[#FF6347]-dark text-white py-2 px-6 rounded-md"
                         style={{
                           backgroundColor: secondaryBackgroundColor,
                           color: heroTextColor,
