@@ -19,6 +19,10 @@ const YuvaaSignup = () => {
     const mobileFromQuery = searchParams.get("mobile");
     const emailFromQuery = searchParams.get("email");
 
+    if(authContext.isAuthenticated){
+      router.push('/')
+    }
+
     if (mobileFromQuery) {
       setFormData((prev) => ({ ...prev, phoneNumber: mobileFromQuery }));
     } else if (emailFromQuery) {

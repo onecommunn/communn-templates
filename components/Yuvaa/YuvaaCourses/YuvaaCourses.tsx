@@ -140,6 +140,14 @@ const YuvaaCourses = ({
     }
   }, [communityId]);
 
+  if (!Array.isArray(coursesList) || coursesList.length === 0) {
+    return (
+      <div className="text-center w-full h-[80vh] flex items-center justify-center">
+        <p>No courses available.</p>
+      </div>
+    );
+  }
+
   return (
     <main className="flex-grow bg-white">
       {/* Hero Section */}

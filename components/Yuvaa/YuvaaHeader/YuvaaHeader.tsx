@@ -4,6 +4,16 @@ import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "@/app/contexts/Auth.context";
 import { logoutService } from "@/app/services/logoutService";
+import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/Ui/alert-dialog";
 
 const YuvaaHeader = ({
   logoUrl,
@@ -13,7 +23,7 @@ const YuvaaHeader = ({
   textColor,
   buttonBackgroundColor,
   buttonTextColor,
-  buttonText
+  buttonText,
 }: {
   logoUrl: string;
   logoWidth: number;
@@ -22,7 +32,7 @@ const YuvaaHeader = ({
   textColor: string;
   buttonBackgroundColor: string;
   buttonTextColor: string;
-  buttonText: string
+  buttonText: string;
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const authContext = useContext(AuthContext);
@@ -84,15 +94,14 @@ const YuvaaHeader = ({
   //   mounted
   // });
 
-
   const handleLogout = async () => {
     const success = await logoutService();
     if (success) {
-      localStorage.removeItem('access-token');
-      localStorage.removeItem('refresh-token');
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("refresh-token");
       window.location.reload();
     } else {
-      console.error('Logout failed, unable to navigate to login.');
+      console.error("Logout failed, unable to navigate to login.");
     }
   };
 
@@ -197,7 +206,7 @@ const YuvaaHeader = ({
             >
               Plans
             </Link>
-             <Link
+            <Link
               href="/contact"
               style={
                 {
@@ -221,19 +230,54 @@ const YuvaaHeader = ({
                 <div className="text-center font-medium min-w-fit">
                   Hi, {authContext.user?.firstName || authContext.user?.email}
                 </div>
-                <button
+                {/* <button
                   onClick={() => {
-                    const confirmLogout = window.confirm("Are you sure you want to logout?");
+                    const confirmLogout = window.confirm(
+                      "Are you sure you want to logout?"
+                    );
                     if (confirmLogout) {
                       handleLogout();
                       setMobileMenuOpen(false);
                     }
                   }}
                   className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600 cursor-pointer"
+                  style={{
+                    backgroundColor: buttonBackgroundColor,
+                    color: buttonTextColor,
+                  }}
                 >
                   Logout
-                </button>
-
+                </button> */}
+                <AlertDialog>
+                  <AlertDialogTrigger
+                    style={{
+                      backgroundColor: buttonBackgroundColor,
+                      color: buttonTextColor,
+                    }}
+                    className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600 cursor-pointer"
+                  >
+                    Logout
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you sure you want to logout?
+                      </AlertDialogTitle>
+                      
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => {
+                          handleLogout();
+                          setMobileMenuOpen(false);
+                        }}
+                      >
+                        Continue
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             ) : (
               <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
@@ -296,7 +340,8 @@ const YuvaaHeader = ({
                 {authContext.isAuthenticated ? (
                   <>
                     <div className="text-center font-medium">
-                      Hi, {authContext.user?.firstName || authContext.user?.email}
+                      Hi,{" "}
+                      {authContext.user?.firstName || authContext.user?.email}
                     </div>
                     <button
                       onClick={() => {
@@ -311,7 +356,10 @@ const YuvaaHeader = ({
                     </button>
                   </>
                 ) : (
-                  <Link href="/auto-login" onClick={() => setMobileMenuOpen(false)}>
+                  <Link
+                    href="/auto-login"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     <button
                       style={{
                         backgroundColor: buttonBackgroundColor,

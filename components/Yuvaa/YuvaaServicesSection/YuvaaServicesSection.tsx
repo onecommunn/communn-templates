@@ -2,6 +2,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import YuvaaServiceCard from "./YuvaaServiceCard";
 import { getCommunityData } from "@/app/services/communityService";
+import { useCommunity } from "@/app/hooks/useCommunity";
+import { Service } from "@/app/models/service.model";
+import { getServices } from "@/app/services/ServicesService";
 
 const YuvaaServicesSection = ({
   title,
@@ -36,7 +39,29 @@ const YuvaaServicesSection = ({
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [servicesList, setServicesList] = useState<any[]>([]);
+  const [servicesList, setServicesList] = useState<Service[]>([]);
+  const [isloading, setIsLoading] = useState<boolean>(true);
+
+  const { communityId } = useCommunity();
+
+  const fetchServices = async () => {
+    try {
+      setIsLoading(true);
+      const response: any = await getServices(communityId);
+      setServicesList(response.services || []);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+      setServicesList([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (communityId) {
+      fetchServices();
+    }
+  }, [communityId]);
 
   const slideNext = () => {
     if (servicesList && currentSlide < servicesList.length - 3) {
@@ -58,27 +83,15 @@ const YuvaaServicesSection = ({
     }
   };
 
-  const getServicesList = async () => {
-    try {
-      const communityData: any = await getCommunityData(
-        window.location.hostname
-      );
-      return communityData?.community.services || [];
-    } catch (error) {
-      console.error("Error fetching services list:", error);
-      return [];
-    }
-  };
+  if (isloading) {
+    return (
+      <div className="col-span-full text-center text-gray-500 text-lg w-full">
+        Loading Services...
+      </div>
+    );
+  }
 
-  useEffect(() => {
-    const fetchServicesList = async () => {
-      const services = await getServicesList();
-      setServicesList(services);
-    };
-
-    fetchServicesList();
-  }, []);
-
+  if (!Array.isArray(servicesList) || servicesList.length === 0) return null;
 
   return (
     <section
@@ -119,13 +132,8 @@ const YuvaaServicesSection = ({
               <YuvaaServiceCard
                 key={index}
                 image={service.image}
-                imageWidth={service.imageWidth}
-                imageHeight={service.imageHeight}
                 title={service.title}
-                ctaText={service.ctaText}
-                rating={service.rating}
                 description={service.description}
-                reviewCount={service.reviewCount}
                 cardBackgroundColor={cardBackgroundColor}
                 serviceTitleColor={serviceTitleColor}
                 ratingStarsColor={ratingStarsColor}
@@ -136,18 +144,6 @@ const YuvaaServicesSection = ({
           </div>
         ) : servicesList && servicesList.length > 0 ? (
           <div className="relative">
-            <button
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full"
-              onClick={slidePrev}
-              disabled={currentSlide === 0}
-              style={{
-                backgroundColor: navigationBackgroundColor,
-                color: navigationIconsColor,
-              }}
-            >
-              <ChevronLeft size={24} />
-            </button>
-
             <div
               ref={sliderRef}
               className="flex overflow-x-auto hide-scrollbar gap-6 py-4 px-8"
@@ -157,13 +153,8 @@ const YuvaaServicesSection = ({
                 <div key={index} className="min-w-[300px] max-w-[300px]">
                   <YuvaaServiceCard
                     image={service.image}
-                    imageWidth={service.imageWidth}
-                    imageHeight={service.imageHeight}
                     title={service.title}
-                    ctaText={service.ctaText}
                     description={service.description}
-                    rating={service.rating}
-                    reviewCount={service.reviewCount}
                     cardBackgroundColor={cardBackgroundColor}
                     serviceTitleColor={serviceTitleColor}
                     ratingStarsColor={ratingStarsColor}
@@ -174,17 +165,33 @@ const YuvaaServicesSection = ({
               ))}
             </div>
 
-            <button
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full"
-              onClick={slideNext}
-              disabled={currentSlide >= servicesList.length - 3}
-              style={{
-                backgroundColor: navigationBackgroundColor,
-                color: navigationIconsColor,
-              }}
-            >
-              <ChevronRight size={24} />
-            </button>
+            {/* Navigation Buttons */}
+            <div className="flex justify-center mt-8 gap-2">
+              <button
+                onClick={slidePrev}
+                disabled={currentSlide === 0}
+                className="p-2 rounded-md transition-colors"
+                style={{
+                  backgroundColor: navigationBackgroundColor,
+                  color: navigationIconsColor,
+                }}
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                onClick={slideNext}
+                disabled={currentSlide >= servicesList.length - 3}
+                className="p-2 rounded-md transition-colors text-[var(--color)] bg-[var(--bgColor)]"
+                style={
+                  {
+                    "--color": navigationIconsColor,
+                    "--bgColor": navigationBackgroundColor,
+                  } as React.CSSProperties
+                }
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
           </div>
         ) : (
           <p

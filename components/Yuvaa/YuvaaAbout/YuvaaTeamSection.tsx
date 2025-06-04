@@ -1,11 +1,13 @@
+import { useCommunity } from "@/app/hooks/useCommunity";
+import { Team } from "@/app/models/team.model";
 import { getCommunityData } from "@/app/services/communityService";
-import React, { useEffect } from "react";
-
+import { getTeams } from "@/app/services/teamService";
+import React, { useEffect, useState } from "react";
 
 interface YuvaaTeamSectionProps {
   title: string;
   description: string;
- // teamMembersList?: teamMembersListProps[];
+  // teamMembersList?: teamMembersListProps[];
   backgroundColor: string;
   titleColor: string;
   descriptionColor: string;
@@ -18,7 +20,7 @@ interface YuvaaTeamSectionProps {
 const YuvaaTeamSection = ({
   title,
   description,
- // teamMembersList,
+  // teamMembersList,
   backgroundColor,
   titleColor,
   descriptionColor,
@@ -27,29 +29,38 @@ const YuvaaTeamSection = ({
   nameColor,
   roleColor,
 }: YuvaaTeamSectionProps) => {
-  const [teamsList, setTeamsList] = React.useState<any[]>([]);
-  const getTeamList = async () => {
+  const [teamsList, setTeamsList] = useState<Team[]>([]);
+  const [isloading, setIsLoading] = useState<boolean>(true);
+
+  const { communityId } = useCommunity();
+
+  const fetchTeams = async () => {
     try {
-      const communityData: any = await getCommunityData(
-        window.location.hostname
-      );
-      return communityData?.community.teams || [];
+      setIsLoading(true);
+      const response: any = await getTeams(communityId);
+      setTeamsList(response.teams || []);
     } catch (error) {
-      console.error("Error fetching team list:", error);
-      return [];
+      console.error("Error fetching events:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    const fetchServicesList = async () => {
-      const services = await getTeamList();
-      setTeamsList(services);
-    };
+    if (communityId) {
+      fetchTeams();
+    }
+  }, [communityId]);
 
-    fetchServicesList();
-  }, []);
+  if (isloading) {
+    return (
+      <div className="col-span-full text-center text-gray-500 text-lg w-full">
+        Loading Team Members...
+      </div>
+    );
+  }
+  if (!Array.isArray(teamsList) || teamsList.length === 0) return null;
 
-  console.log(teamsList);
   return (
     <section
       className="py-16 px-4 lg:px-24 bg-white text-black"
@@ -85,25 +96,25 @@ const YuvaaTeamSection = ({
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-fit"
-                    style={{
-                      width: member.imageWidth,
-                      height: member.imageHeight,
-                    }}
                   />
                 </div>
                 <div className="p-6">
-                  <h3
-                    className="text-xl font-semibold mb-1"
-                    style={{ color: nameColor }}
-                  >
-                    {member.name}
-                  </h3>
-                  <p
-                    className="text-[#FF6347] mb-4"
-                    style={{ color: roleColor }}
-                  >
-                    {member.designation}
-                  </p>
+                  <div className="grid grid-cols-2">
+                    <h3
+                      className="text-xl font-semibold mb-1"
+                      style={{ color: nameColor }}
+                    >
+                      {member.name}
+                    </h3>
+                    <p
+                      className="text-[#FF6347] text-right"
+                      style={{ color: roleColor }}
+                    >
+                      {member.designation}
+                    </p>
+                  </div>
+
+                  <p className="text-gray-500 mb-4">{member.description}</p>
                 </div>
               </div>
             ))}

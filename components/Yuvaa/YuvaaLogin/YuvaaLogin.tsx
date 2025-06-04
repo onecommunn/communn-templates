@@ -13,7 +13,7 @@ import {
 } from "@/components/Ui/CustomInputOtp";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const YuvaaLogin = () => {
@@ -26,7 +26,15 @@ const YuvaaLogin = () => {
 
   const { verifyEmailOtp } = useOtp();
 
+ 
   const router = useRouter();
+
+   useEffect(() => {
+    if(authContext){
+      router.push('/')
+    }
+  },[])
+
 
   const handleGetOtp = async () => {
     if (!mobileNumber) {

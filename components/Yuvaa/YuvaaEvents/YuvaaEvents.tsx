@@ -30,10 +30,9 @@ const YuvaaEvents = ({
 
   const { communityId } = useCommunity();
 
-
-  const handleClick = (category: string) => {
-    setSelectedCategory(category);
-  };
+  // const handleClick = (category: string) => {
+  //   setSelectedCategory(category);
+  // };
 
   const fetchEvents = async () => {
     try {
@@ -52,6 +51,14 @@ const YuvaaEvents = ({
       fetchEvents();
     }
   }, [communityId]);
+
+  if (!Array.isArray(events) || events.length === 0) {
+    return (
+      <div className="text-center w-full h-[80vh] flex items-center justify-center">
+        <p>No Events available.</p>
+      </div>
+    );
+  }
 
   return (
     <main className="flex-grow bg-white">
