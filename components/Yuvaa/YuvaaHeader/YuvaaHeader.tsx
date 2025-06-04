@@ -263,7 +263,6 @@ const YuvaaHeader = ({
                       <AlertDialogTitle>
                         Are you sure you want to logout?
                       </AlertDialogTitle>
-                      
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
@@ -272,6 +271,11 @@ const YuvaaHeader = ({
                           handleLogout();
                           setMobileMenuOpen(false);
                         }}
+                        style={{
+                          backgroundColor: buttonBackgroundColor,
+                          color: buttonTextColor,
+                        }}
+                        className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 cursor-pointer"
                       >
                         Continue
                       </AlertDialogAction>
