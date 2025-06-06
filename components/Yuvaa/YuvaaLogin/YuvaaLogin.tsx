@@ -26,15 +26,16 @@ const YuvaaLogin = () => {
 
   const { verifyEmailOtp } = useOtp();
 
- 
+
   const router = useRouter();
 
-   useEffect(() => {
-    if(authContext){
+  useEffect(() => {
+    if (authContext?.isAuthenticated) {
       router.push('/')
     }
-  },[])
+  }, [])
 
+  console.log(authContext?.isAuthenticated, "authContext");
 
   const handleGetOtp = async () => {
     if (!mobileNumber) {
@@ -73,19 +74,19 @@ const YuvaaLogin = () => {
     }
   };
 
- const handleLoginResponse = async (response: any) => {
-  if (response.status === 200) {
-    toast.success("Login successful!");
-    router.push("/");
-  } else if (response.status === 404) {
-    toast.error("User not found. Please sign up.");
-    const encodedValue = encodeURIComponent(mobileNumber);
-    const queryKey = useEmail ? "email" : "mobile";
-    router.push(`/sign-up?${queryKey}=${encodedValue}`);
-  } else {
-    toast.error("Login failed. Please try again.");
-  }
-};
+  const handleLoginResponse = async (response: any) => {
+    if (response.status === 200) {
+      toast.success("Login successful!");
+      router.push("/");
+    } else if (response.status === 404) {
+      toast.error("User not found. Please sign up.");
+      const encodedValue = encodeURIComponent(mobileNumber);
+      const queryKey = useEmail ? "email" : "mobile";
+      router.push(`/sign-up?${queryKey}=${encodedValue}`);
+    } else {
+      toast.error("Login failed. Please try again.");
+    }
+  };
 
 
   const handleLogin = async () => {
@@ -107,7 +108,7 @@ const YuvaaLogin = () => {
       if (verifyResponse.status === 200) {
         const res: any = await authContext.autoLogin(
           useEmail ? "" : mobileNumber,
-          useEmail ? mobileNumber : "",null
+          useEmail ? mobileNumber : "", null
         );
         handleLoginResponse(res);
         console.log(res, "Response from auto login");
@@ -172,11 +173,10 @@ const YuvaaLogin = () => {
                   <button
                     onClick={handleGetOtp}
                     disabled={!mobileNumber || loading}
-                    className={`${
-                      mobileNumber || loading
-                        ? "bg-[#FF6347] cursor-pointer"
-                        : "bg-gray-300 cursor-not-allowed"
-                    } text-white px-6 py-3  rounded-lg font-medium w-full`}
+                    className={`${mobileNumber || loading
+                      ? "bg-[#FF6347] cursor-pointer"
+                      : "bg-gray-300 cursor-not-allowed"
+                      } text-white px-6 py-3  rounded-lg font-medium w-full`}
                   >
                     {loading ? "Sending..." : "Get OTP"}
                   </button>
