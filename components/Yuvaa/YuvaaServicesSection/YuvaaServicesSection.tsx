@@ -1,21 +1,20 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import YuvaaServiceCard from "./YuvaaServiceCard";
-import { getCommunityData } from "@/app/services/communityService";
 import { useCommunity } from "@/app/hooks/useCommunity";
 import { Service } from "@/app/models/service.model";
 import { getServices } from "@/app/services/ServicesService";
 import { Skeleton } from "@/components/Ui/skeleton";
+import { motion } from "framer-motion";
 
 const YuvaaServicesSection = ({
   title,
   description,
-  //servicesList,
   titleColor,
   descriptionColor,
   lineColor,
-  navigationBackgroundColor,
   navigationIconsColor,
+  navigationBackgroundColor,
   serviceTitleColor,
   ratingStarsColor,
   ctaTextColor,
@@ -25,7 +24,6 @@ const YuvaaServicesSection = ({
 }: {
   title: string;
   description: string;
-  //servicesList?: ServicesList[]; // allow undefined
   titleColor: string;
   descriptionColor: string;
   lineColor: string;
@@ -51,7 +49,7 @@ const YuvaaServicesSection = ({
       const response: any = await getServices(communityId);
       setServicesList(response.services || []);
     } catch (error) {
-      console.error("Error fetching events:", error);
+      console.error("Error fetching services:", error);
       setServicesList([]);
     } finally {
       setIsLoading(false);
@@ -106,7 +104,6 @@ const YuvaaServicesSection = ({
               {description}
             </p>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(3)].map((_, index) => (
               <div
@@ -129,11 +126,17 @@ const YuvaaServicesSection = ({
 
   return (
     <section
-      className="py-16 px-4 lg:px-20 bg-gray-50 text-black"
+      className="py-16 px-4 lg:px-20 text-black"
       style={{ backgroundColor }}
     >
       <div className="container mx-auto">
-        <div className="text-center mb-8">
+        <motion.div
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <h2
             className="text-3xl md:text-4xl font-bold mb-2"
             style={{ color: titleColor }}
@@ -150,7 +153,7 @@ const YuvaaServicesSection = ({
           >
             {description}
           </p>
-        </div>
+        </motion.div>
 
         {servicesList.length < 4 ? (
           <div
@@ -158,25 +161,32 @@ const YuvaaServicesSection = ({
               servicesList.length === 1
                 ? "grid-cols-1"
                 : servicesList.length === 2
-                  ? "grid-cols-2"
-                  : "grid-cols-3"
+                ? "grid-cols-2"
+                : "grid-cols-3"
             }`}
           >
             {servicesList.map((service, index) => (
-              <YuvaaServiceCard
+              <motion.div
                 key={index}
-                image={service.image}
-                title={service.title}
-                description={service.description}
-                cardBackgroundColor={cardBackgroundColor}
-                serviceTitleColor={serviceTitleColor}
-                ratingStarsColor={ratingStarsColor}
-                ctaTextColor={ctaTextColor}
-                reviewCountColor={reviewCountColor}
-              />
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <YuvaaServiceCard
+                  image={service.image}
+                  title={service.title}
+                  description={service.description}
+                  cardBackgroundColor={cardBackgroundColor}
+                  serviceTitleColor={serviceTitleColor}
+                  ratingStarsColor={ratingStarsColor}
+                  ctaTextColor={ctaTextColor}
+                  reviewCountColor={reviewCountColor}
+                />
+              </motion.div>
             ))}
           </div>
-        ) : servicesList && servicesList.length > 0 ? (
+        ) : (
           <div className="relative">
             <div
               ref={sliderRef}
@@ -184,7 +194,14 @@ const YuvaaServicesSection = ({
               style={{ scrollBehavior: "smooth" }}
             >
               {servicesList.map((service, index) => (
-                <div key={index} className="min-w-[300px] max-w-[300px]">
+                <motion.div
+                  key={index}
+                  className="min-w-[300px] max-w-[300px]"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
                   <YuvaaServiceCard
                     image={service.image}
                     title={service.title}
@@ -195,13 +212,13 @@ const YuvaaServicesSection = ({
                     ctaTextColor={ctaTextColor}
                     reviewCountColor={reviewCountColor}
                   />
-                </div>
+                </motion.div>
               ))}
             </div>
 
             {/* Navigation Buttons */}
             <div className="flex justify-center mt-8 gap-2">
-              <button
+              <motion.button
                 onClick={slidePrev}
                 disabled={currentSlide === 0}
                 className="p-2 rounded-md cursor-pointer transition-colors"
@@ -209,31 +226,26 @@ const YuvaaServicesSection = ({
                   backgroundColor: navigationBackgroundColor,
                   color: navigationIconsColor,
                 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <ChevronLeft size={20} />
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 onClick={slideNext}
                 disabled={currentSlide >= servicesList.length - 3}
-                className="p-2 rounded-md transition-colors cursor-pointer text-[var(--color)] bg-[var(--bgColor)]"
-                style={
-                  {
-                    "--color": navigationIconsColor,
-                    "--bgColor": navigationBackgroundColor,
-                  } as React.CSSProperties
-                }
+                className="p-2 rounded-md cursor-pointer transition-colors"
+                style={{
+                  backgroundColor: navigationBackgroundColor,
+                  color: navigationIconsColor,
+                }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <ChevronRight size={20} />
-              </button>
+              </motion.button>
             </div>
           </div>
-        ) : (
-          <p
-            className="text-center text-lg"
-            style={{ color: descriptionColor }}
-          >
-            No services available at the moment.
-          </p>
         )}
       </div>
     </section>

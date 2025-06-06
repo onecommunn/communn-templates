@@ -1,8 +1,14 @@
 import { useCommunity } from "@/app/hooks/useCommunity";
 import { SocialLink } from "@/app/models/community.model";
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Linkedin,
+  Youtube
+} from "lucide-react";
 import Link from "next/link";
-import React, { use, useEffect, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 
 interface LinksListProps {
   Text: string;
@@ -30,8 +36,16 @@ interface YuvaaFooterProps {
   Email: string;
   Timmings: string;
   CopyRightText: string;
-  tagLine:string
+  tagLine: string;
 }
+
+const iconMap: Record<string, JSX.Element> = {
+  facebook: <Facebook size={20} />,
+  twitter: <Twitter size={20} />,
+  instagram: <Instagram size={20} />,
+  linkedin: <Linkedin size={20} />,
+  youtube: <Youtube size={20} />,
+};
 
 const YuvaaFooter = ({
   logoHight,
@@ -49,7 +63,7 @@ const YuvaaFooter = ({
   Email,
   Timmings,
   CopyRightText,
-  tagLine
+  tagLine,
 }: YuvaaFooterProps) => {
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
 
@@ -80,55 +94,31 @@ const YuvaaFooter = ({
                 />
               </div>
             </Link>
-            <p className="text-sm opacity-80 mb-4 mt-4">
-              {tagLine}
-            </p>
+            <p className="text-sm opacity-80 mb-4 mt-4">{tagLine}</p>
             <div className="flex space-x-4">
-              {socialLinks[0]?.type == "facebook" && socialLinks[0]?.value && (
-                <a
-                  href={socialLinks[0]?.value}
-                  style={
-                    {
-                      "--hover-color": textHoverColor,
-                      "--text-color": subTitleTextColor,
-                    } as React.CSSProperties
-                  }
-                  className="w-8 h-8 bg-white/20 text-[var(--text-color)] hover:text-[var(--hover-color)] rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
-                >
-                  <Facebook size={20} />
-                </a>
-              )}
-              {socialLinks[1]?.type == "twitter" && socialLinks[1]?.value && (
-                <a
-                  href={socialLinks[1]?.value}
-                  style={
-                    {
-                      "--hover-color": textHoverColor,
-                      "--text-color": subTitleTextColor,
-                    } as React.CSSProperties
-                  }
-                  className="w-8 h-8 bg-white/20 text-[var(--text-color)] hover:text-[var(--hover-color)] rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
-                >
-                  <Twitter size={20} />
-                </a>
-              )}
-              {socialLinks[2]?.type == "instagram" && socialLinks[2]?.value && (
-                <a
-                  href={socialLinks[2]?.value}
-                  style={
-                    {
-                      "--hover-color": textHoverColor,
-                      "--text-color": subTitleTextColor,
-                    } as React.CSSProperties
-                  }
-                  className="w-8 h-8 bg-white/20 text-[var(--text-color)] hover:text-[var(--hover-color)] rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
-                >
-                  <Instagram size={20} />
-                </a>
-              )}
+              {socialLinks.map((link) => (
+                link.value && iconMap[link.type.toLowerCase()] && (
+                  <a
+                    key={link._id}
+                    href={link.value}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={
+                      {
+                        "--hover-color": textHoverColor,
+                        "--text-color": subTitleTextColor,
+                      } as React.CSSProperties
+                    }
+                    className="w-8 h-8 bg-white/20 text-[var(--text-color)] hover:text-[var(--hover-color)] rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all"
+                  >
+                    {iconMap[link.type.toLowerCase()]}
+                  </a>
+                )
+              ))}
             </div>
           </div>
 
+          {/* Quick Links */}
           {QuickLinks?.map((each, index) => (
             <div key={index}>
               <h3
@@ -157,7 +147,8 @@ const YuvaaFooter = ({
               </ul>
             </div>
           ))}
-          {/* Contact */}
+
+          {/* Contact Info */}
           <div>
             <h3
               className="text-lg font-bold mb-4"
@@ -177,6 +168,7 @@ const YuvaaFooter = ({
           </div>
         </div>
 
+        {/* Footer Bottom */}
         <div className="border-t border-white border-opacity-20 mt-8 pt-8 text-center text-sm opacity-80">
           <p>{CopyRightText}</p>
         </div>

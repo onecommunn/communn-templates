@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -6,6 +8,16 @@ import {
 } from "@/components/Ui/CustomCard";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import React, { CSSProperties, useState } from "react";
+import { motion } from "framer-motion";
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.2, duration: 0.6, ease: "easeOut" },
+  }),
+};
 
 const YuvaaContact = ({
   title,
@@ -65,37 +77,43 @@ const YuvaaContact = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-
-    // Submit logic here
     console.log("Form submitted:", form);
   };
 
   return (
-    <main className="flex-grow bg-white ">
+    <main className="flex-grow bg-white">
       {/* Hero Section */}
-      <section
-        className="bg-[#20B2AA] text-white py-16 px-4 lg:px-20"
+      <motion.section
+        className="py-16 px-4 lg:px-20"
         style={{
           backgroundColor: primaryBackgroundColor,
           color: heroTextColor,
         }}
+        initial={{ opacity: 0, y: -40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
           <p className="text-xl opacity-90 max-w-2xl mx-auto">{description}</p>
         </div>
-      </section>
+      </motion.section>
 
       {/* Contact Content */}
       <section className="py-16 px-4 lg:px-20">
-        <div className="container mx-auto">
+        <motion.div
+          className="container mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div>
+            <motion.div variants={fadeInUp} custom={0}>
               <Card>
                 <CardHeader>
                   <CardTitle
-                    className="text-2xl text-[#20B2AA]"
+                    className="text-2xl"
                     style={{ color: primaryBackgroundColor }}
                   >
                     Send us a Message
@@ -103,124 +121,68 @@ const YuvaaContact = ({
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <label
-                        className="block mb-1 font-medium text-black"
-                        style={{ color: primaryTextColor }}
-                      >
-                        Full Name
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        spellCheck={false}
-                        data-ms-editor={true}
-                        placeholder="Enter your full name"
-                        style={
-                          {
-                            "--placeholderColor": secondaryTextColor,
-                          } as React.CSSProperties
-                        }
-                        className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
-                      />
-                      {errors.name && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.name}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        className="block mb-1 font-medium text-black"
-                        style={{ color: primaryTextColor }}
-                      >
-                        Email Address
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        spellCheck={false}
-                        data-ms-editor={true}
-                        placeholder="Enter your email"
-                        style={
-                          {
-                            "--placeholderColor": secondaryTextColor,
-                          } as React.CSSProperties
-                        }
-                        className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
-                      />
-                      {errors.email && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.email}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        className="block mb-1 font-medium text-black"
-                        style={{ color: primaryTextColor }}
-                      >
-                        Subject
-                      </label>
-                      <input
-                        type="text"
-                        name="subject"
-                        value={form.subject}
-                        onChange={handleChange}
-                        spellCheck={false}
-                        data-ms-editor={true}
-                        placeholder="Enter message subject"
-                        style={
-                          {
-                            "--placeholderColor": secondaryTextColor,
-                          } as React.CSSProperties
-                        }
-                        className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
-                      />
-                      {errors.subject && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.subject}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        className="block mb-1 font-medium text-black"
-                        style={{ color: primaryTextColor }}
-                      >
-                        Message
-                      </label>
-                      <textarea
-                        name="message"
-                        value={form.message}
-                        onChange={handleChange}
-                        placeholder="Tell us how we can help you..."
-                        spellCheck={false}
-                        data-ms-editor={true}
-                        style={
-                          {
-                            "--placeholderColor": secondaryTextColor,
-                          } as React.CSSProperties
-                        }
-                        className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
-                      />
-                      {errors.message && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.message}
-                        </p>
-                      )}
-                    </div>
-
+                    {["name", "email", "subject", "message"].map((field, i) => (
+                      <div key={field}>
+                        <label
+                          className="block mb-1 font-medium"
+                          style={{ color: primaryTextColor }}
+                        >
+                          {field === "name"
+                            ? "Full Name"
+                            : field === "email"
+                            ? "Email Address"
+                            : field === "subject"
+                            ? "Subject"
+                            : "Message"}
+                        </label>
+                        {field === "message" ? (
+                          <textarea
+                            name={field}
+                            value={form[field as keyof typeof form]}
+                            onChange={handleChange}
+                            placeholder="Tell us how we can help you..."
+                            spellCheck={false}
+                            data-ms-editor={true}
+                            style={
+                              {
+                                "--placeholderColor": secondaryTextColor,
+                              } as React.CSSProperties
+                            }
+                            className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
+                          />
+                        ) : (
+                          <input
+                            type={field === "email" ? "email" : "text"}
+                            name={field}
+                            value={form[field as keyof typeof form]}
+                            onChange={handleChange}
+                            placeholder={`Enter your ${
+                              field === "name"
+                                ? "full name"
+                                : field === "email"
+                                ? "email"
+                                : "message " + field
+                            }`}
+                            spellCheck={false}
+                            data-ms-editor={true}
+                            style={
+                              {
+                                "--placeholderColor": secondaryTextColor,
+                              } as React.CSSProperties
+                            }
+                            className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
+                          />
+                        )}
+                        {errors[field as keyof typeof errors] && (
+                          <p className="text-red-500 text-sm mt-1">
+                            {errors[field as keyof typeof errors]}
+                          </p>
+                        )}
+                      </div>
+                    ))}
                     <button
                       type="submit"
-                      className="w-full bg-[#FF6347]  text-white cursor-pointer py-2 px-4 rounded-md"
+                      className="w-full py-2 px-4 rounded-md"
                       style={
                         {
                           backgroundColor: secondaryBackgroundColor,
@@ -233,9 +195,14 @@ const YuvaaContact = ({
                   </form>
                 </CardContent>
               </Card>
-              <div className="rounded-md overflow-hidden shadow-md mt-8">
+              <motion.div
+                className="rounded-md overflow-hidden shadow-md mt-8"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d8009.761250057285!2d77.56887259107936!3d12.944298367119004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1senergy%20groove%2082%2C%20S%20End%20Rd%2C%20above%20to%20BUTTER%20SPONGE%20BAKERY%20STORE%2C%20next%20to%20kamala%20neharu%20school%2C%20Basavanagudi!5e1!3m2!1sen!2sin!4v1748929442138!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=..."
                   width="100%"
                   height="450"
                   style={{ border: 0 }}
@@ -243,165 +210,73 @@ const YuvaaContact = ({
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 />
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
+            {/* Contact Info Section */}
+            <motion.div
+              className="space-y-8"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.div variants={fadeInUp} custom={0}>
                 <h2
-                  className="text-3xl font-bold text-[#20B2AA] mb-6"
+                  className="text-3xl font-bold mb-6"
                   style={{ color: primaryBackgroundColor }}
                 >
                   Get in Touch
                 </h2>
-                <p
-                  className="text-gray-600 mb-8"
-                  style={{ color: secondaryTextColor }}
-                >
+                <p style={{ color: secondaryTextColor }}>
                   We'd love to hear from you. Whether you have questions about
-                  our classes, want to book a session, or need more information
-                  about our programs, we're here to help.
+                  our classes, want to book a session, or need more info, we're
+                  here to help.
                 </p>
-              </div>
+              </motion.div>
 
-              {/* Contact Cards */}
-              <div className="space-y-6">
-                <Card
-                  className="border-l-4 border-l-[#20B2AA]"
-                  style={{ borderLeftColor: primaryBackgroundColor }}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div
-                        style={
-                          {
-                            "--bgColor": primaryBackgroundColor,
-                          } as React.CSSProperties
-                        }
-                        className={`bg-[var(--bgColor)]/10 p-3 rounded-full`}
-                      >
-                        <MapPin className="w-6 h-6 text-[#20B2AA]" />
-                      </div>
-                      <div>
-                        <h3
-                          className="font-semibold text-lg mb-2 text-black"
-                          style={{ color: primaryTextColor }}
+              {[{ icon: <MapPin />, title: "Visit Our Studio", value: address, color: primaryBackgroundColor },
+                { icon: <Phone />, title: "Call Us", value: contactNumbers, color: secondaryBackgroundColor },
+                { icon: <Mail />, title: "Email Us", value: emailId, color: primaryBackgroundColor },
+              ].map((item, i) => (
+                <motion.div key={i} variants={fadeInUp} custom={i + 1}>
+                  <Card
+                    className="border-l-4"
+                    style={{ borderLeftColor: item.color }}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start space-x-4">
+                        <div
+                          className="p-3 rounded-full bg-[var(--bgColor)]/10"
+                          style={
+                            {
+                              "--bgColor": item.color,
+                            } as React.CSSProperties
+                          }
                         >
-                          Visit Our Studio
-                        </h3>
-                        <p
-                          className="text-gray-600"
-                          style={{ color: secondaryTextColor }}
-                        >
-                          {address}
-                        </p>
+                          {React.cloneElement(item.icon, {
+                            className: "w-6 h-6",
+                            color: item.color,
+                          })}
+                        </div>
+                        <div>
+                          <h3
+                            className="font-semibold text-lg mb-2"
+                            style={{ color: primaryTextColor }}
+                          >
+                            {item.title}
+                          </h3>
+                          <p style={{ color: secondaryTextColor }}>
+                            {item.value}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card
-                  className="border-l-4 border-l-[#FF6347]"
-                  style={{ borderLeftColor: secondaryBackgroundColor }}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div
-                        className="bg-[var(--bgColor)]/10 p-3 rounded-full"
-                        style={
-                          {
-                            "--bgColor": secondaryBackgroundColor,
-                          } as React.CSSProperties
-                        }
-                      >
-                        <Phone className="w-6 h-6 text-[#FF6347]" />
-                      </div>
-                      <div>
-                        <h3
-                          className="font-semibold text-lg mb-2 text-black"
-                          style={{ color: primaryTextColor }}
-                        >
-                          Call Us
-                        </h3>
-                        <p
-                          className="text-gray-600"
-                          style={{ color: secondaryTextColor }}
-                        >
-                          {contactNumbers}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card
-                  className="border-l-4 border-l-[#20B2AA]"
-                  style={{ borderLeftColor: primaryBackgroundColor }}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div
-                        className="bg-[var(--bgColor)]/10 p-3 rounded-full"
-                        style={
-                          {
-                            "--bgColor": primaryBackgroundColor,
-                          } as React.CSSProperties
-                        }
-                      >
-                        <Mail className="w-6 h-6 text-[#20B2AA]" />
-                      </div>
-                      <div>
-                        <h3
-                          className="font-semibold text-lg mb-2 text-black"
-                          style={{ color: primaryTextColor }}
-                        >
-                          Email Us
-                        </h3>
-                        <p
-                          className="text-gray-600"
-                          style={{ color: secondaryTextColor }}
-                        >
-                          {emailId}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* <Card
-                  className="border-l-4 border-l-[#FF6347]"
-                  style={{ borderLeftColor: secondaryBackgroundColor }}
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start space-x-4">
-                      <div
-                        className="bg-[var(--bgColor)]/10 p-3 rounded-full"
-                        style={
-                          {
-                            "--bgColor": secondaryBackgroundColor,
-                          } as React.CSSProperties
-                        }
-                      >
-                        <Clock className="w-6 h-6 text-[#FF6347]" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-lg mb-2 text-black" style={{ color: primaryTextColor }}>
-                          Studio Hours
-                        </h3>
-                        <p className="text-gray-600" style={{ color: secondaryTextColor }}>
-                          Monday - Friday: 6:00 AM - 9:00 PM
-                          <br />
-                          Saturday - Sunday: 7:00 AM - 7:00 PM
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card> */}
-              </div>
-            </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   );

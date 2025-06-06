@@ -2,6 +2,7 @@
 
 import { Check } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import YuvaaPricingCard from "./YuvaaPricingCard";
 import { usePlans } from "@/app/hooks/usePlan";
 import { TrainingPlan } from "@/app/models/plan.model";
@@ -39,6 +40,11 @@ interface YuvaaPricingProps {
   iconsColor: string;
 }
 
+const fadeScaleVariants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1 },
+};
+
 const YuvaaPricing = ({
   title,
   description,
@@ -60,8 +66,6 @@ const YuvaaPricing = ({
 
   const [communityId, setCommunityId] = useState<string>("");
 
-  //const communityId = "677e1c869f13316e61af6a6e";
-
   const getCommunityId = async () => {
     try {
       const communityData: any = await getCommunityData(
@@ -75,12 +79,8 @@ const YuvaaPricing = ({
     }
   };
 
-  //console.log(communityId,' communityId');
-
   const authContext = useContext(AuthContext);
   const isAuthenticated = authContext?.isAuthenticated;
-
-  // console.log(plans, "plans");
 
   function capitalizeFirstLetter(str: string) {
     if (!str) {
@@ -88,8 +88,6 @@ const YuvaaPricing = ({
     }
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
-
-  //console.log(community, 'communnity')
 
   useEffect(() => {
     const fetchCommunityId = async () => {
@@ -129,13 +127,15 @@ const YuvaaPricing = ({
     fetchPlans();
   }, [communityId, isAuthenticated]);
 
-
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-4 lg:px-20">
         {Array.from({ length: 6 }).map((_, index) => (
-          <div
+          <motion.div
             key={index}
+            initial={{ opacity: 0.5 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
             className="border rounded-lg overflow-hidden shadow-sm p-4 space-y-4"
           >
             <Skeleton className="h-48 w-full rounded-md" />
@@ -146,7 +146,7 @@ const YuvaaPricing = ({
               <Skeleton className="h-6 w-20" />
               <Skeleton className="h-10 w-24 rounded-md" />
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     );
@@ -163,7 +163,10 @@ const YuvaaPricing = ({
         style={{ backgroundColor: heroBackgroundColor }}
       >
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-4" style={{ color: titleColor }}>
+          <h1
+            className="text-4xl font-bold mb-4"
+            style={{ color: titleColor }}
+          >
             {title}
           </h1>
           <div
@@ -187,55 +190,61 @@ const YuvaaPricing = ({
               {plans.map((plan, index) => {
                 const features: Features[] = [
                   {
-                    feature: `Duration: ${plan.interval} ${capitalizeFirstLetter(plan.duration)}`,
+                    feature: `Duration: ${plan.interval} ${capitalizeFirstLetter(
+                      plan.duration
+                    )}`,
                   },
-                  // {
-                  //   feature: `Starts on: ${new Date(plan.startDate).toDateString()}`,
-                  // },
-                  // { feature: `Offer: ₹${plan.pricing}` },
-                  // {
-                  //   feature: plan.isSequenceAvailable
-                  //     ? `Has ${plan.totalSequences} Sequences`
-                  //     : "No Sequences",
-                  // },
-
                   { feature: `Subscribers: ${plan.subscribers?.length || 0}` },
-
                   {
-                    feature: `Next Due: ${plan?.nextDueDate ? plan.nextDueDate : "No Dues"}`,
+                    feature: `Next Due: ${
+                      plan?.nextDueDate ? plan.nextDueDate : "No Dues"
+                    }`,
                   },
                   {
                     feature: `Status: ${
                       !plan?.nextDueDate
                         ? "Not Subscribed"
                         : new Date(plan.nextDueDate) >= new Date()
-                          ? "Active"
-                          : "Expired"
+                        ? "Active"
+                        : "Expired"
                     }`,
                   },
                 ];
 
-                // console.log(features, "features");
-
                 return (
-                  <YuvaaPricingCard
+                  <motion.div
                     key={plan._id || index}
-                    planId={plan._id}
-                    title={plan.name}
-                    price={plan.pricing || `${plan.totalPlanValue}`}
-                    period={`${plan.interval} ${capitalizeFirstLetter(plan.duration)}`}
-                    description={plan.description || plan.summary}
-                    features={features}
-                    cardBackgroundColor={cardBackgroundColor}
-                    cardPrimaryColor={cardPrimaryColor}
-                    cardSecondaryColors={cardSecondaryColors}
-                    buttonColor={buttonColor}
-                    iconsColor={iconsColor}
-                    isUserSubscribed={plan.isUserSubscribed}
-                    communityId={plan?.community}
-                    subscribers={plan?.subscribers}
-                    nextDueDate={plan?.nextDueDate}
-                  />
+                    variants={fadeScaleVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{
+                      duration: 0.5,
+                      delay: index * 0.6,
+                      ease: "easeOut",
+                    }}
+                    whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.15)" }}
+                    className="rounded-lg"
+                  >
+                    <YuvaaPricingCard
+                      planId={plan._id}
+                      title={plan.name}
+                      price={plan.pricing || `${plan.totalPlanValue}`}
+                      period={`${plan.interval} ${capitalizeFirstLetter(
+                        plan.duration
+                      )}`}
+                      description={plan.description || plan.summary}
+                      features={features}
+                      cardBackgroundColor={cardBackgroundColor}
+                      cardPrimaryColor={cardPrimaryColor}
+                      cardSecondaryColors={cardSecondaryColors}
+                      buttonColor={buttonColor}
+                      iconsColor={iconsColor}
+                      isUserSubscribed={plan.isUserSubscribed}
+                      communityId={plan?.community}
+                      subscribers={plan?.subscribers}
+                      nextDueDate={plan?.nextDueDate}
+                    />
+                  </motion.div>
                 );
               })}
             </div>
