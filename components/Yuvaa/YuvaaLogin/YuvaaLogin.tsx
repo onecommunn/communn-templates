@@ -35,7 +35,7 @@ const YuvaaLogin = () => {
     }
   }, [])
 
-  console.log(authContext?.isAuthenticated, "authContext");
+  // console.log(authContext?.isAuthenticated, "authContext");
 
   const handleGetOtp = async () => {
     if (!mobileNumber) {
@@ -48,17 +48,13 @@ const YuvaaLogin = () => {
     setLoading(true);
     try {
       let response: any;
-
       if (useEmail) {
-        // For email, we'll use a token (you might need to get this from your auth context)
         const token = localStorage.getItem("access-token") || "";
         response = await sendOtpEmailService(mobileNumber);
         console.log(response, "Response from email OTP service");
       } else {
         response = await getOtp(mobileNumber);
       }
-
-      console.log(response, "Response from OTP service");
       if (response.status === 200) {
         toast.success(
           `OTP sent to your ${useEmail ? "email" : "mobile number"}`
@@ -94,17 +90,14 @@ const YuvaaLogin = () => {
       toast.error("Please enter a valid 6-digit OTP");
       return;
     }
-
     setLoading(true);
     try {
       let verifyResponse: any;
-
       if (useEmail) {
         verifyResponse = await verifyEmailOtp(otp, mobileNumber);
       } else {
         verifyResponse = await verifyOtp(mobileNumber, otp);
       }
-
       if (verifyResponse.status === 200) {
         const res: any = await authContext.autoLogin(
           useEmail ? "" : mobileNumber,

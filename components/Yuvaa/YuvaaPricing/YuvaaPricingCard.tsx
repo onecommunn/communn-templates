@@ -61,21 +61,31 @@ const YuvaaPricingCard = ({
 
   const authContext = useContext(AuthContext);
   const userId = authContext?.user?.id;
+  const isLoggedIn = !!userId;
   const [mounted, setMounted] = useState(false);
-  // console.log(userId, "loggedInUserData");
 
-  const isSubscribed = subscribers?.some(sub => sub._id === userId);
+  // Only consider isSubscribed if the user is logged in
+  const isSubscribed =
+    isLoggedIn && subscribers?.some((sub) => sub._id === userId);
 
-
-
-  // Log context value changes
+  // Debug logs
   useEffect(() => {
+    // console.log("AuthContext Loaded");
+    // console.log("authContext.user:", authContext?.user);
+    // console.log("userId:", userId);
+    // console.log("authContext.isAuthenticated:", authContext?.isAuthenticated);
+    // console.log("authContext.loading:", authContext?.loading);
+    // console.log("Subscribers:", subscribers);
+    // console.log("isSubscribed:", isSubscribed);
+  }, [authContext?.user, authContext?.isAuthenticated, authContext?.loading, subscribers]);
 
-  }, [authContext.user, authContext.isAuthenticated, authContext.loading]);
-
+  // Mark component as mounted (for hydration safety)
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Optional: don't render if auth state is loading or component not mounted
+  if (authContext?.loading || !mounted) return null;
 
   return (
     <div
@@ -125,41 +135,28 @@ const YuvaaPricingCard = ({
       </div>
 
 
-      {authContext.isAuthenticated ? (
-        <Link href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}>
-          <button
-            style={
-              {
-                "--bg-color": buttonColor,
-                "--text-color": cardBackgroundColor,
-              } as React.CSSProperties
-            }
-            className={`w-full py-3 cursor-pointer rounded-md ${isSubscribed
-              ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
-              : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
-              }`}
-          >
-            {isSubscribed ? "Subscribed" : "Subscribe"}
-          </button>
-        </Link>
-      ) : (
-        <Link href="/login">
-          <button
-            style={
-              {
-                "--bg-color": buttonColor,
-                "--text-color": cardBackgroundColor,
-              } as React.CSSProperties
-            }
-            className={`w-full py-3 cursor-pointer rounded-md ${isSubscribed
-              ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
-              : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
-              }`}
-          >
-            {isSubscribed ? "Subscribed" : "Subscribe"}
-          </button>
-        </Link>
-      )}
+      <Link
+        href={
+          isLoggedIn
+            ? `/subscriptions/?planid=${planId}&communityid=${communityId}`
+            : "/login"
+        }
+      >
+        <button
+          style={
+            {
+              "--bg-color": buttonColor,
+              "--text-color": cardBackgroundColor,
+            } as React.CSSProperties
+          }
+          className={`w-full py-3 cursor-pointer rounded-md ${isSubscribed
+            ? "bg-[var(--bg-color)] hover:bg-[var(--bg-color)]-dark text-[var(--text-color)]"
+            : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+            }`}
+        >
+          {isSubscribed ? "Subscribed" : "Subscribe"}
+        </button>
+      </Link>
     </div>
   );
 };

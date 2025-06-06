@@ -140,7 +140,7 @@ export const useAuth = () => {
           //   token
           // });
         } else {
-          console.log('No user data in response:', userResponse.data);
+          // console.log('No user data in response:', userResponse.data);
           // Check if token is still valid
           try {
             const decoded: { exp: number } = jwtDecode(token);
@@ -151,19 +151,19 @@ export const useAuth = () => {
             // });
             
             if (remainingTime < 0) {
-              console.log('Token is expired, clearing auth state');
+              // console.log('Token is expired, clearing auth state');
               removeTokens();
               setUser(null);
               setIsAuthenticated(false);
               setAccessToken(null);
             } else {
-              console.log('Token is valid but no user data, might be an API issue');
+              // console.log('Token is valid but no user data, might be an API issue');
               setUser(null);
               setIsAuthenticated(false);
               setAccessToken(null);
             }
           } catch (decodeError) {
-            console.error('Error decoding token:', decodeError);
+            // console.error('Error decoding token:', decodeError);
             removeTokens();
             setUser(null);
             setIsAuthenticated(false);
@@ -178,7 +178,7 @@ export const useAuth = () => {
         });
         
         if (apiError.response?.status === 401) {
-          console.log('Token is invalid or expired, clearing auth state');
+          // console.log('Token is invalid or expired, clearing auth state');
           removeTokens();
         }
         
@@ -187,7 +187,7 @@ export const useAuth = () => {
         setAccessToken(null);
       }
     } catch (error) {
-      console.error('Error in fetchUserData:', error);
+      // console.error('Error in fetchUserData:', error);
       setUser(null);
       setIsAuthenticated(false);
       setAccessToken(null);
@@ -246,7 +246,7 @@ export const useAuth = () => {
           
           await fetchUserData(token);
         } else {
-          console.log('No token found, clearing auth state');
+          // console.log('No token found, clearing auth state');
           setUser(null);
           setIsAuthenticated(false);
           setAccessToken(null);
@@ -269,10 +269,10 @@ export const useAuth = () => {
   useEffect(() => {
     const handleRouteChange = () => {
       const token = localStorage.getItem('access-token');
-      console.log('Route change detected, checking token:', token ? 'Token exists' : 'No token');
+      // console.log('Route change detected, checking token:', token ? 'Token exists' : 'No token');
       
       if (token && (!isAuthenticated || !user)) {
-        console.log('Token exists but no user data, fetching user data');
+        // console.log('Token exists but no user data, fetching user data');
         fetchUserData(token);
       }
     };
@@ -291,7 +291,7 @@ export const useAuth = () => {
   // Token verification interval
   useEffect(() => {
     if (accessToken) {
-      console.log('Setting up token verification interval');
+      // console.log('Setting up token verification interval');
       clearInterval(intervalId.current);
       verifyToken(accessToken); // Initial verification
       intervalId.current = setInterval(() => {
@@ -315,7 +315,7 @@ export const useAuth = () => {
 
   const autoLogin = useCallback(async (phoneNumber: string, emailId: string) => {
     try {
-      console.log('Starting autoLogin with:', { phoneNumber, emailId });
+      // console.log('Starting autoLogin with:', { phoneNumber, emailId });
       
       const response = await axios.post<ApiResponse>(
         `${BASE_URL}/auth/autoLogin`,
@@ -326,14 +326,14 @@ export const useAuth = () => {
         { headers: { 'Content-Type': 'application/json' } }
       );
       
-      console.log('AutoLogin API Response:', response.data);
+      // console.log('AutoLogin API Response:', response.data);
       
       if (response.status === 200) {
         const { user } = response.data;
-        console.log('User data from response:', user);
+        // console.log('User data from response:', user);
         
         const tokens = user?.token;
-        console.log('Tokens from response:', tokens);
+        // console.log('Tokens from response:', tokens);
         
         if (tokens) {
           setTokens(tokens);
@@ -345,12 +345,12 @@ export const useAuth = () => {
         
         const OnlyUser = { ...user };
         delete OnlyUser['token'];
-        console.log('Setting user state with:', OnlyUser);
+        // console.log('Setting user state with:', OnlyUser);
         setUser(OnlyUser);
       }
       return response;
     } catch (err: any) {
-      console.log('AutoLogin error:', err);
+      // console.log('AutoLogin error:', err);
       setIsAuthenticated(false);
       //return err?.response ? err?.response : err;
     }
@@ -393,12 +393,12 @@ export const useAuth = () => {
 
   // Log state changes
   useEffect(() => {
-    console.log('useAuth State Update:', {
-      loading,
-      user: user ? 'User exists' : 'No user',
-      isAuthenticated,
-      accessToken: accessToken ? 'Token exists' : 'No token'
-    });
+    // console.log('useAuth State Update:', {
+    //   loading,
+    //   user: user ? 'User exists' : 'No user',
+    //   isAuthenticated,
+    //   accessToken: accessToken ? 'Token exists' : 'No token'
+    // });
   }, [loading, user, isAuthenticated, accessToken]);
 
   return {

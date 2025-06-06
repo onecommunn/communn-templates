@@ -14,8 +14,8 @@ export default async function DynamicPage() {
 
   const host = rawHost.split(":")[0];
 
-  console.log(pathname, "pathname");
-  console.log(host, "rawhost");
+  // console.log(pathname, "pathname");
+  // console.log(host, "rawhost");
 
   const response = await getCommunityData(host);
   const community: Community = response.community;
