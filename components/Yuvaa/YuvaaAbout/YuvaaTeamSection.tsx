@@ -64,11 +64,11 @@ const YuvaaTeamSection = ({
       <div className="mb-2">
         <p className="text-gray-600  line-clamp-3">{desc}</p>
         <Dialog>
-          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none">
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none cursor-pointer">
             Read more
           </DialogTrigger>
           <DialogContent className="max-w-lg">
-            <DialogTitle>{title}</DialogTitle>
+            <DialogTitle className="capitalize">{title}</DialogTitle>
             <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
               {desc}
             </DialogDescription>

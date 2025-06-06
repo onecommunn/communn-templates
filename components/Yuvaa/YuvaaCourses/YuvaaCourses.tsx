@@ -83,12 +83,12 @@ const YuvaaCourses = ({
           {desc}
         </p>
         <Dialog>
-          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none">
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none cursor-pointer">
             Read more
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle className="capti">{course?.name}</DialogTitle>
+              <DialogTitle className="capitalize">{course?.name}</DialogTitle>
             </DialogHeader>
             <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
               {desc}

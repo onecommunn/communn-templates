@@ -14,6 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/Ui/alert-dialog";
+import { usePathname } from "next/navigation";
 
 const YuvaaHeader = ({
   logoUrl,
@@ -54,6 +55,9 @@ const YuvaaHeader = ({
   const toggleMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  const pathname = usePathname();
+  const isActive = (href: string) => pathname === href;
 
   // Show a loading state until everything is ready
   if (!mounted || authContext.loading) {
@@ -133,12 +137,13 @@ const YuvaaHeader = ({
                   "--hover-underline": buttonBackgroundColor,
                 } as React.CSSProperties
               }
-              className="relative font-medium text-black transition-colors duration-300
+              className={`relative font-medium text-black transition-colors duration-300
              after:content-[''] after:absolute after:left-0 after:-bottom-1
              after:h-[2px] after:w-0 hover:after:w-full
              after:transition-all after:duration-300
              after:bg-[var(--hover-underline)]
-             hover:text-[var(--hover-underline)]"
+             hover:text-[var(--hover-underline)]
+             ${isActive("/") ? "text-[var(--hover-underline)] after:w-full" : ""}`}
             >
               Home
             </Link>
@@ -149,12 +154,13 @@ const YuvaaHeader = ({
                   "--hover-underline": buttonBackgroundColor,
                 } as React.CSSProperties
               }
-              className="relative font-medium text-black transition-colors duration-300
+              className={`relative font-medium text-black transition-colors duration-300
              after:content-[''] after:absolute after:left-0 after:-bottom-1
              after:h-[2px] after:w-0 hover:after:w-full
              after:transition-all after:duration-300
              after:bg-[var(--hover-underline)]
-             hover:text-[var(--hover-underline)]"
+             hover:text-[var(--hover-underline)]
+             ${isActive("/about") ? "text-[var(--hover-underline)] after:w-full" : ""}`}
             >
               About
             </Link>
@@ -165,12 +171,12 @@ const YuvaaHeader = ({
                   "--hover-underline": buttonBackgroundColor,
                 } as React.CSSProperties
               }
-              className="relative font-medium text-black transition-colors duration-300
+              className={`relative font-medium text-black transition-colors duration-300
              after:content-[''] after:absolute after:left-0 after:-bottom-1
              after:h-[2px] after:w-0 hover:after:w-full
              after:transition-all after:duration-300
              after:bg-[var(--hover-underline)]
-             hover:text-[var(--hover-underline)]"
+             hover:text-[var(--hover-underline)] ${isActive("/courses") ? "text-[var(--hover-underline)] after:w-full" : ""}`}
             >
               Courses
             </Link>
@@ -181,12 +187,12 @@ const YuvaaHeader = ({
                   "--hover-underline": buttonBackgroundColor,
                 } as React.CSSProperties
               }
-              className="relative font-medium text-black transition-colors duration-300
+              className={`relative font-medium text-black transition-colors duration-300
              after:content-[''] after:absolute after:left-0 after:-bottom-1
              after:h-[2px] after:w-0 hover:after:w-full
              after:transition-all after:duration-300
              after:bg-[var(--hover-underline)]
-             hover:text-[var(--hover-underline)]"
+             hover:text-[var(--hover-underline)] ${isActive("/events") ? "text-[var(--hover-underline)] after:w-full" : ""}`}
             >
               Events
             </Link>
@@ -197,12 +203,12 @@ const YuvaaHeader = ({
                   "--hover-underline": buttonBackgroundColor,
                 } as React.CSSProperties
               }
-              className="relative font-medium text-black transition-colors duration-300
+              className={`relative font-medium text-black transition-colors duration-300
              after:content-[''] after:absolute after:left-0 after:-bottom-1
              after:h-[2px] after:w-0 hover:after:w-full
              after:transition-all after:duration-300
              after:bg-[var(--hover-underline)]
-             hover:text-[var(--hover-underline)]"
+             hover:text-[var(--hover-underline)] ${isActive("/pricing") ? "text-[var(--hover-underline)] after:w-full" : ""}`}
             >
               Plans
             </Link>
@@ -213,12 +219,12 @@ const YuvaaHeader = ({
                   "--hover-underline": buttonBackgroundColor,
                 } as React.CSSProperties
               }
-              className="relative font-medium text-black transition-colors duration-300
+              className={`relative font-medium text-black transition-colors duration-300
              after:content-[''] after:absolute after:left-0 after:-bottom-1
              after:h-[2px] after:w-0 hover:after:w-full
              after:transition-all after:duration-300
              after:bg-[var(--hover-underline)]
-             hover:text-[var(--hover-underline)]"
+             hover:text-[var(--hover-underline)] ${isActive("/contact") ? "text-[var(--hover-underline)] after:w-full" : ""}`}
             >
               Contact
             </Link>
