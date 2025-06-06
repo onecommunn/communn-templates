@@ -104,15 +104,7 @@ const YuvaaLogin = () => {
           useEmail ? mobileNumber : "", null
         );
         handleLoginResponse(res);
-        console.log(res, "Response from auto login");
-        if (res?.status === 200) {
-          toast.success("Login successful!");
-          router.push("/");
-        } else if (res?.status === 404) {
-          toast.error("User not found. Please sign up.");
-        } else {
-          toast.error("Login failed. Please try again.");
-        }
+        //console.log(res, "Response from auto login");
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
@@ -152,7 +144,7 @@ const YuvaaLogin = () => {
                 <label className="block text-sm text-gray-600 mb-2">
                   {useEmail ? "Enter Email ID" : "Enter Mobile No"}
                 </label>
-                <div className="flex gap-3">
+                <div className="flex gap-3 flex-col">
                   <input
                     type={useEmail ? "email" : "tel"}
                     value={mobileNumber}

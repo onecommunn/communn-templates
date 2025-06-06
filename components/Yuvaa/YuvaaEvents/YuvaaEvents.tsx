@@ -7,6 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/Ui/CustomCard";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/Ui/dialog";
 import { Skeleton } from "@/components/Ui/skeleton";
 import { Calendar, Clock, MapPin, Star, Users } from "lucide-react";
 import React, { use, useEffect, useState } from "react";
@@ -35,6 +43,8 @@ const YuvaaEvents = ({
   //   setSelectedCategory(category);
   // };
 
+  const MAX_PREVIEW_CHARS = 150; 
+
   const fetchEvents = async () => {
     try {
       setIsLoading(true);
@@ -53,7 +63,6 @@ const YuvaaEvents = ({
     }
   }, [communityId]);
 
-  
   if (isloading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-4 lg:px-20">
@@ -84,19 +93,49 @@ const YuvaaEvents = ({
     );
   }
 
+  const renderEventsDescription = (event: Event) => {
+    const desc = event?.description ?? "";
+    const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
+
+    if (!shouldTruncate) {
+      return (
+        <p className="text-gray-600 mb-4">
+          {desc}
+        </p>
+      );
+    }
+
+    return (
+      <div className="mb-2">
+        <p className="text-gray-600  line-clamp-3">{desc}</p>
+        <Dialog>
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none">
+            Read more
+          </DialogTrigger>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="capti">{event?.title}</DialogTitle>
+            </DialogHeader>
+            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+              {desc}
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  };
+
   return (
     <main className="flex-grow bg-white">
       {/* Hero Section */}
-      <section className="bg-[#20B2AA] text-white py-16 px-4">
+      <section
+        className="bg-[#20B2AA] text-white py-16 px-4"
+        style={{ backgroundColor: primaryBackgroundColor }}
+      >
         <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Upcoming Events
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
           <div className="w-24 h-1 bg-[#FF6347] mx-auto mb-6"></div>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto">
-            Join our special workshops, retreats, and community events to deepen
-            your practice and connect with fellow yogis.
-          </p>
+          <p className="text-xl opacity-90 max-w-2xl mx-auto">{description}</p>
         </div>
       </section>
 
@@ -155,14 +194,14 @@ const YuvaaEvents = ({
                   </div> */}
                   </div>
 
-                  <CardHeader>
-                    <CardTitle className="text-xl text-[#20B2AA] capitalize">
+                  <CardHeader className="pb-1">
+                    <CardTitle className="text-xl text-black capitalize">
                       {event?.title ?? "Untitled Event"}
                     </CardTitle>
                   </CardHeader>
 
                   <CardContent>
-                    <p className="text-gray-600 mb-4">{event?.description}</p>
+                     {renderEventsDescription(event)}
 
                     <div className="space-y-2 mb-4">
                       <div className="flex items-center text-sm text-gray-500">
@@ -188,8 +227,8 @@ const YuvaaEvents = ({
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-[#20B2AA]">
-                       {event?.pricing != null && `₹${event.pricing}`}
+                      <span className="text-2xl font-bold text-black">
+                        {event?.pricing != null && `₹${event.pricing}`}
                       </span>
                       <button className="bg-[#FF6347] cursor-pointer hover:bg-[#FF6347]-dark text-white rounded-md px-6 py-2 transition-colors">
                         Book Now

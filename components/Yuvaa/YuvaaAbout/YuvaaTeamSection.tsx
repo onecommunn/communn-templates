@@ -114,21 +114,18 @@ const YuvaaTeamSection = ({
                         className="w-full h-full object-fill object-center"
                       />
                     </div>
-                    <div className="p-6">
-                      <div className="grid grid-cols-2">
+                    <div className="p-6 text-center">
                         <h3
                           className="text-xl font-semibold mb-1"
                           style={{ color: nameColor }}
                         >
                           {member.name}
                         </h3>
-                        <p
-                          className="text-right"
+                        <p  
                           style={{ color: roleColor }}
                         >
                           {member.designation}
                         </p>
-                      </div>
                       <p className="text-gray-500 mb-4">{member.description}</p>
                     </div>
                   </div>

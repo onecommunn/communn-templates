@@ -7,9 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/Ui/CustomCard";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/Ui/dialog";
 import { Skeleton } from "@/components/Ui/skeleton";
 import { Calendar, Clock, Star, Users } from "lucide-react";
 import React, { useState } from "react";
+
+const MAX_PREVIEW_CHARS = 180; // rough estimate for ~3 lines – adjust if needed
 
 const YuvaaCourses = ({
   title,
@@ -29,15 +32,13 @@ const YuvaaCourses = ({
   secondaryTextColor: string;
 }) => {
   const [coursesList, setCoursesList] = React.useState<Course[]>([]);
-  const [isloading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { communityId } = useCommunity();
 
-  console.log("coursesList", coursesList);
   const fetchCourses = async () => {
     try {
       setIsLoading(true);
       const response: any = await getCourses(communityId);
-      console.log("Fetched courses:", response);
       if (response && response.courses) {
         setCoursesList(response.courses);
       }
@@ -52,9 +53,56 @@ const YuvaaCourses = ({
     if (communityId) {
       fetchCourses();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [communityId]);
 
-  if (isloading) {
+  // ---------------------------------------------------------------------------
+  // UI helpers
+  // ---------------------------------------------------------------------------
+  const renderCourseDescription = (course: Course) => {
+    const desc = course?.description ?? "";
+    const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
+
+    if (!shouldTruncate) {
+      return (
+        <p
+          className="text-gray-600 mb-4"
+          style={{ color: secondaryTextColor }}
+        >
+          {desc}
+        </p>
+      );
+    }
+
+    return (
+      <div className="mb-2">
+        <p
+          className="text-gray-600  line-clamp-3"
+          style={{ color: secondaryTextColor }}
+        >
+          {desc}
+        </p>
+        <Dialog>
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none">
+            Read more
+          </DialogTrigger>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="capti">{course?.name}</DialogTitle>
+            </DialogHeader>
+            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+              {desc}
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  };
+
+  // ---------------------------------------------------------------------------
+  // Render
+  // ---------------------------------------------------------------------------
+  if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-4 lg:px-20">
         {Array.from({ length: 6 }).map((_, index) => (
@@ -88,18 +136,15 @@ const YuvaaCourses = ({
     <main className="flex-grow bg-white">
       {/* Hero Section */}
       <section
-        className="bg-[#20B2AA] text-white py-16 px-4 lg:px-20"
-        style={{
-          backgroundColor: primaryBackgroundColor,
-          color: heroTextColor,
-        }}
+        className="py-16 px-4 lg:px-20"
+        style={{ backgroundColor: primaryBackgroundColor, color: heroTextColor }}
       >
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
           <div
-            className="w-24 h-1 bg-[#FF6347] mx-auto mb-6"
+            className="w-24 h-1 mx-auto mb-6"
             style={{ backgroundColor: secondaryBackgroundColor }}
-          ></div>
+          />
           <p className="text-xl opacity-90 max-w-2xl mx-auto">{description}</p>
         </div>
       </section>
@@ -107,7 +152,7 @@ const YuvaaCourses = ({
       {/* Courses Grid */}
       <section className="py-16 px-4 bg-gray-50 lg:px-20">
         <div className="container mx-auto">
-          {isloading ? (
+          {isLoading ? (
             <div className="col-span-full text-center text-gray-500 text-lg">
               Loading events...
             </div>
@@ -117,7 +162,7 @@ const YuvaaCourses = ({
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {coursesList?.map((course: Course) => (
+              {coursesList.map((course: Course) => (
                 <Card
                   key={course?._id}
                   className="overflow-hidden hover:shadow-lg transition-shadow"
@@ -132,26 +177,18 @@ const YuvaaCourses = ({
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     />
                   </div>
-                  <CardHeader>
-                    <CardTitle
-                      className="text-xl text-[#20B2AA] capitalize"
-                      style={{ color: primaryBackgroundColor }}
-                    >
+                  <CardHeader className="pb-1">
+                    <CardTitle className="text-xl text-black capitalize">
                       {course?.name}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p
-                      className="text-gray-600 mb-4 capitalize"
-                      style={{ color: secondaryTextColor }}
-                    >
-                      {course?.description}
-                    </p>
+                    {renderCourseDescription(course)}
 
                     <div className="space-y-2 mb-4">
                       {course?.endDateDuration && (
                         <div
-                          className="flex items-center text-sm text-gray-500 text-capitalize"
+                          className="flex items-center text-sm"
                           style={{ color: secondaryTextColor }}
                         >
                           <Clock className="w-4 h-4 mr-2" />
@@ -161,7 +198,7 @@ const YuvaaCourses = ({
 
                       {course?.instructorName && (
                         <div
-                          className="flex items-center text-sm text-gray-500"
+                          className="flex items-center text-sm"
                           style={{ color: secondaryTextColor }}
                         >
                           <Users className="w-4 h-4 mr-2" />
@@ -171,14 +208,15 @@ const YuvaaCourses = ({
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span
-                        className="text-2xl font-bold text-[#20B2AA]"
-                        style={{ color: primaryBackgroundColor }}
-                      >
-                        {course?.amount != null && `₹${course?.amount}`}
-                      </span>
+                      {course?.amount != null && course?.amount !== ""?  (
+                        <span className="text-2xl font-bold text-black">
+                          ₹{course?.amount}
+                        </span>
+                      ) : (<span className="text-2xl font-bold text-black">
+                          NaN
+                        </span>)}
                       <button
-                        className="bg-[#FF6347] cursor-pointer hover:bg-[#FF6347]-dark text-white py-2 px-6 rounded-md"
+                        className="py-2 px-6 rounded-md text-white"
                         style={{
                           backgroundColor: secondaryBackgroundColor,
                           color: heroTextColor,
@@ -199,10 +237,16 @@ const YuvaaCourses = ({
       <section className="py-16 px-4 bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#20B2AA] mb-4">
+            <h2
+              className="text-3xl md:text-4xl font-bold mb-4"
+              style={{ color: primaryBackgroundColor }}
+            >
               Why Choose Our Courses?
             </h2>
-            <div className="w-24 h-1 bg-[#FF6347] mx-auto mb-6"></div>
+            <div
+              className="w-24 h-1 mx-auto mb-6"
+              style={{ backgroundColor: secondaryBackgroundColor }}
+            />
             <p className="text-gray-600 max-w-2xl mx-auto">
               Experience the difference with our expertly designed courses and
               world-class instructors.
@@ -212,9 +256,7 @@ const YuvaaCourses = ({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div
-                style={
-                  { "--bgColor": primaryBackgroundColor } as React.CSSProperties
-                }
+                style={{ "--bgColor": primaryBackgroundColor } as React.CSSProperties}
                 className="bg-[var(--bgColor)]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
               >
                 <Users className="w-8 h-8 text-[var(--bgColor)]" />
@@ -225,10 +267,7 @@ const YuvaaCourses = ({
               >
                 Expert Instructors
               </h3>
-              <p
-                className="text-gray-600"
-                style={{ color: secondaryTextColor }}
-              >
+              <p className="text-gray-600" style={{ color: secondaryTextColor }}>
                 Learn from certified yoga masters with years of experience and
                 deep knowledge.
               </p>
@@ -236,11 +275,7 @@ const YuvaaCourses = ({
 
             <div className="text-center">
               <div
-                style={
-                  {
-                    "--bgColor": secondaryBackgroundColor,
-                  } as React.CSSProperties
-                }
+                style={{ "--bgColor": secondaryBackgroundColor } as React.CSSProperties}
                 className="bg-[var(--bgColor)]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
               >
                 <Calendar className="w-8 h-8 text-[var(--bgColor)]" />
@@ -251,10 +286,7 @@ const YuvaaCourses = ({
               >
                 Flexible Schedule
               </h3>
-              <p
-                className="text-gray-600"
-                style={{ color: secondaryTextColor }}
-              >
+              <p className="text-gray-600" style={{ color: secondaryTextColor }}>
                 Choose from multiple time slots and progress at your own pace
                 with our structured programs.
               </p>
@@ -262,9 +294,7 @@ const YuvaaCourses = ({
 
             <div className="text-center">
               <div
-                style={
-                  { "--bgColor": primaryBackgroundColor } as React.CSSProperties
-                }
+                style={{ "--bgColor": primaryBackgroundColor } as React.CSSProperties}
                 className="bg-[var(--bgColor)]/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
               >
                 <Star className="w-8 h-8 text-[var(--bgColor)]" />
@@ -275,10 +305,7 @@ const YuvaaCourses = ({
               >
                 Proven Results
               </h3>
-              <p
-                className="text-gray-600"
-                style={{ color: secondaryTextColor }}
-              >
+              <p className="text-gray-600" style={{ color: secondaryTextColor }}>
                 Join thousands of satisfied students who have transformed their
                 lives through our courses.
               </p>

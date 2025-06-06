@@ -1,3 +1,11 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/Ui/dialog";
 import { ChevronRight } from "lucide-react";
 import React from "react";
 
@@ -22,17 +30,34 @@ const YuvaaServiceCard = ({
   ctaTextColor,
   reviewCountColor,
 }: ServiceCardProps) => {
-  // const renderStars = () => {
-  //   const stars = [];
-  //   for (let i = 0; i < 5; i++) {
-  //     stars.push(
-  //       <span key={i} className="text-yellow-400" style={{color:ratingStarsColor}}>
-  //         {i < Math.floor(rating) ? "★" : "☆"}
-  //       </span>
-  //     );
-  //   }
-  //   return stars;
-  // };
+  const MAX_PREVIEW_CHARS = 150;
+
+  const renderDescription = (event:string,title:string) => {
+    const desc = event ?? "";
+    const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
+
+    if (!shouldTruncate) {
+      return <p className="text-gray-600 mb-4">{desc}</p>;
+    }
+
+    return (
+      <div className="mb-2">
+        <p className="text-gray-600  line-clamp-3">{desc}</p>
+        <Dialog>
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none">
+            Read more
+          </DialogTrigger>
+          <DialogContent className="max-w-lg">
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+              {desc}
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  };
+
   return (
     <div
       className="bg-white rounded-lg overflow-hidden shadow-sm text-black"
@@ -43,14 +68,15 @@ const YuvaaServiceCard = ({
           <img src={image} alt={title} className="w-full h-full" />
         </div>
       </div>
-      <div className="p-4">
+      <div className="p-4 text-center">
         <h3
-          className="text-xl font-semibold mb-2 text-left"
+          className="text-xl font-semibold mb-2"
           style={{ color: serviceTitleColor }}
         >
           {title}
         </h3>
-        <p className="text-gray-600 text-left">{description}</p>
+        {renderDescription(description,title)}
+        {/* <p className="text-gray-600">{description}</p> */}
         {/* <div className="flex items-center mb-3">
           <div className="flex mr-2">{renderStars()}</div>
           <span className="text-sm text-gray-500" style={{color:reviewCountColor}}>({reviewCount})</span>
