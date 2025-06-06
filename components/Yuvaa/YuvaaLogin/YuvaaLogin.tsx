@@ -26,14 +26,13 @@ const YuvaaLogin = () => {
 
   const { verifyEmailOtp } = useOtp();
 
-
   const router = useRouter();
 
   useEffect(() => {
     if (authContext?.isAuthenticated) {
-      router.push('/')
+      router.push("/");
     }
-  }, [])
+  }, []);
 
   // console.log(authContext?.isAuthenticated, "authContext");
 
@@ -84,7 +83,6 @@ const YuvaaLogin = () => {
     }
   };
 
-
   const handleLogin = async () => {
     if (otp.length !== 6) {
       toast.error("Please enter a valid 6-digit OTP");
@@ -101,7 +99,8 @@ const YuvaaLogin = () => {
       if (verifyResponse.status === 200) {
         const res: any = await authContext.autoLogin(
           useEmail ? "" : mobileNumber,
-          useEmail ? mobileNumber : "", null
+          useEmail ? mobileNumber : "",
+          null
         );
         handleLoginResponse(res);
         //console.log(res, "Response from auto login");
@@ -120,6 +119,25 @@ const YuvaaLogin = () => {
     setMobileNumber("");
     setOtp("");
     setStep("mobile");
+  };
+
+  // const isValidMobile = (number: string): boolean => {
+  //   const mobileRegex = /^[6-9]\d{9}$/;
+  //   return mobileRegex.test(number);
+  // };
+
+  // const isValidEmail = (email: string): boolean => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
+
+  const isInputValid = () => {
+    if (useEmail) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(mobileNumber);
+    } else {
+      return /^\d{10}$/.test(mobileNumber); // exactly 10 digits
+    }
   };
 
   return (
@@ -148,20 +166,30 @@ const YuvaaLogin = () => {
                   <input
                     type={useEmail ? "email" : "tel"}
                     value={mobileNumber}
-                    onChange={(e) => setMobileNumber(e.target.value)}
+                    onChange={(e) => {
+                      const input = e.target.value;
+                      if (useEmail) {
+                        setMobileNumber(input); // allow any input for email
+                      } else {
+                        const numericOnly = input.replace(/\D/g, ""); // remove non-digits
+                        setMobileNumber(numericOnly);
+                      }
+                    }}
                     placeholder={
                       useEmail ? "Enter your email" : "Enter your mobile number"
                     }
                     className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]"
                     disabled={loading}
                   />
+
                   <button
                     onClick={handleGetOtp}
-                    disabled={!mobileNumber || loading}
-                    className={`${mobileNumber || loading
-                      ? "bg-[#FF6347] cursor-pointer"
-                      : "bg-gray-300 cursor-not-allowed"
-                      } text-white px-6 py-3  rounded-lg font-medium w-full`}
+                    disabled={!isInputValid() || loading}
+                    className={`${
+                      isInputValid() && !loading
+                        ? "bg-[#FF6347] cursor-pointer"
+                        : "bg-gray-300 cursor-not-allowed"
+                    } text-white px-6 py-3 rounded-lg font-medium w-full`}
                   >
                     {loading ? "Sending..." : "Get OTP"}
                   </button>

@@ -1,6 +1,7 @@
 import { useCommunity } from "@/app/hooks/useCommunity";
 import { Team } from "@/app/models/team.model";
 import { getTeams } from "@/app/services/teamService";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/Ui/dialog";
 import { Skeleton } from "@/components/Ui/skeleton";
 import React, { useEffect, useState } from "react";
 
@@ -31,6 +32,7 @@ const YuvaaTeamSection = ({
   const [teamsList, setTeamsList] = useState<Team[]>([]);
   const [isloading, setIsLoading] = useState<boolean>(true);
   const { communityId } = useCommunity();
+  const MAX_PREVIEW_CHARS = 150;
 
   const fetchTeams = async () => {
     try {
@@ -49,6 +51,32 @@ const YuvaaTeamSection = ({
       fetchTeams();
     }
   }, [communityId]);
+
+  const renderDescription = (event:string,title:string) => {
+    const desc = event ?? "";
+    const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
+
+    if (!shouldTruncate) {
+      return <p className="text-gray-600 mb-4">{desc}</p>;
+    }
+
+    return (
+      <div className="mb-2">
+        <p className="text-gray-600  line-clamp-3">{desc}</p>
+        <Dialog>
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none">
+            Read more
+          </DialogTrigger>
+          <DialogContent className="max-w-lg">
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+              {desc}
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  };
 
   const renderSkeletons = () => (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -126,7 +154,8 @@ const YuvaaTeamSection = ({
                         >
                           {member.designation}
                         </p>
-                      <p className="text-gray-500 mb-4">{member.description}</p>
+                        {renderDescription(member.description,member.name)}
+                      {/* <p className="text-gray-500 mb-4">{member.description}</p> */}
                     </div>
                   </div>
                 ))}

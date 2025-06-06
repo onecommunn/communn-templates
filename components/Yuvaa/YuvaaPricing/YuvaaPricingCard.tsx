@@ -1,6 +1,7 @@
 
 import { AuthContext } from "@/app/contexts/Auth.context";
 import { ISubscribers } from "@/app/models/plan.model";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/Ui/dialog";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
@@ -63,6 +64,7 @@ const YuvaaPricingCard = ({
   const userId = authContext?.user?.id;
   const isLoggedIn = !!userId;
   const [mounted, setMounted] = useState(false);
+  const MAX_PREVIEW_CHARS = 150;
 
   // Only consider isSubscribed if the user is logged in
   const isSubscribed =
@@ -86,6 +88,32 @@ const YuvaaPricingCard = ({
 
   // Optional: don't render if auth state is loading or component not mounted
   if (authContext?.loading || !mounted) return null;
+
+  const renderDescription = (event:string,title:string) => {
+    const desc = event ?? "";
+    const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
+
+    if (!shouldTruncate) {
+      return <p className="text-gray-600 mb-4">{desc}</p>;
+    }
+
+    return (
+      <div className="mb-2">
+        <p className="text-gray-600  line-clamp-3">{desc}</p>
+        <Dialog>
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none">
+            Read more
+          </DialogTrigger>
+          <DialogContent className="max-w-lg">
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+              {desc}
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  };
 
   return (
     <div
@@ -115,12 +143,9 @@ const YuvaaPricingCard = ({
           </span>
 
         </div>
-        <p
-          className="text-gray-600 mb-6"
-          style={{ color: cardSecondaryColors }}
-        >
-          {description.length > 100 ? description?.slice(0, 100) + "..." : description}
-        </p>
+        {
+          renderDescription(description,title)
+        }
         <ul className="mb-8 space-y-3">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
