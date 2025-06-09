@@ -117,7 +117,7 @@ const YuvaaPricingCard = ({
 
   return (
     <div
-      className={`bg-white rounded-lg flex flex-col justify-between shadow-lg p-8 border ${isPopular ? "border-[var(--border-color)]" : "border-transparent"} relative`}
+      className={`bg-white rounded-lg flex h-fit flex-col justify-between shadow-lg p-8 border ${isPopular ? "border-[var(--border-color)]" : "border-transparent"} relative`}
       style={{ "--border-color": buttonColor } as React.CSSProperties}
     >
 
