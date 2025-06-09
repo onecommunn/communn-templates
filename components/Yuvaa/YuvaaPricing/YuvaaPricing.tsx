@@ -163,10 +163,7 @@ const YuvaaPricing = ({
         style={{ backgroundColor: heroBackgroundColor }}
       >
         <div className="container mx-auto text-center">
-          <h1
-            className="text-4xl font-bold mb-4"
-            style={{ color: titleColor }}
-          >
+          <h1 className="text-4xl font-bold mb-4" style={{ color: titleColor }}>
             {title}
           </h1>
           <div
@@ -205,8 +202,8 @@ const YuvaaPricing = ({
                       !plan?.nextDueDate
                         ? "Not Subscribed"
                         : new Date(plan.nextDueDate) >= new Date()
-                        ? "Active"
-                        : "Expired"
+                          ? "Active"
+                          : "Expired"
                     }`,
                   },
                 ];
@@ -214,16 +211,15 @@ const YuvaaPricing = ({
                 return (
                   <motion.div
                     key={plan._id || index}
-                    variants={fadeScaleVariants}
-                    initial="hidden"
-                    animate="visible"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{
                       duration: 0.5,
-                      delay: index * 0.6,
+                      delay: index * 0.2,
                       ease: "easeOut",
                     }}
-                    whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.15)" }}
-                    className="rounded-lg"
+                    className="rounded-lg h-full"
                   >
                     <YuvaaPricingCard
                       planId={plan._id}

@@ -102,12 +102,9 @@ const YuvaaCourses = ({
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-4 lg:px-20">
         {Array.from({ length: 6 }).map((_, index) => (
-          <motion.div
+          <div
             key={index}
             className="border rounded-lg overflow-hidden shadow-sm p-4 space-y-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
           >
             <Skeleton className="h-48 w-full rounded-md" />
             <Skeleton className="h-6 w-3/4" />
@@ -117,7 +114,7 @@ const YuvaaCourses = ({
               <Skeleton className="h-6 w-20" />
               <Skeleton className="h-10 w-24 rounded-md" />
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     );
