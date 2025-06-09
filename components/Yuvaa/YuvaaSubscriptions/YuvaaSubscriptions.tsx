@@ -182,12 +182,7 @@ const YuvaaSubscriptions = () => {
 
   const tabs = ["All", "PAID", "NOT_PAID"];
 
-  const selectAllUnpaid = () => {
-    const unpaidIndexes = sequencesList
-      .map((item, index) => (item.status === "Not Paid" ? index : null))
-      .filter((index): index is number => index !== null);
-    setSelectedPayments(unpaidIndexes);
-  };
+
 
   const formatStatus = (status: string) => {
     return status
@@ -275,7 +270,6 @@ const YuvaaSubscriptions = () => {
   };
 
   const handleClickPay = async (communityId: string, planId: string,) => {
-
     try {
       setPayLoading(true);
       setCommunity(communityId);
@@ -291,8 +285,7 @@ const YuvaaSubscriptions = () => {
         ?.filter((item: any) => item?.id)
         .map((item: any) => item.id);
       paymentResponse(response, sequenceIds);
-      // console.log("🚀 handleClickPay triggered");
-      // console.log({ userId, planId, sequenceId, amount: totalAmount });
+      handlegetSequencesById();
     } catch (error) {
       console.error('Payment failed:', error);
     } finally {

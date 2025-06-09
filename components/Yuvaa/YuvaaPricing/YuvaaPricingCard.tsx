@@ -232,9 +232,8 @@ const YuvaaPricingCard = ({
           </DialogContent>
         </Dialog>
       ) : (
-        <Link href={isSubscribed ? "#" : `/subscriptions/?planid=${planId}&communityid=${communityId}`}>
+        <Link href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}>
           <button
-            disabled={isSubscribed}
             style={
               {
                 "--bg-color": buttonColor,
@@ -242,7 +241,7 @@ const YuvaaPricingCard = ({
               } as React.CSSProperties
             }
             className={`w-full py-3 cursor-pointer rounded-md ${isSubscribed
-              ? "bg-[var(--bg-color)] text-[var(--text-color)] opacity-60 cursor-not-allowed"
+              ? "bg-[var(--bg-color)] text-[var(--text-color)]"
               : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
               }`}
           >
