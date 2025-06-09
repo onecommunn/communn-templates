@@ -216,7 +216,7 @@ const YuvaaPricing = ({
                     viewport={{ once: true }}
                     transition={{
                       duration: 0.5,
-                      delay: index * 0.2,
+                      delay: index * 0.1,
                       ease: "easeOut",
                     }}
                     className="rounded-lg h-full"
