@@ -196,7 +196,7 @@ const YuvaaServicesSection = ({
               {servicesList.map((service, index) => (
                 <motion.div
                   key={index}
-                  className="min-w-[300px] max-w-[300px]"
+                  className="min-w-[300px] max-w-[300px] min-h-full"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}

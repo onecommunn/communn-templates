@@ -41,7 +41,7 @@ const YuvaaServiceCard = ({
     }
 
     return (
-      <div className="mb-2">
+      <div className="mb-2 h-full">
         <p className="text-gray-600  line-clamp-3">{desc}</p>
         <Dialog>
           <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none cursor-pointer">
@@ -60,7 +60,7 @@ const YuvaaServiceCard = ({
 
   return (
     <div
-      className="bg-white rounded-lg overflow-hidden shadow-sm text-black"
+      className="bg-white rounded-lg overflow-hidden h-full shadow-sm text-black"
       style={{ backgroundColor: cardBackgroundColor }}
     >
       <div className="relative w-full overflow-hidden ">
