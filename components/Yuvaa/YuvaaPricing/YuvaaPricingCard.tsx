@@ -98,7 +98,7 @@ const YuvaaPricingCard = ({
     }
 
     return (
-      <div className="mb-2 h-full">
+      <div className="mb-2">
         <p className="text-gray-600  line-clamp-3">{desc}</p>
         <Dialog>
           <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none cursor-pointer">
@@ -117,7 +117,7 @@ const YuvaaPricingCard = ({
 
   return (
     <div
-      className={`bg-white rounded-lg flex h-fit flex-col justify-between shadow-lg p-8 border ${isPopular ? "border-[var(--border-color)]" : "border-transparent"} relative`}
+      className={`bg-white rounded-lg flex h-full flex-col justify-between shadow-lg p-8 border ${isPopular ? "border-[var(--border-color)]" : "border-transparent"} relative`}
       style={{ "--border-color": buttonColor } as React.CSSProperties}
     >
 
