@@ -143,9 +143,9 @@ const YuvaaEvents = ({
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="overflow-hidden rounded-lg shadow-md"
+                className="overflow-hidden rounded-lg shadow-md bg-white"
               >
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+                <Card className="overflow-hidden h-full">
                   <div className="h-48 overflow-hidden relative">
                     <motion.img
                       src={

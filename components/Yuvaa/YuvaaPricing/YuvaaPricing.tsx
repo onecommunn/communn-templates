@@ -219,7 +219,7 @@ const YuvaaPricing = ({
                       delay: index * 0.1,
                       ease: "easeOut",
                     }}
-                    className="rounded-lg h-fit"
+                    className="rounded-lg"
                   >
                     <YuvaaPricingCard
                       planId={plan._id}
