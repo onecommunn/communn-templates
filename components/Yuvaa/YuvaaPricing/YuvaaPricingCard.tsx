@@ -89,6 +89,8 @@ const YuvaaPricingCard = ({
   // Optional: don't render if auth state is loading or component not mounted
   if (authContext?.loading || !mounted) return null;
 
+  console.log(communityId)
+
   const renderDescription = (event:string,title:string) => {
     const desc = event ?? "";
     const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;

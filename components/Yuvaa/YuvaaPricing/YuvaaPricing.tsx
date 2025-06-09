@@ -236,7 +236,7 @@ const YuvaaPricing = ({
                       buttonColor={buttonColor}
                       iconsColor={iconsColor}
                       isUserSubscribed={plan.isUserSubscribed}
-                      communityId={plan?.community}
+                      communityId={communityId}
                       subscribers={plan?.subscribers}
                       nextDueDate={plan?.nextDueDate}
                     />
