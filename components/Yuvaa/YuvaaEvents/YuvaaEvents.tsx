@@ -108,7 +108,6 @@ const YuvaaEvents = ({
       </div>
     );
   }
-
   if (!Array.isArray(events) || events.length === 0) {
     return (
       <div className="text-center w-full h-[80vh] flex items-center justify-center">
@@ -116,6 +115,7 @@ const YuvaaEvents = ({
       </div>
     );
   }
+
 
   return (
     <main className="flex-grow bg-white">
@@ -171,9 +171,8 @@ const YuvaaEvents = ({
                     <div className="space-y-2 mb-4">
                       <div className="flex items-center text-sm text-gray-500">
                         <Calendar className="w-4 h-4 mr-2 text-[#FF6347]" />
-                        <span>{`${event?.availability[0]?.day} to ${
-                          event?.availability[event?.availability.length - 1]?.day
-                        }`}</span>
+                        <span>{`${event?.availability[0]?.day} to ${event?.availability[event?.availability.length - 1]?.day
+                          }`}</span>
                       </div>
                       <div className="flex items-center text-sm text-gray-500">
                         <Clock className="w-4 h-4 mr-2 text-[#FF6347]" />
@@ -260,6 +259,7 @@ const YuvaaEvents = ({
           </div>
         </div>
       </section>
+
     </main>
   );
 };

@@ -4,23 +4,29 @@ import { TrainingPlan } from '../models/plan.model';
 
 type PlansCommunityResponse = {
   myPlans: TrainingPlan[];
+  isSubscribedCommunity: boolean;
   [key: string]: any;
 };
 
 export const getPlansCommunityAuth = async (token: string, id: string) => {
   try {
-    const response = await axios.get<PlansCommunityResponse>(`https://communn.io/api/v1/plans/community/${id}/user`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    return response?.data?.myPlans;
+    const response = await axios.get<PlansCommunityResponse>(
+      `https://communn.io/api/v1/plans/community/${id}/user`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response?.data, "response");
+    return response?.data; 
   } catch (err) {
     console.error('Error fetching plans:', err);
-    return { status: 500, data: [] };
+    return { myPlans: [], isSubscribedCommunity: false, status: 500 };
   }
 };
+
 
 
 export const getPlansCommunity = async (token: string, id: string) => {
@@ -75,3 +81,22 @@ export const getSequencesBySubscriptionId = async (
 };
 
 
+export const joinCommunity = async (token: string, community_id: string) => {
+  try {
+    const formData = JSON.stringify({ community_id: community_id });
+    // console.log(formData);
+    const response = await axios.post(
+      `https://communn.io/api/v1/community/${community_id}/join`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    return { status: 500, data: [], message: 'Failed to join community' };
+  }
+};

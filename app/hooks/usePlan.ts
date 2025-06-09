@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 // import store from "../store";
 // import { useSelector } from "react-redux";
 import { TrainingPlan } from "../models/plan.model";
-import { createSubscriptionSequences, getPlansCommunity, getPlansCommunityAuth, getSequencesBySubscriptionId } from "../services/plansService";
+import { createSubscriptionSequences, getPlansCommunity, getPlansCommunityAuth, getSequencesBySubscriptionId, joinCommunity } from "../services/plansService";
 // import { deletePost } from "../services/post.service";
 
 export const usePlans = () => {
@@ -49,6 +49,31 @@ export const usePlans = () => {
         autoHideDuration: 3000,
       });
     }
+  };
+
+  const joinToPublicCommunity = async (community_id: string) => {
+    setIsLoading(true);
+    try {
+      const response = await joinCommunity(getAccessToken(), community_id);
+      if (response === 'success') {
+        enqueueSnackbar('You have successfully joined!', {
+          variant: 'success',
+          autoHideDuration: 3000,
+        });
+      } else {
+        enqueueSnackbar('Error while joining to public community!', {
+          variant: 'error',
+          autoHideDuration: 3000,
+        });
+      }
+      return response;
+    } catch (error) {
+      enqueueSnackbar(
+        'An error occurred while joining to Community, Please try again.',
+        { variant: 'error', autoHideDuration: 3000 }
+      );
+    }
+    setIsLoading(false);
   };
 
 
@@ -118,5 +143,6 @@ const getSequencesById = async (subscriptionId: string, planId: string, courseId
     getCommunityPlansListAuth,
     getSequencesById,
     createSubscriptionSequencesByPlanAndCommunityId,
+    joinToPublicCommunity
   };
 };

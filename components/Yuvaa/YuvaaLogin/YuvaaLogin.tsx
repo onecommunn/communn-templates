@@ -23,10 +23,12 @@ const YuvaaLogin = () => {
   const [useEmail, setUseEmail] = useState(false);
   const [loading, setLoading] = useState(false);
   const authContext = useContext(AuthContext);
-
+  const router = useRouter();
   const { verifyEmailOtp } = useOtp();
 
-  const router = useRouter();
+
+
+
 
   useEffect(() => {
     if (authContext?.isAuthenticated) {
@@ -43,7 +45,6 @@ const YuvaaLogin = () => {
       );
       return;
     }
-
     setLoading(true);
     try {
       let response: any;
@@ -69,6 +70,8 @@ const YuvaaLogin = () => {
     }
   };
 
+
+
   const handleLoginResponse = async (response: any) => {
     if (response.status === 200) {
       toast.success("Login successful!");
@@ -82,6 +85,8 @@ const YuvaaLogin = () => {
       toast.error("Login failed. Please try again.");
     }
   };
+
+
 
   const handleLogin = async () => {
     if (otp.length !== 6) {
@@ -103,7 +108,7 @@ const YuvaaLogin = () => {
           null
         );
         handleLoginResponse(res);
-        //console.log(res, "Response from auto login");
+        console.log(res, "Response from auto login");
       } else {
         toast.error("Invalid OTP. Please try again.");
       }
@@ -169,9 +174,9 @@ const YuvaaLogin = () => {
                     onChange={(e) => {
                       const input = e.target.value;
                       if (useEmail) {
-                        setMobileNumber(input); // allow any input for email
+                        setMobileNumber(input);
                       } else {
-                        const numericOnly = input.replace(/\D/g, ""); // remove non-digits
+                        const numericOnly = input.replace(/\D/g, "");
                         setMobileNumber(numericOnly);
                       }
                     }}
@@ -185,18 +190,17 @@ const YuvaaLogin = () => {
                   <button
                     onClick={handleGetOtp}
                     disabled={!isInputValid() || loading}
-                    className={`${
-                      isInputValid() && !loading
-                        ? "bg-[#FF6347] cursor-pointer"
-                        : "bg-gray-300 cursor-not-allowed"
-                    } text-white px-6 py-3 rounded-lg font-medium w-full`}
+                    className={`${isInputValid() && !loading
+                      ? "bg-[#FF6347] cursor-pointer"
+                      : "bg-gray-300 cursor-not-allowed"
+                      } text-white px-6 py-3 rounded-lg font-medium w-full`}
                   >
                     {loading ? "Sending..." : "Get OTP"}
                   </button>
                 </div>
               </div>
 
-              <p className="text-center text-sm text-gray-600 mt-8">
+              {/* <p className="text-center text-sm text-gray-600 mt-8">
                 Don't have an account?{" "}
                 <Link
                   href="/sign-up"
@@ -204,7 +208,7 @@ const YuvaaLogin = () => {
                 >
                   Sign up now
                 </Link>
-              </p>
+              </p> */}
             </div>
           ) : (
             <div className="space-y-6">
@@ -268,7 +272,7 @@ const YuvaaLogin = () => {
                 </button>
               </div>
 
-              <p className="text-center text-sm text-gray-600">
+              {/* <p className="text-center text-sm text-gray-600">
                 Don't have an account?{" "}
                 <Link
                   href="/signup"
@@ -276,7 +280,7 @@ const YuvaaLogin = () => {
                 >
                   Sign up now
                 </Link>
-              </p>
+              </p> */}
             </div>
           )}
         </div>

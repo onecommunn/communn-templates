@@ -38,6 +38,7 @@ interface YuvaaPricingProps {
   cardSecondaryColors: string;
   buttonColor: string;
   iconsColor: string;
+  isSubscribed: boolean;
 }
 
 const fadeScaleVariants = {
@@ -63,14 +64,13 @@ const YuvaaPricing = ({
   const { getPlansList, getCommunityPlansListAuth } = usePlans();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
   const [communityId, setCommunityId] = useState<string>("");
 
   const getCommunityId = async () => {
     try {
-      const communityData: any = await getCommunityData(
-        window.location.hostname
-      );
+      const communityData: any = await getCommunityData(window.location.hostname);
       setCommunityId(communityData?.community?._id || "");
       return communityData?.community._id || "";
     } catch (error) {
@@ -78,6 +78,9 @@ const YuvaaPricing = ({
       return "";
     }
   };
+
+  console.log("Community ID:", communityId);
+  console.log(isSubscribed, "isSubscribed");
 
   const authContext = useContext(AuthContext);
   const isAuthenticated = authContext?.isAuthenticated;
@@ -89,6 +92,8 @@ const YuvaaPricing = ({
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   }
 
+
+
   useEffect(() => {
     const fetchCommunityId = async () => {
       const id = await getCommunityId();
@@ -97,35 +102,48 @@ const YuvaaPricing = ({
     fetchCommunityId();
   }, []); // Run only once on mount
 
-  useEffect(() => {
-    const fetchPlans = async () => {
-      if (!communityId) return;
 
-      try {
-        setIsLoading(true);
-        let response;
-        if (isAuthenticated) {
-          response = await getCommunityPlansListAuth(communityId);
-        } else {
-          response = await getPlansList(communityId);
-        }
+  const fetchPlans = async () => {
+    if (!communityId) return;
 
-        if (Array.isArray(response)) {
-          setPlans(response);
-        } else if (response?.data && Array.isArray(response.data)) {
-          setPlans(response.data as TrainingPlan[]);
-        } else {
-          setPlans([]);
-        }
-      } catch (error) {
-        console.error("Failed to fetch plans:", error);
-      } finally {
-        setIsLoading(false);
+    try {
+      setIsLoading(true);
+      let response;
+      if (isAuthenticated) {
+        response = await getCommunityPlansListAuth(communityId);
+      } else {
+        response = await getPlansList(communityId);
       }
-    };
+
+      // console.log("Plans response:", response);
+
+      if (Array.isArray(response)) {
+        setPlans(response as TrainingPlan[]);
+      } else if (
+        response &&
+        typeof response === "object" &&
+        "myPlans" in response &&
+        Array.isArray((response as any).myPlans)
+      ) {
+        setPlans((response as any).myPlans as TrainingPlan[]);
+        setIsSubscribed((response as any).isSubscribedCommunity);
+      } else {
+        setPlans([]);
+      }
+    } catch (error) {
+      console.error("Failed to fetch plans:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+
 
     fetchPlans();
   }, [communityId, isAuthenticated]);
+
+
 
   if (isLoading) {
     return (
@@ -193,18 +211,16 @@ const YuvaaPricing = ({
                   },
                   { feature: `Subscribers: ${plan.subscribers?.length || 0}` },
                   {
-                    feature: `Next Due: ${
-                      plan?.nextDueDate ? plan.nextDueDate : "No Dues"
-                    }`,
+                    feature: `Next Due: ${plan?.nextDueDate ? plan.nextDueDate : "No Dues"
+                      }`,
                   },
                   {
-                    feature: `Status: ${
-                      !plan?.nextDueDate
-                        ? "Not Subscribed"
-                        : new Date(plan.nextDueDate) >= new Date()
-                          ? "Active"
-                          : "Expired"
-                    }`,
+                    feature: `Status: ${!plan?.nextDueDate
+                      ? "Not Subscribed"
+                      : new Date(plan.nextDueDate) >= new Date()
+                        ? "Active"
+                        : "Expired"
+                      }`,
                   },
                 ];
 
@@ -239,6 +255,9 @@ const YuvaaPricing = ({
                       communityId={communityId}
                       subscribers={plan?.subscribers}
                       nextDueDate={plan?.nextDueDate}
+                      isSubscribedCommunity={isSubscribed}
+                      fetchPlans={fetchPlans}
+
                     />
                   </motion.div>
                 );

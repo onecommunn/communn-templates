@@ -136,14 +136,12 @@ export async function getCommunityData(hostOrSubdomain: string): Promise<Communi
     const subdomain = cleanedHost.split('.')[0];
     endpoint = `${COMMUNITY_API_BASE}/by-subdomain/${subdomain}`;
   }
-
   try {
     const response = await axios.get<CommunityResponse>(endpoint);
     return response.data;
   } catch (error) {
     console.error('❌ Axios error fetching community:', error);
 
-    // Return a fallback structure with empty/default values
     return {
       status: false,
       community: {

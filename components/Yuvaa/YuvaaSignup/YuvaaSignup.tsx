@@ -118,9 +118,8 @@ const YuvaaSignup = () => {
                 onBlur={() => handleBlur("firstName")}
                 placeholder="Enter your full name"
                 required
-                className={`w-full px-4 py-3 border ${
-                  showError("firstName", isNameValid) ? "border-red-400" : "border-gray-300"
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
+                className={`w-full px-4 py-3 border ${showError("firstName", isNameValid) ? "border-red-400" : "border-gray-300"
+                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
               />
               {showError("firstName", isNameValid) && (
                 <p className="text-sm text-red-500 mt-1">Name must be at least 2 characters</p>
@@ -138,9 +137,8 @@ const YuvaaSignup = () => {
                 onBlur={() => handleBlur("phoneNumber")}
                 placeholder="Enter your mobile number"
                 required
-                className={`w-full px-4 py-3 border ${
-                  showError("phoneNumber", isMobileValid) ? "border-red-400" : "border-gray-300"
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
+                className={`w-full px-4 py-3 border ${showError("phoneNumber", isMobileValid) ? "border-red-400" : "border-gray-300"
+                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
               />
               {showError("phoneNumber", isMobileValid) && (
                 <p className="text-sm text-red-500 mt-1">Enter valid 10-digit mobile number</p>
@@ -158,9 +156,8 @@ const YuvaaSignup = () => {
                 onBlur={() => handleBlur("emailId")}
                 placeholder="Enter your email"
                 required
-                className={`w-full px-4 py-3 border ${
-                  showError("emailId", isEmailValid) ? "border-red-400" : "border-gray-300"
-                } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
+                className={`w-full px-4 py-3 border ${showError("emailId", isEmailValid) ? "border-red-400" : "border-gray-300"
+                  } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF6347]`}
               />
               {showError("emailId", isEmailValid) && (
                 <p className="text-sm text-red-500 mt-1">Enter a valid email</p>
@@ -169,25 +166,25 @@ const YuvaaSignup = () => {
 
             <div>
               <button
+                onClick={handleSignup}
                 type="submit"
                 disabled={!isFormValid || isLoading}
-                className={`${
-                  isFormValid && !isLoading
-                    ? "bg-[#FF6347] cursor-pointer"
-                    : "bg-gray-300 cursor-not-allowed"
-                } text-white px-6 py-3 rounded-lg font-medium w-full`}
+                className={`${isFormValid && !isLoading
+                  ? "bg-[#FF6347] cursor-pointer"
+                  : "bg-gray-300 cursor-not-allowed"
+                  } text-white px-6 py-3 rounded-lg font-medium w-full`}
               >
                 {isLoading ? "Submitting..." : "Save & Continue"}
               </button>
             </div>
           </form>
 
-          <p className="text-center text-sm text-gray-600 mt-8">
+          {/* <p className="text-center text-sm text-gray-600 mt-8">
             Already have an account?{" "}
             <Link href="/login" className="font-medium text-[#FF6347] hover:underline">
               Sign in
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </main>
