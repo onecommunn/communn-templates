@@ -86,6 +86,7 @@ import YuvaaSubscriptions from "./components/Yuvaa/YuvaaSubscriptions/YuvaaSubsc
 import YuvaaContact from "./components/Yuvaa/YuvaaContact/YuvaaContact";
 import YuvaaCourses from "./components/Yuvaa/YuvaaCourses/YuvaaCourses";
 import YuvaaEvents from "./components/Yuvaa/YuvaaEvents/YuvaaEvents";
+import YuvaaEventDetails from "./components/Yuvaa/YuvaaEvents/YuvaaEventDetails";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -5024,3 +5025,7 @@ Builder.registerComponent(YuvaaEvents, {
     },
   ],
 });
+
+Builder.registerComponent(YuvaaEventDetails,{
+  name:"Yuvaa Event Details",
+})

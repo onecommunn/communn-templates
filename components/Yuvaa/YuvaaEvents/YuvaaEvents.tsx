@@ -19,6 +19,7 @@ import { Skeleton } from "@/components/Ui/skeleton";
 import { Calendar, Clock, MapPin, Star, Users } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const YuvaaEvents = ({
   title,
@@ -116,7 +117,6 @@ const YuvaaEvents = ({
     );
   }
 
-
   return (
     <main className="flex-grow bg-white">
       {/* Hero Section */}
@@ -171,13 +171,16 @@ const YuvaaEvents = ({
                     <div className="space-y-2 mb-4">
                       <div className="flex items-center text-sm text-gray-500">
                         <Calendar className="w-4 h-4 mr-2 text-[#FF6347]" />
-                        <span>{`${event?.availability[0]?.day} to ${event?.availability[event?.availability.length - 1]?.day
-                          }`}</span>
+                        <span>{`${event?.availability[0]?.day} to ${
+                          event?.availability[event?.availability.length - 1]
+                            ?.day
+                        }`}</span>
                       </div>
                       <div className="flex items-center text-sm text-gray-500">
                         <Clock className="w-4 h-4 mr-2 text-[#FF6347]" />
                         <span>
-                          {event?.availability[0]?.availableTimes[0]?.startTime} to{" "}
+                          {event?.availability[0]?.availableTimes[0]?.startTime}{" "}
+                          to{" "}
                           {event?.availability[0]?.availableTimes[0]?.endTime}
                         </span>
                       </div>
@@ -191,9 +194,11 @@ const YuvaaEvents = ({
                       <span className="text-2xl font-bold text-black">
                         {event?.pricing != null && `₹${event.pricing}`}
                       </span>
-                      <button className="bg-[#FF6347] cursor-pointer hover:bg-[#FF6347]-dark text-white rounded-md px-6 py-2 transition-colors">
-                        Book Now
-                      </button>
+                      <Link href={`/event-details?eventid=${event._id}`}>
+                        <button className="bg-[#FF6347] cursor-pointer hover:bg-[#FF6347]-dark text-white rounded-md px-6 py-2 transition-colors">
+                          Book Now
+                        </button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
@@ -259,7 +264,6 @@ const YuvaaEvents = ({
           </div>
         </div>
       </section>
-
     </main>
   );
 };
