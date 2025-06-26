@@ -101,6 +101,7 @@ const YuvaaLogin = () => {
       } else {
         verifyResponse = await verifyOtp(mobileNumber, otp);
       }
+      console.log(verifyResponse,"verifyResponse")
       if (verifyResponse.status === 200) {
         const res: any = await authContext.autoLogin(
           useEmail ? "" : mobileNumber,

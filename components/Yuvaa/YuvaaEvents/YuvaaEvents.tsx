@@ -117,6 +117,8 @@ const YuvaaEvents = ({
     );
   }
 
+  const isAvalable = true;
+
   return (
     <main className="flex-grow bg-white">
       {/* Hero Section */}
@@ -189,16 +191,38 @@ const YuvaaEvents = ({
                         <span>{event?.location}</span>
                       </div>
                     </div>
-
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center mb-auto">
                       <span className="text-2xl font-bold text-black">
                         {event?.pricing != null && `₹${event.pricing}`}
                       </span>
-                      <Link href={`/event-details?eventid=${event._id}`}>
-                        <button className="bg-[#FF6347] cursor-pointer hover:bg-[#FF6347]-dark text-white rounded-md px-6 py-2 transition-colors">
-                          Book Now
-                        </button>
-                      </Link>
+                      {(() => {
+                        const availability = event?.availability;
+                        const end =
+                          availability?.[availability.length - 1]?.day;
+
+                        const isBookable = (() => {
+                          if (!end) return false;
+                          const today = new Date().setHours(0, 0, 0, 0);
+                          const endDate = new Date(end).setHours(0, 0, 0, 0);
+                          return today <= endDate;
+                        })();
+
+                        return isBookable ? (
+                          <Link href={`/event-details?eventid=${event._id}`}>
+                            <button className="bg-[#FF6347] hover:bg-[#FF4500] text-white rounded-md px-6 py-2 transition-colors">
+                              Book Now
+                            </button>
+                          </Link>
+                        ) : (
+                          <button
+                            disabled
+                            className="bg-gray-300 text-gray-600 cursor-not-allowed rounded-md px-6 py-2"
+                            title="This event has already ended"
+                          >
+                            Booking Closed
+                          </button>
+                        );
+                      })()}
                     </div>
                   </CardContent>
                 </Card>
