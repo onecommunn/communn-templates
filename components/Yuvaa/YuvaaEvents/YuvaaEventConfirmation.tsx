@@ -20,7 +20,7 @@ import { formatTime } from "./YuvaaEventDetails";
 const YuvaaEventConfirmation = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const eventId = searchParams.get("eventid");
+  const eventId = searchParams.get("eventId");
   const [isLoading, setIsLoading] = useState(true);
   const [eventData, setEventData] = useState<Event | null>(null);
 
@@ -147,13 +147,13 @@ const YuvaaEventConfirmation = () => {
           </Card>
 
           {/* Booking Information */}
-          {/* <Card className="bg-white shadow-sm">
+          <Card className="bg-white shadow-sm">
             <CardContent className="p-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">
                 Your Information
               </h2>
 
-              <div className="space-y-4">
+              {/* <div className="space-y-4">
                 {userName && (
                   <div className="flex items-center gap-3 text-gray-600">
                     <User className="w-5 h-5 text-[#FF6347]" />
@@ -174,7 +174,7 @@ const YuvaaEventConfirmation = () => {
                     <span>{userMobile}</span>
                   </div>
                 )}
-              </div>
+              </div> */}
 
               <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
                 <p className="text-sm text-green-800">
@@ -184,11 +184,11 @@ const YuvaaEventConfirmation = () => {
                 </p>
               </div>
             </CardContent>
-          </Card> */}
+          </Card>
         </div>
 
         {/* Next Steps */}
-        {/* <Card className="bg-white shadow-sm mt-8">
+        <Card className="bg-white shadow-sm mt-8">
           <CardContent className="p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-4">
               What's Next?
@@ -228,10 +228,10 @@ const YuvaaEventConfirmation = () => {
               </div>
             </div>
           </CardContent>
-        </Card> */}
+        </Card>
 
         {/* Action Buttons */}
-        <div className="flex md:flex-col sm:flex-row gap-4 justify-center mt-8">
+        <div className="flex flex-row gap-4 justify-center mt-8">
           <Link href={"/events"}>
             <Button
               variant="outline"

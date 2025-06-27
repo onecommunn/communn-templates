@@ -209,7 +209,7 @@ const YuvaaEvents = ({
 
                         return isBookable ? (
                           <Link href={`/event-details?eventid=${event._id}`}>
-                            <button className="bg-[#FF6347] hover:bg-[#FF4500] text-white rounded-md px-6 py-2 transition-colors">
+                            <button className="bg-[#FF6347] hover:bg-[#FF4500] cursor-pointer text-white rounded-md px-6 py-2 transition-colors">
                               Book Now
                             </button>
                           </Link>

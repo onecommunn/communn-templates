@@ -80,7 +80,7 @@ export const paymentEventsNoAuth = async (
 ) => {
   try {
     const response = await axios.post(
-      `https://communn.io/api/v2.0/payments/events/${eventId}`,
+      `https://communn.io/api/v1/payments/events/${eventId}`,
       {
         name: name,
         email: email,
