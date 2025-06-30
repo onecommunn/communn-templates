@@ -100,7 +100,7 @@ const YogastHeader = ({
             Features
           </Link>
           <Link
-            href="/pricing"
+            href="/plans"
             style={
               {
                 "--hover-color": buttonBackgroundColor,
@@ -109,7 +109,7 @@ const YogastHeader = ({
             }
             className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
-            Pricing
+            Plans
           </Link>
         </nav>
 

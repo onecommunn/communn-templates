@@ -1,13 +1,18 @@
-
 import { AuthContext } from "@/app/contexts/Auth.context";
 import { useCommunity } from "@/app/hooks/useCommunity";
 import { usePlans } from "@/app/hooks/usePlan";
 import { ISubscribers } from "@/app/models/plan.model";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/Ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/Ui/dialog";
 import { Check } from "lucide-react";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { toast } from "sonner";
 
 interface Features {
@@ -33,7 +38,6 @@ const YuvaaPricingCard = ({
   nextDueDate,
   isSubscribedCommunity,
   fetchPlans,
-
 }: {
   title: string;
   price: string;
@@ -48,13 +52,12 @@ const YuvaaPricingCard = ({
   iconsColor: string;
   isUserSubscribed?: boolean;
   planId: string;
-  communityId: string
+  communityId: string;
   subscribers: { _id: string }[];
-  nextDueDate: string,
+  nextDueDate: string;
   isSubscribedCommunity?: boolean;
   fetchPlans?: () => void;
 }) => {
-
   // const router = useRouter()
 
   // const handleNavigate = () => {
@@ -89,7 +92,12 @@ const YuvaaPricingCard = ({
     // console.log("authContext.loading:", authContext?.loading);
     // console.log("Subscribers:", subscribers);
     // console.log("isSubscribed:", isSubscribed);
-  }, [authContext?.user, authContext?.isAuthenticated, authContext?.loading, subscribers]);
+  }, [
+    authContext?.user,
+    authContext?.isAuthenticated,
+    authContext?.loading,
+    subscribers,
+  ]);
 
   // Mark component as mounted (for hydration safety)
   useEffect(() => {
@@ -108,9 +116,6 @@ const YuvaaPricingCard = ({
     if (!shouldTruncate) {
       return <p className="text-gray-600 mb-4">{desc}</p>;
     }
-
-
-
 
     return (
       <div className="mb-2">
@@ -167,11 +172,8 @@ const YuvaaPricingCard = ({
           >
             / {period}
           </span>
-
         </div>
-        {
-          renderDescription(description, title)
-        }
+        {renderDescription(description, title)}
         <ul className="mb-8 space-y-3">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
@@ -184,7 +186,6 @@ const YuvaaPricingCard = ({
           ))}
         </ul>
       </div>
-
 
       {!isLoggedIn ? (
         <Link href="/login">
@@ -218,7 +219,8 @@ const YuvaaPricingCard = ({
           <DialogContent>
             <DialogTitle>Join Community</DialogTitle>
             <DialogDescription className="text-gray-700">
-              You're not a member of this community yet. Would you like to join now?
+              You're not a member of this community yet. Would you like to join
+              now?
             </DialogDescription>
             <div className="mt-4 flex justify-end">
               <button
@@ -232,7 +234,9 @@ const YuvaaPricingCard = ({
           </DialogContent>
         </Dialog>
       ) : (
-        <Link href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}>
+        <Link
+          href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}
+        >
           <button
             style={
               {
@@ -240,17 +244,16 @@ const YuvaaPricingCard = ({
                 "--text-color": cardBackgroundColor,
               } as React.CSSProperties
             }
-            className={`w-full py-3 cursor-pointer rounded-md ${isSubscribed
-              ? "bg-[var(--bg-color)] text-[var(--text-color)]"
-              : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
-              }`}
+            className={`w-full py-3 cursor-pointer rounded-md ${
+              isSubscribed
+                ? "bg-[var(--bg-color)] text-[var(--text-color)]"
+                : "bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+            }`}
           >
             {isSubscribed ? "Subscribed" : "Subscribe"}
           </button>
         </Link>
       )}
-
-
     </div>
   );
 };
