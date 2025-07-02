@@ -135,6 +135,18 @@ const YogastHeader = ({
           >
             Plans
           </Link>
+           <Link
+            href="/contact"
+            style={
+              {
+                "--hover-color": buttonBackgroundColor,
+                "--text-color": textColor,
+              } as React.CSSProperties
+            }
+            className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
+          >
+            Contact
+          </Link>
         </nav>
 
         {/* Contact Button */}

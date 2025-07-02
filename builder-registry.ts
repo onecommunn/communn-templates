@@ -90,6 +90,7 @@ import YuvaaEventDetails from "./components/Yuvaa/YuvaaEvents/YuvaaEventDetails"
 import YuvaaEventConfirmation from "./components/Yuvaa/YuvaaEvents/YuvaaEventConfirmation";
 import YogastCourses from "./components/Yogast/YogastCourses/YogastCourses";
 import YogastEvents from "./components/Yogast/YogastEvents/YogastEvents";
+import YogastContact from "./components/Yogast/YogastContact/YogastContact";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -3284,6 +3285,10 @@ Builder.registerComponent(YogastCourses, {
 
 Builder.registerComponent(YogastEvents, {
   name: "Yogast Events",
+});
+
+Builder.registerComponent(YogastContact, {
+  name: "Yogast Contact",
 });
 
 Builder.registerComponent(YuvaaHeader, {
