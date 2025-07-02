@@ -34,7 +34,6 @@ const YuvaaEvents = ({
   secondaryBackgroundColor: string;
   primaryTextColor: string;
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [events, setEvents] = useState<Event[]>([]);
   const [isloading, setIsLoading] = useState<boolean>(true);
 

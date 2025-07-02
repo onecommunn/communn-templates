@@ -98,6 +98,18 @@ const YogastHeader = ({
             className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             Courses
+          </Link> 
+           <Link
+            href="/events"
+            style={
+              {
+                "--hover-color": buttonBackgroundColor,
+                "--text-color": textColor,
+              } as React.CSSProperties
+            }
+            className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
+          >
+            Events
           </Link>         
           <Link
             href="/features"

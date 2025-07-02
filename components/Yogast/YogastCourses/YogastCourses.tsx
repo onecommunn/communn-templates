@@ -156,7 +156,8 @@ const YogastCourses = () => {
                     {course.level}
                   </span> */}
                 </div>
-                <p className="text-gray-600 mb-4">{course.description}</p>
+                {/* <p className="text-gray-600 mb-4">{course.description}</p> */}
+                {renderCourseDescription(course)}
                 <div className="mb-4 space-y-2">
                   {course?.endDateDuration && (
                     <div className="flex items-center text-sm">
