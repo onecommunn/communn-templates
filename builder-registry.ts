@@ -88,6 +88,7 @@ import YuvaaCourses from "./components/Yuvaa/YuvaaCourses/YuvaaCourses";
 import YuvaaEvents from "./components/Yuvaa/YuvaaEvents/YuvaaEvents";
 import YuvaaEventDetails from "./components/Yuvaa/YuvaaEvents/YuvaaEventDetails";
 import YuvaaEventConfirmation from "./components/Yuvaa/YuvaaEvents/YuvaaEventConfirmation";
+import YogastCourses from "./components/Yogast/YogastCourses/YogastCourses";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -3276,6 +3277,10 @@ Builder.registerComponent(YogastPricing, {
   ],
 });
 
+Builder.registerComponent(YogastCourses, {
+  name: "Yogast Courses",
+});
+
 Builder.registerComponent(YuvaaHeader, {
   name: "Yuvaa Header",
   inputs: [
@@ -4102,18 +4107,18 @@ Builder.registerComponent(YuvaaAbout, {
       ],
     },
     {
-      name:"heroTitle",
-      type:"string",
-      defaultValue:"About Us"
+      name: "heroTitle",
+      type: "string",
+      defaultValue: "About Us",
     },
     {
-      name:"heroDescription",
-      type:"string",
+      name: "heroDescription",
+      type: "string",
     },
     {
-      name:"heroBackgroundColor",
-      type:"color",
-      defaultValue:"#20B2AA"
+      name: "heroBackgroundColor",
+      type: "color",
+      defaultValue: "#20B2AA",
     },
     {
       name: "image",
@@ -4152,10 +4157,10 @@ Builder.registerComponent(YuvaaAbout, {
       defaultValue: "#20B2AA",
     },
     {
-      name:"heroTextColor",
-      type:"color",
-      defaultValue:"#ffffff"
-    }
+      name: "heroTextColor",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
   ],
 });
 
@@ -5027,10 +5032,10 @@ Builder.registerComponent(YuvaaEvents, {
   ],
 });
 
-Builder.registerComponent(YuvaaEventDetails,{
-  name:"Yuvaa Event Details",
-})
+Builder.registerComponent(YuvaaEventDetails, {
+  name: "Yuvaa Event Details",
+});
 
-Builder.registerComponent(YuvaaEventConfirmation,{
-  name:"Yuvaa Event Confirmation"
-})
+Builder.registerComponent(YuvaaEventConfirmation, {
+  name: "Yuvaa Event Confirmation",
+});
