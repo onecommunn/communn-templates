@@ -1,6 +1,17 @@
+import { AuthContext } from "@/app/contexts/Auth.context";
+import { logoutService } from "@/app/services/logoutService";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/Ui/alert-dialog";
+import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 export function rgbaToHex(rgba: string): string {
   const result = rgba.match(/\d+(\.\d+)?/g);
@@ -25,6 +36,7 @@ const YogastHeader = ({
   BackgroundColor,
   buttonBackgroundColor,
   textColor,
+  buttonTextColor,
 }: {
   logo: string;
   width: string;
@@ -33,12 +45,25 @@ const YogastHeader = ({
   BackgroundColor: string;
   buttonBackgroundColor: string;
   textColor: string;
+  buttonTextColor: string;
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  console.log(BackgroundColor);
+  const authContext = useContext(AuthContext);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  const handleLogout = async () => {
+    const success = await logoutService();
+    if (success) {
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("refresh-token");
+      window.location.reload();
+    } else {
+      console.error("Logout failed, unable to navigate to login.");
+    }
+  };
+
   return (
     <header
       className="w-full z-50"
@@ -46,7 +71,7 @@ const YogastHeader = ({
     >
       <div className="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <Link href="/home" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <div className="font-bold flex items-center">
               <img
                 src={
@@ -64,7 +89,7 @@ const YogastHeader = ({
         {/* Desktop Menu */}
         <nav className="hidden md:flex space-x-8">
           <Link
-            href="/home"
+            href="/"
             style={
               {
                 "--hover-color": buttonBackgroundColor,
@@ -87,7 +112,7 @@ const YogastHeader = ({
           >
             About
           </Link>
-           <Link
+          <Link
             href="/courses"
             style={
               {
@@ -98,8 +123,8 @@ const YogastHeader = ({
             className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             Courses
-          </Link> 
-           <Link
+          </Link>
+          <Link
             href="/events"
             style={
               {
@@ -110,8 +135,8 @@ const YogastHeader = ({
             className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             Events
-          </Link>         
-          <Link
+          </Link>
+          {/* <Link
             href="/features"
             style={
               {
@@ -122,7 +147,7 @@ const YogastHeader = ({
             className="hover:text-[var(--hover-color)] font-medium text-[var(--text-color)]"
           >
             Features
-          </Link>
+          </Link> */}
           <Link
             href="/plans"
             style={
@@ -135,7 +160,7 @@ const YogastHeader = ({
           >
             Plans
           </Link>
-           <Link
+          <Link
             href="/contact"
             style={
               {
@@ -150,16 +175,77 @@ const YogastHeader = ({
         </nav>
 
         {/* Contact Button */}
-        <div className="hidden md:block">
-          <button
-            className="text-white rounded-full px-6 py-2"
-            style={{
-              backgroundColor: buttonBackgroundColor,
-              color: BackgroundColor,
-            }}
-          >
-            {ButtonText}
-          </button>
+        <div className="hidden md:flex">
+          {authContext.isAuthenticated ? (
+            <div className="flex items-center gap-4">
+              <div className="text-center font-medium min-w-fit">
+                Hi, {authContext.user?.firstName || authContext.user?.email}
+              </div>
+              {/* <button
+                  onClick={() => {
+                    const confirmLogout = window.confirm(
+                      "Are you sure you want to logout?"
+                    );
+                    if (confirmLogout) {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }
+                  }}
+                  className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600 cursor-pointer"
+                  style={{
+                    backgroundColor: buttonBackgroundColor,
+                    color: buttonTextColor,
+                  }}
+                >
+                  Logout
+                </button> */}
+              <AlertDialog>
+                <AlertDialogTrigger
+                  style={{
+                    backgroundColor: buttonBackgroundColor,
+                    color: buttonTextColor,
+                  }}
+                  className="bg-red-500 text-white px-6 py-2 w-full rounded-md hover:bg-red-600 cursor-pointer"
+                >
+                  Logout
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you sure you want to logout?
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={() => {
+                        handleLogout();
+                        setMobileMenuOpen(false);
+                      }}
+                      style={{
+                        backgroundColor: buttonBackgroundColor,
+                      }}
+                      className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 cursor-pointer"
+                    >
+                      Continue
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          ) : (
+            <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+              <button
+                style={{
+                  backgroundColor: buttonBackgroundColor,
+                  color: buttonTextColor,
+                }}
+                className="rounded-md px-6 py-2 w-full cursor-pointer"
+              >
+                {ButtonText}
+              </button>
+            </Link>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -196,18 +282,30 @@ const YogastHeader = ({
               About
             </Link>
             <Link
+              href="/courses"
+              className="text-black hover:[color:var(--my-color)] font-medium"
+            >
+              Courses
+            </Link>
+            <Link
+              href="/events"
+              className="text-black hover:[color:var(--my-color)] font-medium"
+            >
+              Events
+            </Link>
+            {/* <Link
               href="/features"
               className="text-black hover:[color:var(--my-color)] font-medium"
             >
               Features
-            </Link>
+            </Link> */}
             <Link
               href="/pricing"
               className="text-black hover:[color:var(--my-color)] font-medium"
             >
               Pricing
             </Link>
-            <button
+            {/* <button
               className=" text-white rounded-full px-6 py-2 w-full"
               style={{
                 backgroundColor: buttonBackgroundColor,
@@ -215,7 +313,43 @@ const YogastHeader = ({
               }}
             >
               {ButtonText}
-            </button>
+            </button> */}
+            <div className="pt-4 space-y-2">
+              {authContext.isAuthenticated ? (
+                <>
+                  <div className="text-center font-medium">
+                    Hi, {authContext.user?.firstName || authContext.user?.email}
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (authContext.logout) {
+                        authContext.logout();
+                      }
+                      setMobileMenuOpen(false);
+                    }}
+                    className="bg-red-500 text-white cursor-pointer px-6 py-2 w-full rounded-md hover:bg-red-600"
+                    style={{
+                      backgroundColor: buttonBackgroundColor,
+                      color: buttonTextColor,
+                    }}
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                  <button
+                    style={{
+                      backgroundColor: buttonBackgroundColor,
+                      color: buttonTextColor,
+                    }}
+                    className="rounded-md px-6 py-2 w-full cursor-pointer"
+                  >
+                    {ButtonText}
+                  </button>
+                </Link>
+              )}
+            </div>
           </nav>
         </div>
       )}

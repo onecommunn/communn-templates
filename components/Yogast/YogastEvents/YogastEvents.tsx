@@ -2,55 +2,18 @@ import { useCommunity } from "@/app/hooks/useCommunity";
 import { Event } from "@/app/models/event.model";
 import { getEvents } from "@/app/services/eventService";
 import { Button } from "@/components/Ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/Ui/dialog";
+import { Skeleton } from "@/components/Ui/skeleton";
 import { Calendar, Clock, MapPin } from "lucide-react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
-
-// const events = [
-//   {
-//     title: "Weekend Yoga Retreat",
-//     date: "March 15-17, 2024",
-//     time: "Friday 6:00 PM - Sunday 4:00 PM",
-//     location: "Mountain View Retreat Center",
-//     description:
-//       "Join us for a transformative weekend retreat in nature. Includes meals, accommodation, and guided yoga sessions.",
-//     price: "$299",
-//     image:
-//       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-//   },
-//   {
-//     title: "Meditation Workshop",
-//     date: "February 28, 2024",
-//     time: "2:00 PM - 5:00 PM",
-//     location: "Yogast Studio",
-//     description:
-//       "Learn various meditation techniques to deepen your practice and find inner peace.",
-//     price: "$45",
-//     image:
-//       "https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-//   },
-//   {
-//     title: "Prenatal Yoga Series",
-//     date: "Starting March 5, 2024",
-//     time: "Every Tuesday 10:00 AM",
-//     location: "Yogast Studio",
-//     description:
-//       "6-week series designed specifically for expecting mothers. Support your body through pregnancy.",
-//     price: "$120 (6 sessions)",
-//     image:
-//       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-//   },
-//   {
-//     title: "Yoga & Sound Healing",
-//     date: "March 22, 2024",
-//     time: "7:00 PM - 9:00 PM",
-//     location: "Yogast Studio",
-//     description:
-//       "Experience the healing power of sound combined with gentle yoga movements and deep relaxation.",
-//     price: "$35",
-//     image:
-//       "https://images.unsplash.com/photo-1545389336-cf090694435e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80",
-//   },
-// ];
 
 const YogastEvents = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -77,6 +40,64 @@ const YogastEvents = () => {
       fetchEvents();
     }
   }, [communityId]);
+
+  const renderEventsDescription = (event: Event) => {
+    const desc = event?.description ?? "";
+    const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
+
+    if (!shouldTruncate) {
+      return <p className="text-gray-600 mb-4">{desc}</p>;
+    }
+
+    return (
+      <div className="mb-2">
+        <p className="text-gray-600 line-clamp-3">{desc}</p>
+        <Dialog>
+          <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none cursor-pointer">
+            Read more
+          </DialogTrigger>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle className="capitalize">{event?.title}</DialogTitle>
+            </DialogHeader>
+            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+              {desc}
+            </DialogDescription>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  };
+
+  if (isloading) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-16 px-4 lg:px-20">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div
+            key={index}
+            className="border rounded-lg overflow-hidden shadow-sm p-4 space-y-4"
+          >
+            <Skeleton className="h-48 w-full rounded-md" />
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-5/6" />
+            <div className="flex justify-between items-center">
+              <Skeleton className="h-6 w-20" />
+              <Skeleton className="h-10 w-24 rounded-md" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (!Array.isArray(events) || events.length === 0) {
+    return (
+      <div className="text-center w-full h-[80vh] flex items-center justify-center">
+        <p>No Events available.</p>
+      </div>
+    );
+  }
 
   return (
     <main className="flex-grow">
@@ -114,6 +135,7 @@ const YogastEvents = () => {
                   <h3 className="text-xl font-bold text-[#FF5E14] mb-2">
                     {event.title}
                   </h3>
+                  {renderEventsDescription(event)}
                   <div className="space-y-2 mb-4">
                     <div className="flex items-center text-gray-600">
                       <Calendar className="w-4 h-4 mr-2 text-[#FF6347]" />
@@ -138,9 +160,36 @@ const YogastEvents = () => {
                     <span className="text-2xl font-bold text-[#FF5E14]">
                       {event?.pricing != null && `₹${event.pricing}`}
                     </span>
-                    <Button className="bg-[#FF5E14] hover:bg-orange-600 text-white rounded-full">
+                    {/* <Button className="bg-[#FF5E14] hover:bg-orange-600 text-white rounded-full">
                       Register Now
-                    </Button>
+                    </Button> */}
+                    {(() => {
+                      const availability = event?.availability;
+                      const end = availability?.[availability.length - 1]?.day;
+
+                      const isBookable = (() => {
+                        if (!end) return false;
+                        const today = new Date().setHours(0, 0, 0, 0);
+                        const endDate = new Date(end).setHours(0, 0, 0, 0);
+                        return today <= endDate;
+                      })();
+
+                      return isBookable ? (
+                        <Link href={`/event-details?eventid=${event._id}`}>
+                          <button className="bg-[#FF5E14] hover:bg-orange-600 cursor-pointer text-white rounded-full px-6 py-2 transition-colors">
+                            Book Now
+                          </button>
+                        </Link>
+                      ) : (
+                        <button
+                          disabled
+                          className="bg-gray-300 text-gray-600 cursor-not-allowed rounded-full px-6 py-2"
+                          title="This event has already ended"
+                        >
+                          Booking Closed
+                        </button>
+                      );
+                    })()}
                   </div>
                 </div>
               </div>

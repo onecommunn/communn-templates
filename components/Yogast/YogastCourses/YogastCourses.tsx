@@ -13,40 +13,6 @@ import {
 import { Skeleton } from "@/components/Ui/skeleton";
 import { Clock, Users } from "lucide-react";
 import React, { useState } from "react";
-const courses = [
-  {
-    title: "Beginner Hatha Yoga",
-    duration: "60 minutes",
-    level: "Beginner",
-    description:
-      "Perfect for those new to yoga. Learn basic poses and breathing techniques in a gentle, supportive environment.",
-    schedule: ["Monday 9:00 AM", "Wednesday 6:00 PM", "Saturday 10:00 AM"],
-  },
-  {
-    title: "Vinyasa Flow",
-    duration: "75 minutes",
-    level: "Intermediate",
-    description:
-      "Dynamic flowing sequences that build strength, flexibility, and mindfulness through synchronized movement and breath.",
-    schedule: ["Tuesday 7:00 AM", "Thursday 7:00 PM", "Sunday 11:00 AM"],
-  },
-  {
-    title: "Power Yoga",
-    duration: "90 minutes",
-    level: "Advanced",
-    description:
-      "Intense, athletic-style yoga that builds strength and endurance while improving flexibility and balance.",
-    schedule: ["Monday 6:00 PM", "Friday 6:30 AM", "Saturday 8:00 AM"],
-  },
-  {
-    title: "Yin Yoga",
-    duration: "75 minutes",
-    level: "All Levels",
-    description:
-      "Slow-paced style with poses held for longer periods. Perfect for deep stretching and meditation.",
-    schedule: ["Wednesday 8:00 PM", "Friday 5:00 PM", "Sunday 6:00 PM"],
-  },
-];
 
 const MAX_PREVIEW_CHARS = 180;
 
@@ -129,6 +95,12 @@ const YogastCourses = () => {
     );
   }
 
+  const filterdCoursesList = coursesList.filter(
+    (course: Course) => course.status !== "INACTIVE"
+  );
+
+  console.log(filterdCoursesList);
+
   return (
     <main className="flex-grow">
       <section className="bg-[#FF5E14] text-white py-16">
@@ -146,43 +118,55 @@ const YogastCourses = () => {
       <section className="py-16 bg-[#FDF6EF]">
         <div className="container mx-auto px-4 md:px-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {coursesList.map((course, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-bold text-[#FF5E14]">
-                    {course.name}
-                  </h3>
-                  {/* <span className="bg-[#FF5E14] text-white px-3 py-1 rounded-full text-sm">
+            {filterdCoursesList.map((course, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md">
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={
+                      course?.coverImage?.value ||
+                      "https://upload-community-files-new.s3.ap-south-1.amazonaws.com/undefined/Default%20Events.png"
+                    }
+                    alt={course?.coverImage?.label}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6 w-full">
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="text-xl font-bold text-[#FF5E14]">
+                      {course.name}
+                    </h3>
+                    {/* <span className="bg-[#FF5E14] text-white px-3 py-1 rounded-full text-sm">
                     {course.level}
                   </span> */}
-                </div>
-                {/* <p className="text-gray-600 mb-4">{course.description}</p> */}
-                {renderCourseDescription(course)}
-                <div className="mb-4 space-y-2">
-                  {course?.endDateDuration && (
-                    <div className="flex items-center text-sm">
-                      <Clock className="w-4 h-4 mr-2" />
-                      <span>{course?.endDateDuration}</span>
-                    </div>
-                  )}
-                  {course?.instructorName && (
-                    <div className="flex items-center text-sm">
-                      <Users className="w-4 h-4 mr-2" />
-                      <span>Instructor: {course?.instructorName}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-between items-center gap-2">
-                  {course?.amount != null && course?.amount !== "" ? (
-                    <span className="text-2xl font-bold text-black">
-                      ₹{course?.amount}
-                    </span>
-                  ) : (
-                    <span className="text-2xl font-bold text-black">NaN</span>
-                  )}
-                  <Button className="bg-[#FF5E14] hover:bg-orange-600 text-white rounded-full w-fit">
-                    Book Now
-                  </Button>
+                  </div>
+                  {/* <p className="text-gray-600 mb-4">{course.description}</p> */}
+                  {renderCourseDescription(course)}
+                  <div className="mb-4 space-y-2">
+                    {course?.endDateDuration && (
+                      <div className="flex items-center text-sm">
+                        <Clock className="w-4 h-4 mr-2" />
+                        <span>{course?.endDateDuration}</span>
+                      </div>
+                    )}
+                    {course?.instructorName && (
+                      <div className="flex items-center text-sm">
+                        <Users className="w-4 h-4 mr-2" />
+                        <span>Instructor: {course?.instructorName}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center gap-2">
+                    {course?.amount != null && course?.amount !== "" ? (
+                      <span className="text-2xl font-bold text-black">
+                        ₹{course?.amount}
+                      </span>
+                    ) : (
+                      <span className="text-2xl font-bold text-black">NaN</span>
+                    )}
+                    <Button className="bg-[#FF5E14] hover:bg-orange-600 text-white rounded-full w-fit">
+                      Book Now
+                    </Button>
+                  </div>
                 </div>
               </div>
             ))}

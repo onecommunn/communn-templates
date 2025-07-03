@@ -367,7 +367,7 @@ const YuvaaHeader = ({
                   </>
                 ) : (
                   <Link
-                    href="/auto-login"
+                    href="/login"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     <button

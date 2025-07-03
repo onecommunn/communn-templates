@@ -77,7 +77,7 @@ const YogastContact = () => {
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <h3 className="text-xl font-bold text-[#FF5E14] mb-4">
                   Studio Hours
                 </h3>
@@ -104,7 +104,7 @@ const YogastContact = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div className="bg-[#FDF6EF] p-6 rounded-lg">
                 <h3 className="text-xl font-bold text-[#FF5E14] mb-2">

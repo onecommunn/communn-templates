@@ -190,46 +190,6 @@ const YogastPricing = ({
         </div>
       </section>
 
-      <YogastPricingSection
-        Title={PriceListSectionTitle}
-        Description={PriceListSectionSubTitle}
-        PlansList={PlansList}
-        backgroundColor={pricingBackgroundColor}
-        cardBackgroundColor={pricingcardBackgroundColor}
-        textColor={pricingTextColor}
-        buttonBackgroundColor={pricingButtonBackgroundColor}
-      />
-
-      {/* faq section */}
-      <section
-        className="py-16"
-        style={{ backgroundColor: FaqBackgroundColor }}
-      >
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-3xl mx-auto">
-            <h2
-              className="text-2xl font-bold mb-6 text-center"
-              style={{ color: headerBackgroundColor }}
-            >
-              {FaqTitle}
-            </h2>
-
-            <div className="space-y-6">
-              {QuestionsList?.map((each, index) => (
-                <div key={index}>
-                  <h3
-                    className="text-lg font-medium mb-2"
-                    style={{ color: questionTextColor }}
-                  >
-                    {each.Question}
-                  </h3>
-                  <p style={{ color: answerTextColor }}>{each.Answer}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 };

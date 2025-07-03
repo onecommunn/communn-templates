@@ -91,6 +91,9 @@ import YuvaaEventConfirmation from "./components/Yuvaa/YuvaaEvents/YuvaaEventCon
 import YogastCourses from "./components/Yogast/YogastCourses/YogastCourses";
 import YogastEvents from "./components/Yogast/YogastEvents/YogastEvents";
 import YogastContact from "./components/Yogast/YogastContact/YogastContact";
+import YogastEventDetails from "./components/Yogast/YogastEvents/YogastEventDetails";
+import YogastEventConfirmation from "./components/Yogast/YogastEvents/YogastEventConfirmation";
+import YogastOurServicesSection from "./components/Yogast/YogastOurServicesSection/YogastOurServicesSection";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -2127,6 +2130,11 @@ Builder.registerComponent(YogastHeader, {
       type: "color",
       defaultValue: "rgb(0,0,0)",
     },
+    {
+      name:'buttonTextColor',
+      type: "color",  
+      defaultValue: "rgb(255, 255, 255)",
+    }
   ],
 });
 
@@ -3289,6 +3297,18 @@ Builder.registerComponent(YogastEvents, {
 
 Builder.registerComponent(YogastContact, {
   name: "Yogast Contact",
+});
+
+Builder.registerComponent(YogastEventDetails, {
+  name: "Yogast EventDetails",
+});
+
+Builder.registerComponent(YogastEventConfirmation, {
+  name: "Yogast Event Confirmation",
+});
+
+Builder.registerComponent(YogastOurServicesSection, {
+  name: "Yogast Our Services Section",
 });
 
 Builder.registerComponent(YuvaaHeader, {
