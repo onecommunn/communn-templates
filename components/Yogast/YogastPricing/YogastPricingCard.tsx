@@ -15,7 +15,7 @@ import { toast } from "sonner";
 const renderDescription = (
   event: string,
   title: string,
-  MAX_PREVIEW_CHARS: number,
+  MAX_PREVIEW_CHARS: number
 ) => {
   const desc = event ?? "";
   const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
@@ -52,38 +52,26 @@ const YogastPricingCard = ({
   period,
   description,
   features,
-  //   isPopular = false,
-  //   buttonColor,
-  //   cardSecondaryColors,
-  //   cardPrimaryColor,
-  //   cardBackgroundColor,
-  //   iconsColor,
-  //   isUserSubscribed,
   planId,
   communityId,
   subscribers,
-  //   nextDueDate,
   isSubscribedCommunity,
   fetchPlans,
+  primaryBackground,
+  secondaryBackground,
 }: {
   title: string;
   price: string;
   period: string;
   description: string;
   features: Features[];
-  //   isPopular?: boolean;
-  //   cardBackgroundColor: string;
-  //   buttonColor: string;
-  //   cardSecondaryColors: string;
-  //   cardPrimaryColor: string;
-  //   iconsColor: string;
-  //   isUserSubscribed?: boolean;
   planId: string;
   communityId: string;
   subscribers: { _id: string }[];
-  //   nextDueDate: string;
   isSubscribedCommunity?: boolean;
   fetchPlans?: () => void;
+  primaryBackground: string;
+  secondaryBackground: string;
 }) => {
   const authContext = useContext(AuthContext);
   const userId = authContext?.user?.id;
@@ -107,14 +95,23 @@ const YogastPricingCard = ({
     }
   };
   return (
-    <div className="bg-[#FF5E14] rounded-lg overflow-hidden text-white flex flex-col">
+    <div
+      className="bg-[#FF5E14] rounded-lg overflow-hidden text-white flex flex-col"
+      style={{
+        backgroundColor: primaryBackground,
+        color: secondaryBackground,
+      }}
+    >
       <div className="p-6 flex-grow">
         <h3 className="font-bold text-xl mb-4 capitalize">{title}</h3>
         {renderDescription(description, title, MAX_PREVIEW_CHARS)}
         <ul className="space-y-2 mb-6">
           {features?.map((feature, index) => (
             <li key={index} className="text-sm flex items-start">
-              <Check className="mr-2 h-5 w-5 text-white flex-shrink-0 mt-0.5" />
+              <Check
+                className="mr-2 h-5 w-5 text-white flex-shrink-0 mt-0.5"
+                color={secondaryBackground}
+              />
               {feature.feature}
             </li>
           ))}
@@ -122,19 +119,18 @@ const YogastPricingCard = ({
       </div>
       <div className="p-6 border-t border-white/20">
         <div className="font-bold text-xl mb-4">
-          ${price} <span className="text-sm font-normal">/ {period}</span>
+          ₹{price} <span className="text-sm font-normal">/ {period}</span>
         </div>
 
         {!isLoggedIn ? (
           <Link href="/login">
             <button
-              //   style={
-              //     {
-              //       "--bg-color": buttonColor,
-              //       "--text-color": cardBackgroundColor,
-              //     } as React.CSSProperties
-              //   }
-              className="w-full py-3 cursor-pointer rounded-md bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+              className="w-full py-3 cursor-pointer rounded-md bg-[#FF5E14] border border-white text-white"
+              style={{
+                backgroundColor: primaryBackground,
+                color: secondaryBackground,
+                borderColor: secondaryBackground,
+              }}
             >
               Login to Subscribe
             </button>
@@ -143,13 +139,12 @@ const YogastPricingCard = ({
           <Dialog>
             <DialogTrigger asChild>
               <button
-                // style={
-                //   {
-                //     "--bg-color": buttonColor,
-                //     "--text-color": cardBackgroundColor,
-                //   } as React.CSSProperties
-                // }
-                className="w-full py-3 cursor-pointer rounded-md bg-[var(--text-color)] border border-[var(--bg-color)] text-[var(--bg-color)]"
+                className="w-full py-3 cursor-pointer rounded-md bg-white border border-[#FF5E14] text-[#FF5E14]"
+                style={{
+                  backgroundColor: secondaryBackground,
+                  borderColor: primaryBackground,
+                  color: primaryBackground,
+                }}
               >
                 Join Community
               </button>
@@ -165,6 +160,10 @@ const YogastPricingCard = ({
                   className="px-4 py-2 bg-[#FF5E14] text-white rounded-md"
                   onClick={() => handleClickJoin(communityId)}
                   disabled={isSubscribed}
+                  style={{
+                    backgroundColor: primaryBackground,
+                    color: secondaryBackground,
+                  }}
                 >
                   Confirm Join
                 </button>
@@ -176,12 +175,12 @@ const YogastPricingCard = ({
             href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}
           >
             <button
-              // style={
-              //   {
-              //     "--bg-color": buttonColor,
-              //     "--text-color": cardBackgroundColor,
-              //   } as React.CSSProperties
-              // }
+              style={
+                {
+                  "--bg-color": primaryBackground,
+                  "--text-color": secondaryBackground,
+                } as React.CSSProperties
+              }
               className={`w-full py-3 cursor-pointer rounded-md ${
                 isSubscribed
                   ? "bg-[var(--bg-color)] text-[var(--text-color)]"

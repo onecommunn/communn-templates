@@ -3,7 +3,6 @@ import { usePlans } from "@/app/hooks/usePlan";
 import { TrainingPlan } from "@/app/models/plan.model";
 import { useCommunity } from "@/app/hooks/useCommunity";
 import { AuthContext } from "@/app/contexts/Auth.context";
-import YogastPricingSection from "../YogastPricingSection/YogastPricingSection";
 import YogastPricingCard from "./YogastPricingCard";
 
 interface Features {
@@ -16,45 +15,21 @@ interface PlansList {
   ButtonText: string;
 }
 
-interface QuestionsListProps {
-  Question: string;
-  Answer: string;
-}
-
 const YogastPricing = ({
   Title,
   SubTitle,
-  PriceListSectionSubTitle,
-  PriceListSectionTitle,
-  PlansList,
-  FaqTitle,
-  QuestionsList,
-  headerBackgroundColor,
-  headerTitleColor,
-  pricingBackgroundColor,
-  pricingButtonBackgroundColor,
-  pricingTextColor,
-  pricingcardBackgroundColor,
-  FaqBackgroundColor,
-  questionTextColor,
-  answerTextColor,
+  primaryBackground,
+  secondaryBackground,
+  primaryTextColor,
+  secondaryTextColor,
 }: {
   PlansList: PlansList[];
   Title: string;
   SubTitle: string;
-  PriceListSectionTitle: string;
-  PriceListSectionSubTitle: string;
-  FaqTitle: string;
-  QuestionsList: QuestionsListProps[];
-  headerBackgroundColor: string;
-  headerTitleColor: string;
-  pricingBackgroundColor: string;
-  pricingcardBackgroundColor: string;
-  pricingTextColor: string;
-  pricingButtonBackgroundColor: string;
-  FaqBackgroundColor: string;
-  questionTextColor: string;
-  answerTextColor: string;
+  primaryBackground: string;
+  secondaryBackground: string;
+  primaryTextColor: string;
+  secondaryTextColor: string;
 }) => {
   const { getPlansList, getCommunityPlansListAuth } = usePlans();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -122,8 +97,8 @@ const YogastPricing = ({
       <section
         className="py-16"
         style={{
-          backgroundColor: headerBackgroundColor,
-          color: headerTitleColor,
+          backgroundColor: primaryBackground,
+          color: secondaryBackground,
         }}
       >
         <div className="container mx-auto px-4 md:px-6 text-center">
@@ -177,19 +152,25 @@ const YogastPricing = ({
                       communityId={communityId}
                       fetchPlans={fetchPlans}
                       planId={plan._id}
+                      primaryBackground={primaryBackground}
+                      secondaryBackground={secondaryBackground}
                     />
                   </div>
                 );
               })}
             </div>
           ) : (
-            <p className="text-center text-gray-500 italic">
+            <p
+              className="text-center text-gray-500 italic"
+              style={{
+                color: secondaryTextColor,
+              }}
+            >
               No pricing plans available at the moment.
             </p>
           )}
         </div>
       </section>
-
     </main>
   );
 };

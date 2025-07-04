@@ -16,7 +16,21 @@ import React, { useState } from "react";
 
 const MAX_PREVIEW_CHARS = 180;
 
-const YogastCourses = () => {
+const YogastCourses = ({
+  heroTitle,
+  heroDescription,
+  primaryBackground,
+  secondaryBackground,
+  primaryTextColor,
+  secondaryTextColor,
+}: {
+  heroTitle: string;
+  heroDescription: string;
+  primaryBackground: string;
+  secondaryBackground: string;
+  primaryTextColor: string;
+  secondaryTextColor: string;
+}) => {
   const [coursesList, setCoursesList] = React.useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { communityId } = useCommunity();
@@ -42,12 +56,21 @@ const YogastCourses = () => {
     const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
 
     if (!shouldTruncate) {
-      return <p className="text-gray-600 mb-4">{desc}</p>;
+      return (
+        <p className="text-gray-600 mb-4" style={{ color: secondaryTextColor }}>
+          {desc}
+        </p>
+      );
     }
 
     return (
       <div className="mb-2">
-        <p className="text-gray-600 line-clamp-3">{desc}</p>
+        <p
+          className="text-gray-600 line-clamp-3"
+          style={{ color: secondaryTextColor }}
+        >
+          {desc}
+        </p>
         <Dialog>
           <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline cursor-pointer">
             Read more
@@ -56,7 +79,10 @@ const YogastCourses = () => {
             <DialogHeader>
               <DialogTitle className="capitalize">{course?.name}</DialogTitle>
             </DialogHeader>
-            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+            <DialogDescription
+              className="whitespace-pre-wrap text-base text-gray-700"
+              style={{ color: secondaryTextColor }}
+            >
               {desc}
             </DialogDescription>
           </DialogContent>
@@ -103,23 +129,37 @@ const YogastCourses = () => {
 
   return (
     <main className="flex-grow">
-      <section className="bg-[#FF5E14] text-white py-16">
+      <section
+        className="bg-[#FF5E14] text-white py-16"
+        style={{
+          backgroundColor: primaryBackground,
+          color: secondaryBackground,
+        }}
+      >
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Our Courses
+            {heroTitle}
           </h1>
-          <p className="max-w-2xl mx-auto">
-            Discover the perfect yoga course for your journey, from
-            beginner-friendly classes to advanced practices
-          </p>
+          <p className="max-w-2xl mx-auto">{heroDescription}</p>
         </div>
       </section>
 
-      <section className="py-16 bg-[#FDF6EF]">
+      <section
+        className="py-16 bg-[#FDF6EF]"
+        style={{
+          backgroundColor: secondaryBackground,
+        }}
+      >
         <div className="container mx-auto px-4 md:px-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {filterdCoursesList.map((course, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md">
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-md"
+                style={{
+                  backgroundColor: secondaryBackground,
+                }}
+              >
                 <div className="h-48 overflow-hidden">
                   <img
                     src={
@@ -132,7 +172,10 @@ const YogastCourses = () => {
                 </div>
                 <div className="p-6 w-full">
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-[#FF5E14]">
+                    <h3
+                      className="text-xl font-bold text-[#FF5E14]"
+                      style={{ color: primaryBackground }}
+                    >
                       {course.name}
                     </h3>
                     {/* <span className="bg-[#FF5E14] text-white px-3 py-1 rounded-full text-sm">
@@ -156,14 +199,36 @@ const YogastCourses = () => {
                     )}
                   </div>
                   <div className="flex justify-between items-center gap-2">
-                    {course?.amount != null && course?.amount !== "" ? (
-                      <span className="text-2xl font-bold text-black">
-                        ₹{course?.amount}
+                    {course?.amount !== "" ? (
+                      <span
+                        className="text-2xl font-bold text-black"
+                        style={{
+                          color: primaryTextColor,
+                        }}
+                      >
+                        {course?.amount === "0"
+                          ? "Free"
+                          : course?.amount
+                            ? `₹${course.amount}`
+                            : ""}
                       </span>
                     ) : (
-                      <span className="text-2xl font-bold text-black">NaN</span>
+                      <span
+                        className="text-2xl font-bold text-black"
+                        style={{
+                          color: primaryTextColor,
+                        }}
+                      >
+                        Free
+                      </span>
                     )}
-                    <Button className="bg-[#FF5E14] hover:bg-orange-600 text-white rounded-full w-fit">
+                    <Button
+                      className="bg-[#FF5E14] hover:bg-orange-600 text-white rounded-full w-fit"
+                      style={{
+                        backgroundColor: primaryBackground,
+                        color: secondaryBackground,
+                      }}
+                    >
                       Book Now
                     </Button>
                   </div>

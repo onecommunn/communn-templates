@@ -94,6 +94,7 @@ import YogastContact from "./components/Yogast/YogastContact/YogastContact";
 import YogastEventDetails from "./components/Yogast/YogastEvents/YogastEventDetails";
 import YogastEventConfirmation from "./components/Yogast/YogastEvents/YogastEventConfirmation";
 import YogastOurServicesSection from "./components/Yogast/YogastOurServicesSection/YogastOurServicesSection";
+import YogastOurTeamSection from "./components/Yogast/YogastOurTeamSection/YogastOurTeamSection";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -2131,10 +2132,10 @@ Builder.registerComponent(YogastHeader, {
       defaultValue: "rgb(0,0,0)",
     },
     {
-      name:'buttonTextColor',
-      type: "color",  
+      name: "buttonTextColor",
+      type: "color",
       defaultValue: "rgb(255, 255, 255)",
-    }
+    },
   ],
 });
 
@@ -3104,183 +3105,22 @@ Builder.registerComponent(YogastPricing, {
         "Choose the perfect membership option for your yoga journey",
     },
     {
-      name: "PriceListSectionTitle",
-      type: "string",
-      defaultValue: "Price List Yoga Class",
-    },
-    {
-      name: "PriceListSectionSubTitle",
-      type: "string",
-      defaultValue:
-        "Choose the plan that best fits your needs and start your transformation journey today",
-    },
-    {
-      name: "PlansList",
-      type: "list",
-      defaultValue: [
-        {
-          title: "Basic Class",
-          price: "25.00",
-          features: [
-            {
-              feature: "Access to basic yoga sessions",
-            },
-            {
-              feature: "Online learning materials",
-            },
-            {
-              feature: "Community forum access",
-            },
-            {
-              feature: "Email support",
-            },
-          ],
-          ButtonText: "Get Started",
-        },
-        {
-          title: "Premium Class",
-          price: "45.00",
-          features: [
-            {
-              feature: "All Basic features",
-            },
-            {
-              feature: "Advanced yoga techniques",
-            },
-            {
-              feature: "1-on-1 session monthly",
-            },
-            {
-              feature: "Priority support",
-            },
-          ],
-          ButtonText: "Get Started",
-        },
-        {
-          title: "Ultimate Class",
-          price: "65.00",
-          features: [
-            {
-              feature: "All Premium features",
-            },
-            {
-              feature: "Unlimited class access",
-            },
-            {
-              feature: "Weekly 1-on-1 sessions",
-            },
-            {
-              feature: "Nutrition guidance",
-            },
-          ],
-          ButtonText: "Get Started",
-        },
-      ],
-      subFields: [
-        {
-          name: "title",
-          type: "string",
-        },
-        {
-          name: "price",
-          type: "string",
-        },
-        {
-          name: "features",
-          type: "list",
-          subFields: [
-            {
-              name: "feature",
-              type: "string",
-            },
-          ],
-        },
-        {
-          name: "ButtonText",
-          type: "string",
-        },
-      ],
-    },
-    {
-      name: "FaqTitle",
-      type: "string",
-      defaultValue: "Frequently Asked Questions",
-    },
-    {
-      name: "QuestionsList",
-      type: "list",
-      defaultValue: [
-        {
-          Question: "Do you offer a free trial?",
-          Answer:
-            "Yes! We offer a complimentary class for new members to experience our studio before committing to a membership plan.",
-        },
-        {
-          Question: "Can I switch between different class types?",
-          Answer:
-            "Absolutely. Your membership gives you access to all regular classes on our schedule based on your plan level.",
-        },
-        {
-          Question: "What's your cancellation policy?",
-          Answer:
-            "Monthly memberships can be canceled with 30 days' notice. Annual memberships are non-refundable but can be frozen for up to 3 months per year.",
-        },
-        {
-          Question: "Do I need to bring my own equipment?",
-          Answer:
-            "We provide mats and props for all in-studio classes. However, you're welcome to bring your own if you prefer.",
-        },
-      ],
-      subFields: [
-        { name: "Question", type: "string" },
-        {
-          name: "Answer",
-          type: "string",
-        },
-      ],
-    },
-    {
-      name: "headerBackgroundColor",
+      name: "primaryBackground",
       type: "color",
-      defaultValue: "#ff5e14",
+      defaultValue: "#FF5E14",
     },
     {
-      name: "headerTitleColor",
+      name: "secondaryBackground",
       type: "color",
-      defaultValue: "#ededed",
+      defaultValue: "#ffffff",
     },
     {
-      name: "pricingBackgroundColor",
-      type: "color",
-      defaultValue: "#fdf6ef",
-    },
-    {
-      name: "pricingcardBackgroundColor",
-      type: "color",
-      defaultValue: "#ff5e14",
-    },
-    {
-      name: "pricingTextColor",
-      type: "color",
-      defaultValue: "#4A5565",
-    },
-    {
-      name: "pricingButtonBackgroundColor",
+      name: "primaryTextColor",
       type: "color",
       defaultValue: "#000000",
     },
     {
-      name: "FaqBackgroundColor",
-      type: "color",
-      defaultValue: "#fdf6ef",
-    },
-    {
-      name: "questionTextColor",
-      type: "color",
-      defaultValue: "#000000",
-    },
-    {
-      name: "answerTextColor",
+      name: "secondaryTextColor",
       type: "color",
       defaultValue: "#4a5565",
     },
@@ -3289,14 +3129,118 @@ Builder.registerComponent(YogastPricing, {
 
 Builder.registerComponent(YogastCourses, {
   name: "Yogast Courses",
+  inputs: [
+    {
+      name: "heroTitle",
+      type: "string",
+      defaultValue: "Our Courses",
+    },
+    {
+      name: "heroDescription",
+      type: "string",
+      defaultValue:
+        "Discover the perfect yoga course for your journey, from beginner-friendly classes to advanced practices",
+    },
+    {
+      name: "primaryBackground",
+      type: "color",
+      defaultValue: "#FF5E14",
+    },
+    {
+      name: "secondaryBackground",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "primaryTextColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "secondaryTextColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+  ],
 });
 
 Builder.registerComponent(YogastEvents, {
   name: "Yogast Events",
+  inputs: [
+    {
+      name: "heroTitle",
+      type: "string",
+      defaultValue: "Upcoming Events",
+    },
+    {
+      name: "heroDescription",
+      type: "string",
+      defaultValue:
+        "Join our special workshops, retreats, and community events to deepen your yoga journey",
+    },
+    {
+      name: "primaryBackground",
+      type: "color",
+      defaultValue: "#FF5E14",
+    },
+    {
+      name: "secondaryBackground",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "primaryTextColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "secondaryTextColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+  ],
 });
 
 Builder.registerComponent(YogastContact, {
   name: "Yogast Contact",
+  inputs:[
+      {
+      name: "heroTitle",
+      type: "string",
+      defaultValue: "Contact Us",
+    },
+    {
+      name: "heroDescription",
+      type: "string",
+      defaultValue:
+        "Get in touch with us for any questions, bookings, or to start your yoga journey",
+    },
+    {
+      name: "primaryBackground",
+      type: "color",
+      defaultValue: "#FF5E14",
+    },
+    {
+      name: "secondaryBackground",
+      type: "color",
+      defaultValue: "#ffffff",
+    },
+    {
+      name: "primaryTextColor",
+      type: "color",
+      defaultValue: "#000000",
+    },
+    {
+      name: "secondaryTextColor",
+      type: "color",
+      defaultValue: "#4a5565",
+    },
+    {
+      name:"foreground",
+      type:"color",
+      defaultValue:"#FDF6EF"
+    }
+  ]
 });
 
 Builder.registerComponent(YogastEventDetails, {
@@ -3309,6 +3253,10 @@ Builder.registerComponent(YogastEventConfirmation, {
 
 Builder.registerComponent(YogastOurServicesSection, {
   name: "Yogast Our Services Section",
+});
+
+Builder.registerComponent(YogastOurTeamSection, {
+  name: "Yogast Our Team Section",
 });
 
 Builder.registerComponent(YuvaaHeader, {

@@ -15,7 +15,21 @@ import { Calendar, Clock, MapPin } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-const YogastEvents = () => {
+const YogastEvents = ({
+  heroTitle,
+  heroDescription,
+  primaryBackground,
+  secondaryBackground,
+  primaryTextColor,
+  secondaryTextColor,
+}: {
+  heroTitle: string;
+  heroDescription: string;
+  primaryBackground: string;
+  secondaryBackground: string;
+  primaryTextColor: string;
+  secondaryTextColor: string;
+}) => {
   const [events, setEvents] = useState<Event[]>([]);
   const [isloading, setIsLoading] = useState<boolean>(true);
 
@@ -46,12 +60,21 @@ const YogastEvents = () => {
     const shouldTruncate = desc.length > MAX_PREVIEW_CHARS;
 
     if (!shouldTruncate) {
-      return <p className="text-gray-600 mb-4">{desc}</p>;
+      return (
+        <p className="text-gray-600 mb-4" style={{ color: secondaryTextColor }}>
+          {desc}
+        </p>
+      );
     }
 
     return (
       <div className="mb-2">
-        <p className="text-gray-600 line-clamp-3">{desc}</p>
+        <p
+          className="text-gray-600 line-clamp-3"
+          style={{ color: secondaryTextColor }}
+        >
+          {desc}
+        </p>
         <Dialog>
           <DialogTrigger className="text-sm font-medium text-blue-600 hover:underline focus:outline-none cursor-pointer">
             Read more
@@ -60,7 +83,10 @@ const YogastEvents = () => {
             <DialogHeader>
               <DialogTitle className="capitalize">{event?.title}</DialogTitle>
             </DialogHeader>
-            <DialogDescription className="whitespace-pre-wrap text-base text-gray-700">
+            <DialogDescription
+              className="whitespace-pre-wrap text-base text-gray-700"
+              style={{ color: secondaryTextColor }}
+            >
               {desc}
             </DialogDescription>
           </DialogContent>
@@ -101,25 +127,36 @@ const YogastEvents = () => {
 
   return (
     <main className="flex-grow">
-      <section className="bg-[#FF5E14] text-white py-16">
+      <section
+        className="bg-[#FF5E14] text-white py-16"
+        style={{
+          backgroundColor: primaryBackground,
+          color: secondaryBackground,
+        }}
+      >
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Upcoming Events
+            {heroTitle}
           </h1>
-          <p className="max-w-2xl mx-auto">
-            Join our special workshops, retreats, and community events to deepen
-            your yoga journey
-          </p>
+          <p className="max-w-2xl mx-auto">{heroDescription}</p>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section
+        className="py-16 bg-white"
+        style={{
+          backgroundColor: secondaryBackground,
+        }}
+      >
         <div className="container mx-auto px-4 md:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {events.map((event, index) => (
               <div
                 key={index}
                 className="bg-[#FDF6EF] rounded-lg overflow-hidden shadow-md"
+                style={{
+                  backgroundColor: secondaryBackground,
+                }}
               >
                 <div className="h-48 overflow-hidden">
                   <img
@@ -132,32 +169,55 @@ const YogastEvents = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#FF5E14] mb-2">
+                  <h3
+                    className="text-xl font-bold text-[#FF5E14] mb-2"
+                    style={{
+                      color: primaryBackground,
+                    }}
+                  >
                     {event.title}
                   </h3>
                   {renderEventsDescription(event)}
-                  <div className="space-y-2 mb-4">
+                  <div
+                    className="space-y-2 mb-4"
+                    style={{ color: primaryTextColor }}
+                  >
                     <div className="flex items-center text-gray-600">
-                      <Calendar className="w-4 h-4 mr-2 text-[#FF6347]" />
+                      <Calendar
+                        className="w-4 h-4 mr-2 text-[#FF6347]"
+                        color={primaryBackground}
+                      />
                       <span>{`${event?.availability[0]?.day} to ${
                         event?.availability[event?.availability.length - 1]?.day
                       }`}</span>
                     </div>
                     <div className="flex items-center text-gray-600">
-                      <Clock className="w-4 h-4 mr-2 text-[#FF6347]" />
+                      <Clock
+                        className="w-4 h-4 mr-2 text-[#FF6347]"
+                        color={primaryBackground}
+                      />
                       <span>
                         {event?.availability[0]?.availableTimes[0]?.startTime}{" "}
                         to {event?.availability[0]?.availableTimes[0]?.endTime}
                       </span>
                     </div>
                     <div className="flex items-center text-gray-600">
-                      <MapPin size={16} className="mr-2 text-[#FF6347]" />
+                      <MapPin
+                        size={16}
+                        className="mr-2 text-[#FF6347]"
+                        color={primaryBackground}
+                      />
                       <span>{event.location}</span>
                     </div>
                   </div>
                   <p className="text-gray-700 mb-4">{event.description}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-2xl font-bold text-[#FF5E14]">
+                    <span
+                      className="text-2xl font-bold text-[#FF5E14]"
+                      style={{
+                        color: primaryBackground,
+                      }}
+                    >
                       {event?.pricing != null && `₹${event.pricing}`}
                     </span>
                     {/* <Button className="bg-[#FF5E14] hover:bg-orange-600 text-white rounded-full">
@@ -176,7 +236,13 @@ const YogastEvents = () => {
 
                       return isBookable ? (
                         <Link href={`/event-details?eventid=${event._id}`}>
-                          <button className="bg-[#FF5E14] hover:bg-orange-600 cursor-pointer text-white rounded-full px-6 py-2 transition-colors">
+                          <button
+                            className="bg-[#FF5E14] hover:bg-orange-600 cursor-pointer text-white rounded-full px-6 py-2 transition-colors"
+                            style={{
+                              backgroundColor: primaryBackground,
+                              color: secondaryBackground,
+                            }}
+                          >
                             Book Now
                           </button>
                         </Link>
