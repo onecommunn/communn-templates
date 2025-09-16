@@ -95,6 +95,14 @@ import YogastEventDetails from "./components/Yogast/YogastEvents/YogastEventDeta
 import YogastEventConfirmation from "./components/Yogast/YogastEvents/YogastEventConfirmation";
 import YogastOurServicesSection from "./components/Yogast/YogastOurServicesSection/YogastOurServicesSection";
 import YogastOurTeamSection from "./components/Yogast/YogastOurTeamSection/YogastOurTeamSection";
+import CreatorHeader from "./components/Creator/CreatorHeader/CreatorHeader";
+import CreatorHero from "./components/Creator/CreatorHero/CreatorHero";
+import CreatorAboutus from "./components/Creator/CreatorAboutus/CreatorAboutus";
+import CreatorBestsellers from "./components/Creator/CreatorBestsellers/CreatorBestsellers";
+import CreatorCollaboration from "./components/Creator/CreatorCollaboration/CreatorCollaboration";
+import CreatorTestimonies from "./components/Creator/CreatorTestimonies/CreatorTestimonies";
+import CreatorCTA from "./components/Creator/CreatorCTA/CreatorCTA";
+import CreatorFooter from "./components/Creator/CreatorFooter/CreatorFooter";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -3203,8 +3211,8 @@ Builder.registerComponent(YogastEvents, {
 
 Builder.registerComponent(YogastContact, {
   name: "Yogast Contact",
-  inputs:[
-      {
+  inputs: [
+    {
       name: "heroTitle",
       type: "string",
       defaultValue: "Contact Us",
@@ -3236,11 +3244,11 @@ Builder.registerComponent(YogastContact, {
       defaultValue: "#4a5565",
     },
     {
-      name:"foreground",
-      type:"color",
-      defaultValue:"#FDF6EF"
-    }
-  ]
+      name: "foreground",
+      type: "color",
+      defaultValue: "#FDF6EF",
+    },
+  ],
 });
 
 Builder.registerComponent(YogastEventDetails, {
@@ -5017,3 +5025,73 @@ Builder.registerComponent(YuvaaEventDetails, {
 Builder.registerComponent(YuvaaEventConfirmation, {
   name: "Yuvaa Event Confirmation",
 });
+
+// ---------------- Creator Template ---------------------
+Builder.registerComponent(CreatorHeader, {
+  name: "Creator Header",
+  inputs: [
+    {
+      name: "logoUrl",
+      type: "file",
+      defaultValue:
+        "",
+    },
+    {
+      name: "logoWidth",
+      type: "number",
+      defaultValue: "100",
+    },
+    {
+      name: "logoHight",
+      type: "number",
+      defaultValue: "100",
+    },
+  ],
+});
+
+Builder.registerComponent(CreatorHero,{
+  name:'Creator Hero'
+})
+
+Builder.registerComponent(CreatorAboutus,{
+  name:'Creator Aboutus'
+})
+
+Builder.registerComponent(CreatorBestsellers,{
+  name:'Creator Bestsellers'
+})
+
+Builder.registerComponent(CreatorCollaboration,{
+  name:'Creator Collaboration'
+})
+
+Builder.registerComponent(CreatorTestimonies,{
+  name:'Creator Testimonies'
+})
+
+Builder.registerComponent(CreatorCTA,{
+  name:'Creator CTA'
+})
+
+Builder.registerComponent(CreatorFooter, {
+  name: "Creator Footer",
+  inputs: [
+    {
+      name: "logoUrl",
+      type: "file",
+      defaultValue:
+        "",
+    },
+    {
+      name: "logoWidth",
+      type: "number",
+      defaultValue: "100",
+    },
+    {
+      name: "logoHight",
+      type: "number",
+      defaultValue: "100",
+    },
+  ],
+});
+
