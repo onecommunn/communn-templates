@@ -3,22 +3,12 @@ import CreatorSectionHeader from "../../Components/CreatorSectionHeader";
 import { Course } from "@/app/models/course.mode";
 import { useCommunity } from "@/app/hooks/useCommunity";
 import { getCourses } from "@/app/services/courseService";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/Ui/dialog";
-import { Card, CardHeader } from "@/components/Ui/card";
+import { Card } from "@/components/Ui/card";
 import Image from "next/image";
 import { CardFooter, CardTitle } from "@/components/Ui/CustomCard";
 import { ArrowRight, BookOpenCheck, Clock, LayoutPanelTop } from "lucide-react";
 import { Button } from "@/components/Ui/button";
 import { Skeleton } from "@/components/Ui/skeleton";
-
-const MAX_PREVIEW_CHARS = 180;
 
 function capitalizeWord(word: string): string {
   if (!word) return "";
@@ -74,6 +64,15 @@ const CreatorCourses = () => {
       </div>
     );
   }
+
+  if (!Array.isArray(coursesList) || coursesList.length === 0) {
+    return (
+      <div className="text-center w-full h-[80vh] flex items-center justify-center">
+        <p>No Courses available.</p>
+      </div>
+    );
+  }
+
   return (
     <section className="py-10 font-inter">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
