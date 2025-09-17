@@ -108,6 +108,7 @@ import CreatorTimeline from "./components/Creator/CreatorAboutusPage/CreatorTime
 import CreatorOurTeam from "./components/Creator/CreatorAboutusPage/CreatorOurTeam/CreatorOurTeam";
 import CreatorCourses from "./components/Creator/CreatorPageCourses/CreatorCourses/CreatorCourses";
 import CreatorEventsPage from "./components/Creator/CreatorEventsPage/CreatorEventsPage";
+import CreatorEventDetailPage from "./components/Creator/CreatorEventsPage/CreatorEventDetailPage";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -5044,7 +5045,7 @@ Builder.registerComponent(CreatorHeader, {
     {
       name: "logoWidth",
       type: "number",
-      defaultValue: "100",
+      defaultValue: "180",
     },
     {
       name: "logoHight",
@@ -5090,7 +5091,7 @@ Builder.registerComponent(CreatorFooter, {
     {
       name: "logoWidth",
       type: "number",
-      defaultValue: "100",
+      defaultValue: "300",
     },
     {
       name: "logoHight",
@@ -5118,4 +5119,8 @@ Builder.registerComponent(CreatorCourses,{
 
 Builder.registerComponent(CreatorEventsPage,{
   name:'Creator Events'
+})
+
+Builder.registerComponent(CreatorEventDetailPage,{
+  name:'Creator Events Detail'
 })
