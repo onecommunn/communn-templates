@@ -3,7 +3,11 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = BuilderDevTools()({
   images: {
-    domains: ["cdn.builder.io","images.unsplash.com"],
+    domains: [
+      "cdn.builder.io",
+      "images.unsplash.com",
+      "upload-community-files-new.s3.ap-south-1.amazonaws.com",
+    ],
   },
 });
 

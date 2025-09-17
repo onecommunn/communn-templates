@@ -35,7 +35,7 @@ const CreatorHeader = ({ logoHight, logoUrl, logoWidth }: ICreatorHeader) => {
             <Link href={"/"} className="text-black hover:underline font-inter">
               Events
             </Link>
-            <Link href={"/"} className="text-black hover:underline font-inter">
+            <Link href={"/courses"} className="text-black hover:underline font-inter">
               Courses
             </Link>
             <Link href={"/"} className="text-black hover:underline font-inter">
