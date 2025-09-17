@@ -105,6 +105,7 @@ import CreatorCTA from "./components/Creator/CreatorCTA/CreatorCTA";
 import CreatorFooter from "./components/Creator/CreatorFooter/CreatorFooter";
 import CreatorAboutusHero from "./components/Creator/CreatorAboutusPage/CreatorAboutusHero/CreatorAboutusHero";
 import CreatorTimeline from "./components/Creator/CreatorAboutusPage/CreatorTimeline/CreatorTimeline";
+import CreatorOurTeam from "./components/Creator/CreatorAboutusPage/CreatorOurTeam/CreatorOurTeam";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -5103,4 +5104,8 @@ Builder.registerComponent(CreatorAboutusHero,{
 
 Builder.registerComponent(CreatorTimeline,{
   name:'Creator Timeline'
+})
+
+Builder.registerComponent(CreatorOurTeam,{
+  name:'Creator Our Team'
 })
