@@ -18,9 +18,9 @@ const CreatorHeader = ({ logoHight, logoUrl, logoWidth }: ICreatorHeader) => {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
             <img
-              src={logoUrl}
+              src={logoUrl || 'https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F062e0f3cd667449793b24103817a0704'}
               alt={"logo"}
-              width={logoWidth}
+              width={logoWidth || 180}
               height={logoHight}
             />
           </Link>
@@ -29,7 +29,7 @@ const CreatorHeader = ({ logoHight, logoUrl, logoWidth }: ICreatorHeader) => {
             <Link href={"/"} className="text-black hover:underline font-inter">
               Home
             </Link>
-            <Link href={"/"} className="text-black hover:underline font-inter">
+            <Link href={"/about-us"} className="text-black hover:underline font-inter">
               About us
             </Link>
             <Link href={"/"} className="text-black hover:underline font-inter">

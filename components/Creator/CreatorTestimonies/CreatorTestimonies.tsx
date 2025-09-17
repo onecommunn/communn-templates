@@ -6,6 +6,7 @@ import {
   CardHeader,
 } from "@/components/Ui/card";
 import React from "react";
+import CreatorSectionHeader from "../Components/CreatorSectionHeader";
 
 interface IReview {
   starsCount: number;
@@ -116,22 +117,21 @@ const CreatorTestimonies = () => {
   return (
     <section className="py-10 font-inter">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-[#0C0407] font-inter">
-            Success Stories
-          </h2>
-          <p className="text-[16px] text-[#0C0407] max-w-2xl mx-auto font-inter">
-            Real transformations from real people who've taken action on their
-            growth journey.
-          </p>
-        </div>
+        <CreatorSectionHeader
+          title="Success Stories"
+          description="Real transformations from real people who've taken action on their
+            growth journey."
+        />
+
         <div className="columns-1 md:columns-2 xl:columns-3 gap-4">
           {data.map((each, idx) => (
             <Card className="mb-4 gap-1" key={idx}>
               <CardHeader className="gap-2">
                 <div className="flex flex-row items-center gap-1">
                   {[...Array(each.starsCount)].map((_, i) => (
-                    <span key={i} className="text-black text-2xl">★</span>
+                    <span key={i} className="text-black text-2xl">
+                      ★
+                    </span>
                   ))}
                 </div>
               </CardHeader>
@@ -140,14 +140,16 @@ const CreatorTestimonies = () => {
               </CardContent>
               <CardFooter className="mt-2">
                 <div className="flex flex-row items-center gap-2">
-                    <Avatar className="w-10 h-10">
-                        <AvatarImage src={each.profile}/>
-                        <AvatarFallback>{each.userName[0]}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col">
-                        <p className="text-sm text-black font-inter font-medium">{each.userName}</p>
-                        <p className="text-xs text-black font-inter">{each.role}</p>
-                    </div>
+                  <Avatar className="w-10 h-10">
+                    <AvatarImage src={each.profile} />
+                    <AvatarFallback>{each.userName[0]}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <p className="text-sm text-black font-inter font-medium">
+                      {each.userName}
+                    </p>
+                    <p className="text-xs text-black font-inter">{each.role}</p>
+                  </div>
                 </div>
               </CardFooter>
             </Card>

@@ -1,26 +1,17 @@
+import React from "react";
+import CreatorSectionHeader from "../../Components/CreatorSectionHeader";
 import { Button } from "@/components/Ui/button";
 import { ArrowRight, CheckCheck } from "lucide-react";
-import React from "react";
-import CreatorSectionHeader from "../Components/CreatorSectionHeader";
 
-const CreatorAboutus = () => {
+const CreatorAboutusHero = () => {
   return (
-    <section className="pb-10 font-inter">
+    <section className="py-10 font-inter">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <CreatorSectionHeader
-          title="Know About us"
-          description="Our names are Prachi & Harsh and we’re multi-passionate content
-            creators making videos about slow travel, love & relationships."
+          title="About Us"
+          description="Ready to start your transformation journey? Have questions about my programs?
+ I'd love to hear from you and help you take the next step."
         />
-        {/* <div className="text-center md:mb-16 mb-6">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-[#0C0407] font-inter">
-            Know About us
-          </h2>
-          <p className="text-[16px] text-[#0C0407] max-w-2xl mx-auto font-inter">
-            Our names are Prachi & Harsh and we’re multi-passionate content
-            creators making videos about slow travel, love & relationships.
-          </p>
-        </div> */}
         <div className="grid md:grid-cols-2 grid-cols-1 gap-6 md:gap-10 lg:gap-28">
           {/* left  */}
           <div className="flex flex-col justify-center gap-6 order-2 md:order-1">
@@ -111,4 +102,4 @@ const CreatorAboutus = () => {
   );
 };
 
-export default CreatorAboutus;
+export default CreatorAboutusHero;

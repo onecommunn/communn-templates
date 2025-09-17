@@ -72,10 +72,10 @@ const CreatorFooter = ({ logoUrl, logoHight, logoWidth }: ICreatorFooter) => {
         <div className="flex flex-col  md:flex-row justify-center md:justify-between">
           <Link href="/" className="flex items-center space-x-2 justify-center md:justify-start">
             <img
-              src={logoUrl}
+              src={logoUrl || 'https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F062e0f3cd667449793b24103817a0704'}
               alt={"logo"}
               width={logoWidth}
-              height={logoHight}
+              height={logoHight || 300}
             />
           </Link>
           <div className="grid grid-cols-2 mx-16 md:mx-0">
