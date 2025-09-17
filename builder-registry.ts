@@ -109,6 +109,9 @@ import CreatorOurTeam from "./components/Creator/CreatorAboutusPage/CreatorOurTe
 import CreatorCourses from "./components/Creator/CreatorPageCourses/CreatorCourses/CreatorCourses";
 import CreatorEventsPage from "./components/Creator/CreatorEventsPage/CreatorEventsPage";
 import CreatorEventDetailPage from "./components/Creator/CreatorEventsPage/CreatorEventDetailPage";
+import CreatorPlans from "./components/Creator/CreatorPlansPage/CreatorPlans/CreatorPlans";
+import CreatorLogin from "./components/Creator/CreatorLogin/CreatorLogin";
+import CreatorContact from "./components/Creator/CreatorContact/CreatorContact";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -5123,4 +5126,16 @@ Builder.registerComponent(CreatorEventsPage,{
 
 Builder.registerComponent(CreatorEventDetailPage,{
   name:'Creator Events Detail'
+})
+
+Builder.registerComponent(CreatorPlans,{
+  name:'Creator Plans'
+})
+
+Builder.registerComponent(CreatorLogin,{
+  name:'Creator Login'
+})
+
+Builder.registerComponent(CreatorContact,{
+  name:'Creator Contact'
 })
