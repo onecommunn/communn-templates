@@ -119,7 +119,7 @@ const CreatorPlansCard = ({
           </Dialog>
         ) : (
           <Link
-            href={`/subscriptions/?planid=${planId}&communityid=${communityId}`}
+            href={`/subscriptions/?planid=${planId}&communityid=${communityId}&image=${imageUrl}`}
           >
             <Button variant={isSubscribed ? 'outline' : 'default'} className={`w-full py-3 cursor-pointer rounded-md`}>
               {isSubscribed ? "Subscribed" : "Subscribe"}

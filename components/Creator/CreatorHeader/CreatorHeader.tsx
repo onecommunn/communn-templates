@@ -3,53 +3,67 @@ import { Button } from "@/components/Ui/button";
 import { ArrowRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose,
+} from "@/components/Ui/sheet";
 
 interface ICreatorHeader {
   logoUrl: string;
   logoWidth: number;
-  logoHight: number;
+  logoHight: number; // keeping your prop name as-is
 }
 
 const CreatorHeader = ({ logoHight, logoUrl, logoWidth }: ICreatorHeader) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const linkClass = (href: string) =>
+    `text-black font-inter ${pathname === href ? "underline" : "hover:underline"}`;
+
   return (
     <header className="sticky top-0 z-50 backdrop-blur">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-2">
             <img
-              src={logoUrl || 'https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F062e0f3cd667449793b24103817a0704'}
-              alt={"logo"}
+              src={
+                logoUrl ||
+                "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F062e0f3cd667449793b24103817a0704"
+              }
+              alt="logo"
               width={logoWidth || 180}
               height={logoHight}
             />
           </Link>
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href={"/"} className="text-black hover:underline font-inter">
+            <Link href="/" className={linkClass("/")}>
               Home
             </Link>
-            <Link href={"/about-us"} className="text-black hover:underline font-inter">
+            <Link href="/about-us" className={linkClass("/about-us")}>
               About us
             </Link>
-            <Link href={"/events"} className="text-black hover:underline font-inter">
+            <Link href="/events" className={linkClass("/events")}>
               Events
             </Link>
-            {/* <Link href={"/courses"} className="text-black hover:underline font-inter">
-              Courses
-            </Link> */}
-            <Link href={"/plans"} className="text-black hover:underline font-inter">
+            {/* <Link href="/courses" className={linkClass("/courses")}>Courses</Link> */}
+            <Link href="/plans" className={linkClass("/plans")}>
               Plans
             </Link>
-            {/* <Link href={"/"} className="text-black hover:underline font-inter">
-              Blog
-            </Link> */}
-            <Link href={"/contact"} className="text-black hover:underline font-inter">
+            {/* <Link href="/" className={linkClass("/")}>Blog</Link> */}
+            <Link href="/contact" className={linkClass("/contact")}>
               Contact
             </Link>
           </nav>
 
-          {/* CTA Button */}
+          {/* Desktop CTA */}
           <div className="hidden md:flex md:items-center">
             <Button className="rounded-[12px] text-sm pr-[20px] pl-[20px] w-fit">
               Book Us{" "}
@@ -59,74 +73,109 @@ const CreatorHeader = ({ logoHight, logoUrl, logoWidth }: ICreatorHeader) => {
             </Button>
           </div>
 
-          <button
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
-        </div>
+          {/* Mobile Menu (Sheet) */}
+          <div className="md:hidden">
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <SheetTrigger asChild>
+                <button aria-label="Open menu">
+                  <Menu className="h-6 w-6" />
+                </button>
+              </SheetTrigger>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
-            <nav className="flex flex-col space-y-4">
-              <Link
-                href={"/"}
-                className="text-black hover:underline font-inter"
-              >
-                Home
-              </Link>
-              <Link
-                href={"/about-us"}
-                className="text-black hover:underline font-inter"
-              >
-                About us
-              </Link>
-              <Link
-                href={"/events"}
-                className="text-black hover:underline font-inter"
-              >
-                Events
-              </Link>
-              {/* <Link
-                href={"/courses"}
-                className="text-black hover:underline font-inter"
-              >
-                Courses
-              </Link> */}
-              <Link
-                href={"/plans"}
-                className="text-black hover:underline font-inter"
-              >
-                Plans
-              </Link>
-              {/* <Link
-                href={"/"}
-                className="text-black hover:underline font-inter"
-              >
-                Blog
-              </Link> */}
-              <Link
-                href={"/contact"}
-                className="text-black hover:underline font-inter"
-              >
-                Contact
-              </Link>
-              <Button className="rounded-[12px] text-sm pr-[20px] pl-[20px] w-fit">
-                Book Us{" "}
-                <span>
-                  <ArrowRight />
-                </span>
-              </Button>
-            </nav>
+              <SheetContent side="right" className="w-[85vw] sm:max-w-sm px-0">
+                {/* Custom header inside sheet */}
+                <SheetHeader className="px-4 pb-2">
+                  <div className="flex items-center justify-between">
+                    <SheetTitle className="sr-only">Menu</SheetTitle>
+                    <Link
+                      href="/"
+                      aria-label="Go home"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center space-x-2"
+                    >
+                      <img
+                        src={
+                          logoUrl ||
+                          "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F062e0f3cd667449793b24103817a0704"
+                        }
+                        alt="logo"
+                        width={120}
+                        height={logoHight}
+                      />
+                    </Link>
+
+                    {/* <button aria-label="Close menu">
+                      <X className="h-6 w-6" />
+                    </button> */}
+                  </div>
+                </SheetHeader>
+
+                {/* Nav list */}
+                <nav className="flex flex-col space-y-1 py-2">
+                  <SheetClose asChild>
+                    <Link href="/" className={`px-4 py-3 ${linkClass("/")}`}>
+                      Home
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link
+                      href="/about-us"
+                      className={`px-4 py-3 ${linkClass("/about-us")}`}
+                    >
+                      About us
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link
+                      href="/events"
+                      className={`px-4 py-3 ${linkClass("/events")}`}
+                    >
+                      Events
+                    </Link>
+                  </SheetClose>
+                  {/* <SheetClose asChild>
+                    <Link href="/courses" className={`px-4 py-3 ${linkClass("/courses")}`}>
+                      Courses
+                    </Link>
+                  </SheetClose> */}
+                  <SheetClose asChild>
+                    <Link
+                      href="/plans"
+                      className={`px-4 py-3 ${linkClass("/plans")}`}
+                    >
+                      Plans
+                    </Link>
+                  </SheetClose>
+                  {/* <SheetClose asChild>
+                    <Link href="/" className={`px-4 py-3 ${linkClass("/")}`}>
+                      Blog
+                    </Link>
+                  </SheetClose> */}
+                  <SheetClose asChild>
+                    <Link
+                      href="/contact"
+                      className={`px-4 py-3 ${linkClass("/contact")}`}
+                    >
+                      Contact
+                    </Link>
+                  </SheetClose>
+                </nav>
+
+                {/* CTA pinned at bottom */}
+                <div className="px-4 pt-2 pb-6">
+                  <SheetClose asChild>
+                    <Button className="rounded-[12px] text-sm pr-[20px] pl-[20px] w-full">
+                      Book Us
+                      <span className="ml-2">
+                        <ArrowRight />
+                      </span>
+                    </Button>
+                  </SheetClose>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );

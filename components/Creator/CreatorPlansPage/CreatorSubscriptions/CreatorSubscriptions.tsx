@@ -10,6 +10,11 @@ import { useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import PaymentSuccess from "@/components/Yuvaa/YuvaaSubscriptions/PaymentSuccessPopup";
 import PaymentFailure from "@/components/Yuvaa/YuvaaSubscriptions/PaymentFailure";
+import CreatorSectionHeader from "../../Components/CreatorSectionHeader";
+import { Skeleton } from "@/components/Ui/skeleton";
+import Image from "next/image";
+import { Button } from "@/components/Ui/button";
+import Link from "next/link";
 
 const PaymentScheduleItem = ({
   date,
@@ -34,27 +39,30 @@ const PaymentScheduleItem = ({
         if (status !== "PAID") onSelect();
       }}
       className={`flex flex-col items-center space-y-2 cursor-pointer px-3 py-2 rounded-lg border 
-       ${isDisabled
-          ? "opacity-50 cursor-not-allowed border-gray-200"
-          : isSelected
-            ? "border-none bg-blue-50"
-            : "border-transparent"
-        }`}
+       ${
+         isDisabled
+           ? "opacity-50 cursor-not-allowed border-gray-200"
+           : isSelected
+             ? "border-none bg-gray-100"
+             : "border-transparent"
+       }`}
     >
       <div className="text-sm text-gray-600">{date}</div>
       <div
-        className={`w-24 md:w-28 h-10 rounded-2xl border-2 flex items-center justify-center text-sm font-medium ${status === "PAID"
-          ? "border-green-600 text-green-600"
-          : isSelected
-            ? "border-blue-500 bg-blue-100 text-blue-700"
-            : "border-gray-300 bg-white text-gray-600"
-          }`}
+        className={`w-24 md:w-28 h-10 rounded-2xl border-2 flex items-center justify-center text-sm font-medium ${
+          status === "PAID"
+            ? "border-green-600 text-green-600"
+            : isSelected
+              ? "border-gray-500 bg-gray-200 text-black-700"
+              : "border-gray-300 bg-white text-gray-600"
+        }`}
       >
         ₹{amount}
       </div>
       <div
-        className={`text-xs ${status === "PAID" ? "text-green-600" : "text-red-500"
-          }`}
+        className={`text-xs ${
+          status === "PAID" ? "text-green-600" : "text-red-500"
+        }`}
       >
         {status === "PAID" ? "Paid" : "Not Paid"}
       </div>
@@ -74,9 +82,26 @@ interface Plan {
   duration: string;
   startDate: string;
   interval: string;
+  endDate: string;
   pricing: string;
+  description?: string;
 }
 
+function formatDate(dateStr?: string | null): string {
+  if (!dateStr) return ""; // handle undefined/null/empty
+
+  const date = new Date(dateStr);
+
+  if (isNaN(date.getTime())) {
+    return ""; // invalid date
+  }
+
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  }).format(date);
+}
 
 const CreatorSubscriptions = () => {
   const [activeTab, setActiveTab] = useState("All");
@@ -88,39 +113,41 @@ const CreatorSubscriptions = () => {
   const [plan, setPlan] = useState<Plan>();
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [community, setCommunity] = useState('');
+  const [community, setCommunity] = useState("");
   const [sequenceId, setSequenceId] = useState<string[]>([]);
   const [payLoading, setPayLoading] = useState(false);
-  const [planId, setplanId] = useState('');
-  const [selectedAmounts, setSelectedAmounts] = useState<{ id: string; amount: number; startDate: string, courseAmount?: string }[]>([]);
+  const [planId, setplanId] = useState("");
+  const [selectedAmounts, setSelectedAmounts] = useState<
+    { id: string; amount: number; startDate: string; courseAmount?: string }[]
+  >([]);
   const [subscriptions, setSubscriptions] = useState<ISubscribers>();
   const [sequences, setSequences] = useState<ISequences[]>([]);
 
   const authContext = useContext(AuthContext);
   const userId = authContext?.user?.id;
 
-
-
   // console.log(authContext?.user?.id, "authContext")
 
-  useEffect(() => {
-  }, [authContext.user, authContext.isAuthenticated, authContext.loading, authContext?.user?.id]);
-
+  useEffect(() => {}, [
+    authContext.user,
+    authContext.isAuthenticated,
+    authContext.loading,
+    authContext?.user?.id,
+  ]);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-  useEffect(() => {
-
-  }, [authContext])
-
+  useEffect(() => {}, [authContext]);
 
   const searchParams = useSearchParams();
   const planID = searchParams.get("planid");
 
   const communityId = searchParams.get("communityid");
+  const imageUrl = searchParams.get("image");
 
-  const { createSubscriptionSequencesByPlanAndCommunityId, getSequencesById } = usePlans();
+  const { createSubscriptionSequencesByPlanAndCommunityId, getSequencesById } =
+    usePlans();
 
   const handleCreateSubscription = async () => {
     if (!userId) {
@@ -128,6 +155,7 @@ const CreatorSubscriptions = () => {
       return;
     }
     try {
+      setIsLoading(true);
       const response: any =
         await createSubscriptionSequencesByPlanAndCommunityId(
           userId,
@@ -138,16 +166,21 @@ const CreatorSubscriptions = () => {
       setSubscriptionId(response?.subscription?._id);
     } catch (error) {
       console.error("Error creating subscription:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handlegetSequencesById = async () => {
     try {
+      setIsLoading(true);
       const response: any = await getSequencesById(subscriptionId, userId);
       setPlacePrice(response?.pricing || "0");
       setSequencesList(response?.sequences || []);
     } catch (error) {
       console.error("Error fetching sequences:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -161,8 +194,13 @@ const CreatorSubscriptions = () => {
     ) {
       handleCreateSubscription();
     }
-  }, [userId, communityId, planID, authContext?.isAuthenticated, authContext?.loading]);
-
+  }, [
+    userId,
+    communityId,
+    planID,
+    authContext?.isAuthenticated,
+    authContext?.loading,
+  ]);
 
   useEffect(() => {
     if (subscriptionId) {
@@ -180,8 +218,6 @@ const CreatorSubscriptions = () => {
 
   const tabs = ["All", "PAID", "NOT_PAID"];
 
-
-
   const formatStatus = (status: string) => {
     return status
       .toLowerCase()
@@ -194,8 +230,6 @@ const CreatorSubscriptions = () => {
   const [failureOpen, setFailureOpen] = useState(false);
   const [transaction, setTransaction] = useState<IPaymentList>();
 
-
-
   const {
     initiatePaymentByIds,
     getPaymentStatusById,
@@ -203,12 +237,11 @@ const CreatorSubscriptions = () => {
   } = usePayment();
 
   enum PaymentStatus {
-    SUCCESS = 'SUCCESS',
-    PENDING = 'PENDING',
-    FAILED = 'FAILED',
-    USERCANCELLED = 'USERCANCELLED',
+    SUCCESS = "SUCCESS",
+    PENDING = "PENDING",
+    FAILED = "FAILED",
+    USERCANCELLED = "USERCANCELLED",
   }
-
 
   const handleSuccessClose = () => {
     setTimer(3);
@@ -219,7 +252,6 @@ const CreatorSubscriptions = () => {
     setTimer(3);
     setFailureOpen(false);
   };
-
 
   const paymentResponse = async (response: any, selectedSequences: any) => {
     try {
@@ -260,14 +292,14 @@ const CreatorSubscriptions = () => {
           }
         }, 1000);
       } else {
-        console.error('Payment URL not provided in response');
+        console.error("Payment URL not provided in response");
       }
     } catch (error) {
-      console.error('An error occurred in paymentResponse:', error);
+      console.error("An error occurred in paymentResponse:", error);
     }
   };
 
-  const handleClickPay = async (communityId: string, planId: string,) => {
+  const handleClickPay = async (communityId: string, planId: string) => {
     try {
       setPayLoading(true);
       setCommunity(communityId);
@@ -277,7 +309,7 @@ const CreatorSubscriptions = () => {
         userId,
         planId,
         sequenceId,
-        amount,
+        amount
       );
       const sequenceIds = selectedAmounts
         ?.filter((item: any) => item?.id)
@@ -285,17 +317,16 @@ const CreatorSubscriptions = () => {
       paymentResponse(response, sequenceIds);
       handlegetSequencesById();
     } catch (error) {
-      console.error('Payment failed:', error);
+      console.error("Payment failed:", error);
     } finally {
       setPayLoading(false);
     }
   };
 
-
   const handleSelectAmount = (
     id: string,
     amount: number,
-    startDate: string,
+    startDate: string
   ) => {
     setSelectedAmounts((prev) => {
       if (prev.some((item) => item.id === id)) {
@@ -313,23 +344,229 @@ const CreatorSubscriptions = () => {
     });
   };
 
-
-
   const totalAmount = selectedAmounts.reduce(
-    (acc, curr) => acc + curr.amount + (Number(subscriptions?.courseAmount) || 0),
+    (acc, curr) =>
+      acc + curr.amount + (Number(subscriptions?.courseAmount) || 0),
     0
   );
 
+  if (isLoading) {
+    return (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-20">
+        <div className="max-w-6xl mx-auto px-4 py-8">
+          <div className="rounded-2xl overflow-hidden mb-8">
+            <div className="relative aspect-[16/9] w-full">
+              <Skeleton className="absolute inset-0" />
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="md:col-span-2 space-y-4">
+              <Skeleton className="h-7 w-3/4" /> 
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-[92%]" />
+                <Skeleton className="h-4 w-[88%]" />
+                <Skeleton className="h-4 w-[80%]" />
+              </div>
+              <Skeleton className="h-5 w-56 mt-6" /> 
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-2 w-2 rounded-full" />
+                  <Skeleton className="h-4 w-64" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-2 w-2 rounded-full" />
+                  <Skeleton className="h-4 w-52" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-2 w-2 rounded-full" />
+                  <Skeleton className="h-4 w-40" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <Skeleton className="h-2 w-2 rounded-full" />
+                  <Skeleton className="h-4 w-72" />
+                </div>
+              </div>
+            </div>
+            <div className="bg-white rounded-xl shadow border p-6 space-y-4">
+              <Skeleton className="h-5 w-32" />
+              <Skeleton className="h-10 w-full rounded-md" />
+              <Skeleton className="h-10 w-full rounded-md" />
+              <Skeleton className="h-10 w-full rounded-md" />
+              <Skeleton className="h-10 w-full rounded-md" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <main className="flex-grow bg-white">
-      <div className="mx-auto px-4 py-8 md:px-20">
+    <main className="flex-grow bg-white font-inter">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-20 py-10">
+        <CreatorSectionHeader title={plan?.name || ""} />
+        <div className="mx-auto pb-4">
+          {/* Cover image */}
+          <div className="rounded-2xl overflow-hidden mb-8">
+            <div className="relative aspect-[18/9] w-full">
+              <Image
+                src={imageUrl || "/assets/creatorCoursesPlaceHolderImage.jpg"}
+                alt={plan?.name || "plan Image"}
+                fill
+                className="object-cover"
+                priority={false}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <h2 className="font-poppins font-semibold text-3xl mb-2">
+                Description
+              </h2>
+              <p className="font-inter text-[16px]">{plan?.description}</p>
+            </div>
+            <h2 className="font-poppins font-semibold text-3xl my-2">
+              {new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+                minimumFractionDigits: 2,
+              }).format(Number(plan?.pricing ?? 0))}
+            </h2>
+            <div className="mt-4">
+              <h2 className="font-poppins font-semibold text-3xl mb-2">
+                Sequences
+              </h2>
+              <div>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {tabs.map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-4 py-2 cursor-pointer rounded-md text-sm font-medium transition-colors ${
+                        activeTab === tab
+                          ? "bg-gray-100 text-gray-700"
+                          : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                      }`}
+                    >
+                      {formatStatus(tab)}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
+                  {sequencesList.map((payment, index) => {
+                    const isVisible =
+                      activeTab === "All" ||
+                      payment.previousStatus === activeTab;
+                    if (!isVisible) return null;
+                    return (
+                      <PaymentScheduleItem
+                        key={payment._id}
+                        date={
+                          payment?.startDate
+                            ? new Date(payment.startDate).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                }
+                              )
+                            : "N/A"
+                        }
+                        amount={placePrice}
+                        status={payment.status}
+                        isSelected={selectedAmounts.some(
+                          (item) => item.id === payment._id
+                        )}
+                        onSelect={() =>
+                          handleSelectAmount(
+                            payment._id,
+                            Number(placePrice),
+                            payment?.startDate
+                          )
+                        }
+                      />
+                    );
+                  })}
+                </div>
+                <div className="border rounded-2xl p-6 mt-6">
+                  <div>
+                    <h6 className="font-semibold text-[16px] mb-3">
+                      Subscription Summary
+                    </h6>
+                    <hr />
+                  </div>
+                  <div className="grid grid-cols-2 mt-3">
+                    <div className="space-y-2">
+                      <h6 className="font-semibold text-[16px] mb-3">
+                        Plan Name
+                      </h6>
+                      <p className="text-[#646464] text-[16px]">Start Date</p>
+                      <p className="text-[#646464] text-[16px]">End Date</p>
+                      <p className="text-[#646464] text-[16px]">
+                        Subscription Fee
+                      </p>
+                    </div>
+                    <div className="text-right space-y-2">
+                      <h6 className="font-semibold text-[16px] mb-3">
+                        {plan?.name || " "}
+                      </h6>
+                      <p className="text-[#646464] text-[16px]">
+                        {formatDate(plan?.startDate || " ")}
+                      </p>
+                      <p className="text-[#646464] text-[16px]">
+                        {formatDate(plan?.endDate || " ")}
+                      </p>
+                      <p className="text-[#646464] text-[16px]">
+                        {new Intl.NumberFormat("en-IN", {
+                          style: "currency",
+                          currency: "INR",
+                          minimumFractionDigits: 2,
+                        }).format(Number(plan?.pricing ?? 0))}{" "}
+                        * {selectedAmounts.length}
+                      </p>
+                    </div>
+                  </div>
+                  <hr className="my-3" />
+                  <div className="grid grid-cols-2">
+                    <div>
+                      <h6 className="font-semibold text-[16px] mb-3">Total</h6>
+                    </div>
+                    <div className="text-right">
+                      <h6 className="font-semibold text-[16px] mb-3">
+                        ₹{totalAmount.toFixed(2)}
+                      </h6>
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-center justify-end gap-3">
+                    <Link href={"/plans"}>
+                      <Button variant={"outline"}>Cancel</Button>
+                    </Link>
+                    <Button
+                      disabled={totalAmount === 0}
+                      onClick={() =>
+                        handleClickPay(communityId || "", planID || "")
+                      }
+                      className={`${totalAmount === 0 ? "cursor-not-allowed" : "cursor-pointer"}`}
+                    >
+                      {/* Pay ₹{totalAmount.toFixed(2)} */}
+                      Continue to Payment
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <div className="mx-auto px-4 py-8 md:px-20">
         <div className="bg-white rounded-lg shadow-sm border mb-6">
           <div
             className="flex items-center justify-between p-6 cursor-pointer"
             onClick={() => setIsExpanded(!isExpanded)}
           >
-
             <div className="grid grid-cols-2 md:grid-cols-4 md:gap-8 flex-grow text-black">
               <div>
                 <div className="text-sm text-gray-500 mb-1">Plan Name</div>
@@ -352,17 +589,18 @@ const CreatorSubscriptions = () => {
                 <div className="font-medium">
                   {plan?.startDate
                     ? new Date(plan?.startDate).toLocaleDateString("en-GB", {
-                      day: "2-digit",
-                      month: "short",
-                      year: "numeric",
-                    })
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })
                     : "N/A"}
                 </div>
               </div>
             </div>
             <ChevronDown
-              className={`w-5 h-5 text-gray-400 transform transition-transform ${isExpanded ? "rotate-180" : ""
-                }`}
+              className={`w-5 h-5 text-gray-400 transform transition-transform ${
+                isExpanded ? "rotate-180" : ""
+              }`}
             />
           </div>
 
@@ -377,15 +615,15 @@ const CreatorSubscriptions = () => {
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-2 cursor-pointer rounded-md text-sm font-medium transition-colors ${activeTab === tab
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
-                      }`}
+                    className={`px-4 py-2 cursor-pointer rounded-md text-sm font-medium transition-colors ${
+                      activeTab === tab
+                        ? "bg-blue-200 text-blue-700"
+                        : "text-gray-600 hover:text-gray-800 hover:bg-gray-200"
+                    }`}
                   >
                     {formatStatus(tab)}
                   </button>
                 ))}
-
               </div>
 
               <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-4">
@@ -399,19 +637,27 @@ const CreatorSubscriptions = () => {
                       date={
                         payment?.startDate
                           ? new Date(payment.startDate).toLocaleDateString(
-                            "en-GB",
-                            {
-                              day: "2-digit",
-                              month: "short",
-                              year: "numeric",
-                            }
-                          )
+                              "en-GB",
+                              {
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                              }
+                            )
                           : "N/A"
                       }
                       amount={placePrice}
                       status={payment.status}
-                      isSelected={selectedAmounts.some((item) => item.id === payment._id)}
-                      onSelect={() => handleSelectAmount(payment._id, Number(placePrice), payment?.startDate)}
+                      isSelected={selectedAmounts.some(
+                        (item) => item.id === payment._id
+                      )}
+                      onSelect={() =>
+                        handleSelectAmount(
+                          payment._id,
+                          Number(placePrice),
+                          payment?.startDate
+                        )
+                      }
                     />
                   );
                 })}
@@ -420,12 +666,14 @@ const CreatorSubscriptions = () => {
               <div className="flex items-center justify-end mt-8 pt-4 border-t">
                 <button
                   className={`px-6 py-2 cursor-pointer rounded-md text-white 
-                    ${totalAmount > 0
-                      ? "bg-[#FF6347] hover:bg-[#e54b30]"
-                      : "bg-gray-300 cursor-not-allowed"
+                    ${
+                      totalAmount > 0
+                        ? "bg-[#FF6347] hover:bg-[#e54b30]"
+                        : "bg-gray-300 cursor-not-allowed"
                     }`}
                   disabled={totalAmount === 0}
-                  onClick={() => handleClickPay(communityId || "", planID || "")
+                  onClick={() =>
+                    handleClickPay(communityId || "", planID || "")
                   }
                 >
                   Pay ₹{totalAmount.toFixed(2)}
@@ -434,23 +682,22 @@ const CreatorSubscriptions = () => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
       <PaymentSuccess
-        txnid={transaction?.txnid || ''}
+        txnid={transaction?.txnid || ""}
         open={successOpen}
-        amount={transaction?.amount || ''}
+        amount={transaction?.amount || ""}
         timer={timer}
         onClose={handleSuccessClose}
       />
       <PaymentFailure
         open={failureOpen}
         onClose={handleFailureClose}
-        amount={transaction?.amount || ''}
-        txnid={transaction?.txnid || ''}
+        amount={transaction?.amount || ""}
+        txnid={transaction?.txnid || ""}
         timer={timer}
       />
     </main>
-
   );
 };
 
