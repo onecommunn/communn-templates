@@ -57,6 +57,12 @@ const CreatorHeader = ({ logoHight, logoUrl, logoWidth }: ICreatorHeader) => {
             <Link href="/plans" className={linkClass("/plans")}>
               Plans
             </Link>
+            <Link
+              href="/appointments"
+              className={linkClass("/appointments")}
+            >
+              Appointments
+            </Link>
             {/* <Link href="/" className={linkClass("/")}>Blog</Link> */}
             <Link href="/contact" className={linkClass("/contact")}>
               Contact
@@ -144,6 +150,14 @@ const CreatorHeader = ({ logoHight, logoUrl, logoWidth }: ICreatorHeader) => {
                       className={`px-4 py-3 ${linkClass("/plans")}`}
                     >
                       Plans
+                    </Link>
+                  </SheetClose>
+                  <SheetClose asChild>
+                    <Link
+                      href="/appointments"
+                      className={`px-4 py-3 ${linkClass("/appointments")}`}
+                    >
+                      Appointments
                     </Link>
                   </SheetClose>
                   {/* <SheetClose asChild>

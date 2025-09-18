@@ -113,6 +113,8 @@ import CreatorPlans from "./components/Creator/CreatorPlansPage/CreatorPlans/Cre
 import CreatorLogin from "./components/Creator/CreatorLogin/CreatorLogin";
 import CreatorContact from "./components/Creator/CreatorContact/CreatorContact";
 import CreatorSubscriptions from "./components/Creator/CreatorPlansPage/CreatorSubscriptions/CreatorSubscriptions";
+import CreatorAppointments from "./components/Creator/CreatorAppointments/CreatorAppointments";
+import CreatorAppointmentsDetails from "./components/Creator/CreatorAppointments/CreatorAppointmentsDetails";
 
 //import Header from "./components/layout/header";
 //import ContactUs from "./components/ContactUs";
@@ -5143,4 +5145,12 @@ Builder.registerComponent(CreatorContact,{
 
 Builder.registerComponent(CreatorSubscriptions,{
   name:'Creator Subscriptions'
+})
+
+Builder.registerComponent(CreatorAppointments,{
+  name:'Creator Appointments'
+})
+
+Builder.registerComponent(CreatorAppointmentsDetails,{
+  name:'Creator Appointments Details'
 })

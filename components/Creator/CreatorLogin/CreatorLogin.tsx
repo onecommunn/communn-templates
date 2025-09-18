@@ -147,7 +147,7 @@ const CreatorLogin = () => {
   };
 
   return (
-    <main className="flex-grow flex h-screen items-center justify-center py-12 px-4">
+    <main className="flex-grow flex h-1/2 items-center justify-center py-12 px-4">
       <div className="w-full max-w-md">
         <div className="bg-white rounded-lg shadow-md border p-8">
           <h2 className="text-2xl font-bold mb-8 text-center">Login</h2>
