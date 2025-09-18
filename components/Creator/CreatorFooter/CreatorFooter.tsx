@@ -9,21 +9,25 @@ interface ICreatorFooter {
 }
 
 const NavigateList = [
-  {
-    name: "Courses",
-    href: "/",
-  },
+  // {
+  //   name: "Courses",
+  //   href: "/",
+  // },
   {
     name: "Events",
-    href: "/",
+    href: "/events",
   },
   {
     name: "Plans",
-    href: "/",
+    href: "/plans",
   },
   {
     name: "About",
-    href: "/",
+    href: "/about-us",
+  },
+  {
+    name: "Appointments",
+    href: "/appointments",
   },
 ];
 
@@ -42,7 +46,7 @@ const OtherLinksList = [
   },
   {
     name: "Contact",
-    href: "/",
+    href: "/contact",
   },
 ];
 
@@ -70,9 +74,15 @@ const CreatorFooter = ({ logoUrl, logoHight, logoWidth }: ICreatorFooter) => {
     <footer className="py-10 font-inter">
       <div className="container mx-auto px-4 sm:px-6 lg:px-20">
         <div className="flex flex-col  md:flex-row justify-center md:justify-between">
-          <Link href="/" className="flex items-center space-x-2 justify-center md:justify-start">
+          <Link
+            href="/"
+            className="flex items-center space-x-2 justify-center md:justify-start"
+          >
             <img
-              src={logoUrl || 'https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F062e0f3cd667449793b24103817a0704'}
+              src={
+                logoUrl ||
+                "https://cdn.builder.io/api/v1/image/assets%2F228d3b2c4554432dbdd1f0f27ee6ba7c%2F062e0f3cd667449793b24103817a0704"
+              }
               alt={"logo"}
               width={logoWidth}
               height={logoHight || 300}

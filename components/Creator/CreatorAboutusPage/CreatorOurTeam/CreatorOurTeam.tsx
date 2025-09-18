@@ -44,7 +44,7 @@ const CreatorOurTeam = () => {
           description="Join our vibrant community! Explore uplifting stories and experiences from
 learners as they embark on their educational journeys."
         />
-        <div className="grid grid-cols-1 md:grid-cols-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-0">
           {teamList.map((each, idx) => (
             <div
               key={idx}

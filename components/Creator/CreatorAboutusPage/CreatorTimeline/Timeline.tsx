@@ -29,7 +29,7 @@ export default function Timeline({ steps, className }: Props) {
                     bg-[repeating-linear-gradient(to_bottom,theme(colors.gray.300)_0_2px,transparent_2px_10px)]"
           />
 
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-20 md:gap-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-20 md:gap-8 relative">
             {steps.map((s, idx) => (
               <div key={s.id} className="relative">
                 {/* Numbered circle */}
