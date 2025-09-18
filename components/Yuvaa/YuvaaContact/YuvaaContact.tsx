@@ -109,109 +109,108 @@ const YuvaaContact = ({
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <motion.div variants={fadeInUp} custom={0}>
-              <Card>
-                <CardHeader>
-                  <CardTitle
-                    className="text-2xl"
-                    style={{ color: primaryBackgroundColor }}
-                  >
-                    Send us a Message
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    {["name", "email", "subject", "message"].map((field, i) => (
-                      <div key={field}>
-                        <label
-                          className="block mb-1 font-medium"
-                          style={{ color: primaryTextColor }}
-                        >
-                          {field === "name"
-                            ? "Full Name"
-                            : field === "email"
+
+            <Card>
+              <CardHeader>
+                <CardTitle
+                  className="text-2xl"
+                  style={{ color: primaryBackgroundColor }}
+                >
+                  Send us a Message
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {["name", "email", "subject", "message"].map((field, i) => (
+                    <div key={field}>
+                      <label
+                        className="block mb-1 font-medium"
+                        style={{ color: primaryTextColor }}
+                      >
+                        {field === "name"
+                          ? "Full Name"
+                          : field === "email"
                             ? "Email Address"
                             : field === "subject"
-                            ? "Subject"
-                            : "Message"}
-                        </label>
-                        {field === "message" ? (
-                          <textarea
-                            name={field}
-                            value={form[field as keyof typeof form]}
-                            onChange={handleChange}
-                            placeholder="Tell us how we can help you..."
-                            spellCheck={false}
-                            data-ms-editor={true}
-                            style={
-                              {
-                                "--placeholderColor": secondaryTextColor,
-                              } as React.CSSProperties
-                            }
-                            className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
-                          />
-                        ) : (
-                          <input
-                            type={field === "email" ? "email" : "text"}
-                            name={field}
-                            value={form[field as keyof typeof form]}
-                            onChange={handleChange}
-                            placeholder={`Enter your ${
-                              field === "name"
-                                ? "full name"
-                                : field === "email"
-                                ? "email"
-                                : "message " + field
+                              ? "Subject"
+                              : "Message"}
+                      </label>
+                      {field === "message" ? (
+                        <textarea
+                          name={field}
+                          value={form[field as keyof typeof form]}
+                          onChange={handleChange}
+                          placeholder="Tell us how we can help you..."
+                          spellCheck={false}
+                          data-ms-editor={true}
+                          style={
+                            {
+                              "--placeholderColor": secondaryTextColor,
+                            } as React.CSSProperties
+                          }
+                          className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
+                        />
+                      ) : (
+                        <input
+                          type={field === "email" ? "email" : "text"}
+                          name={field}
+                          value={form[field as keyof typeof form]}
+                          onChange={handleChange}
+                          placeholder={`Enter your ${field === "name"
+                            ? "full name"
+                            : field === "email"
+                              ? "email"
+                              : "message " + field
                             }`}
-                            spellCheck={false}
-                            data-ms-editor={true}
-                            style={
-                              {
-                                "--placeholderColor": secondaryTextColor,
-                              } as React.CSSProperties
-                            }
-                            className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
-                          />
-                        )}
-                        {errors[field as keyof typeof errors] && (
-                          <p className="text-red-500 text-sm mt-1">
-                            {errors[field as keyof typeof errors]}
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                    <button
-                      type="submit"
-                      className="w-full py-2 px-4 rounded-md"
-                      style={
-                        {
-                          backgroundColor: secondaryBackgroundColor,
-                          color: heroTextColor,
-                        } as CSSProperties
-                      }
-                    >
-                      Send Message
-                    </button>
-                  </form>
-                </CardContent>
-              </Card>
-              <motion.div
-                className="rounded-md overflow-hidden shadow-md mt-8"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=..."
-                  width="100%"
-                  height="450"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </motion.div>
+                          spellCheck={false}
+                          data-ms-editor={true}
+                          style={
+                            {
+                              "--placeholderColor": secondaryTextColor,
+                            } as React.CSSProperties
+                          }
+                          className="w-full outline-none p-2 border border-gray-300 rounded placeholder:text-[var(--placeholderColor)]"
+                        />
+                      )}
+                      {errors[field as keyof typeof errors] && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors[field as keyof typeof errors]}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type="submit"
+                    className="w-full py-2 px-4 rounded-md"
+                    style={
+                      {
+                        backgroundColor: secondaryBackgroundColor,
+                        color: heroTextColor,
+                      } as CSSProperties
+                    }
+                  >
+                    Send Message
+                  </button>
+                </form>
+              </CardContent>
+            </Card>
+            <motion.div
+              className="rounded-md overflow-hidden shadow-md mt-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=..."
+                width="100%"
+                height="450"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </motion.div>
+
 
             {/* Contact Info Section */}
             <motion.div
@@ -220,59 +219,59 @@ const YuvaaContact = ({
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <motion.div variants={fadeInUp} custom={0}>
-                <h2
-                  className="text-3xl font-bold mb-6"
-                  style={{ color: primaryBackgroundColor }}
-                >
-                  Get in Touch
-                </h2>
-                <p style={{ color: secondaryTextColor }}>
-                  We'd love to hear from you. Whether you have questions about
-                  our classes, want to book a session, or need more info, we're
-                  here to help.
-                </p>
-              </motion.div>
+
+              <h2
+                className="text-3xl font-bold mb-6"
+                style={{ color: primaryBackgroundColor }}
+              >
+                Get in Touch
+              </h2>
+              <p style={{ color: secondaryTextColor }}>
+                We'd love to hear from you. Whether you have questions about
+                our classes, want to book a session, or need more info, we're
+                here to help.
+              </p>
+
 
               {[{ icon: <MapPin />, title: "Visit Our Studio", value: address, color: primaryBackgroundColor },
-                { icon: <Phone />, title: "Call Us", value: contactNumbers, color: secondaryBackgroundColor },
-                { icon: <Mail />, title: "Email Us", value: emailId, color: primaryBackgroundColor },
+              { icon: <Phone />, title: "Call Us", value: contactNumbers, color: secondaryBackgroundColor },
+              { icon: <Mail />, title: "Email Us", value: emailId, color: primaryBackgroundColor },
               ].map((item, i) => (
-                <motion.div key={i} variants={fadeInUp} custom={i + 1}>
-                  <Card
-                    className="border-l-4"
-                    style={{ borderLeftColor: item.color }}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-start space-x-4">
-                        <div
-                          className="p-3 rounded-full bg-[var(--bgColor)]/10"
-                          style={
-                            {
-                              "--bgColor": item.color,
-                            } as React.CSSProperties
-                          }
-                        >
-                          {React.cloneElement(item.icon, {
-                            className: "w-6 h-6",
-                            color: item.color,
-                          })}
-                        </div>
-                        <div>
-                          <h3
-                            className="font-semibold text-lg mb-2"
-                            style={{ color: primaryTextColor }}
-                          >
-                            {item.title}
-                          </h3>
-                          <p style={{ color: secondaryTextColor }}>
-                            {item.value}
-                          </p>
-                        </div>
+
+                <Card
+                  className="border-l-4"
+                  style={{ borderLeftColor: item.color }}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start space-x-4">
+                      <div
+                        className="p-3 rounded-full bg-[var(--bgColor)]/10"
+                        style={
+                          {
+                            "--bgColor": item.color,
+                          } as React.CSSProperties
+                        }
+                      >
+                        {React.cloneElement(item.icon, {
+                          className: "w-6 h-6",
+                          color: item.color,
+                        })}
                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                      <div>
+                        <h3
+                          className="font-semibold text-lg mb-2"
+                          style={{ color: primaryTextColor }}
+                        >
+                          {item.title}
+                        </h3>
+                        <p style={{ color: secondaryTextColor }}>
+                          {item.value}
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
               ))}
             </motion.div>
           </div>
