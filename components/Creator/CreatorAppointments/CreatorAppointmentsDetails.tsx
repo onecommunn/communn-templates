@@ -36,7 +36,6 @@ const demoGetSlotsForDate = (d: Date): Slot[] => {
   const base: Slot[] = [
     { label: "09:00am", value: "09:00" },
     { label: "11:00am", value: "11:00" },
-    { label: "11:00am", value: "11:00-2" }, // duplicate like screenshot
     { label: "01:00pm", value: "13:00" },
     { label: "04:00pm", value: "16:00" },
   ];
@@ -77,7 +76,9 @@ export default function CreatorAppointmentsDetails() {
       slot: selectedSlot,
     });
 
-    toast.success(`Booking Confirmed on ${date.toISOString().slice(0, 10)}, ${selectedSlot.value}`)
+    toast.success(
+      `Booking Confirmed on ${date.toISOString().slice(0, 10)}, ${selectedSlot.value}`
+    );
   };
 
   // Simple skeleton while mounting/client-initializing
@@ -161,6 +162,7 @@ export default function CreatorAppointmentsDetails() {
                   onSelect={(d: Date | undefined) => d && setDate(d)}
                   showOutsideDays
                   className="rounded-md border p-3 w-full"
+                  disabled={{ before: new Date() }}
                   classNames={{
                     caption: "flex justify-between items-center",
                     day: "h-full w-full p-0 font-medium aria-selected:opacity-100",
