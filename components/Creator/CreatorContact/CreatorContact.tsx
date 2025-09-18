@@ -36,7 +36,7 @@ const CreatorContact = () => {
                 name="phoneNumber"
                 className="w-full rounded-md border px-3 py-2 text-sm"
               />
-              <Textarea placeholder="Enter your Message..." className="h-40" />
+              <Textarea placeholder="Enter your Message..." className="min-h-40 pb-2" />
               <Button>
                 Send Message{" "}
                 <span>
